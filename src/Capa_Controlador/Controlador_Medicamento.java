@@ -5,6 +5,7 @@
  */
 package Capa_Controlador;
 
+import Capa_Modelo.Modelo_Medicamento;
 import Capa_Vista.Vista_AgregarM;
 import Capa_Vista.Vista_EditarM;
 import Capa_Vista.Vista_EliminarM;
@@ -22,7 +23,7 @@ public class Controlador_Medicamento {
     private Vista_AgregarM vAddM;
     private Vista_EditarM vEditM;
     private Vista_EliminarM vDelM;
-    
+    private Modelo_Medicamento mMed;
     private Vista_Principal vPrin;
     
     public Controlador_Medicamento(Vista_Principal vPrin, Vista_AgregarM vAddM, Vista_EditarM vEditM, Vista_EliminarM vDelM){
@@ -33,6 +34,7 @@ public class Controlador_Medicamento {
         this.vAddM.botonAtras(new Atras());
         this.vEditM.botonAtras(new Atras());
         this.vDelM.botonAtras(new Atras());
+        this.vAddM.botonAgregarMed(new AgregarMedicamento());
         
     }
     
@@ -55,6 +57,25 @@ public class Controlador_Medicamento {
     }
 
     
-    
-    
+    class AgregarMedicamento implements ActionListener{
+        @Override
+        /**
+         * Este método ...
+         */
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo
+                   mMed.IngresarMedicamento(vAddM.getNumeroSerie(),vAddM.getNombre(),vAddM.getActivo(),vAddM.getLab(),
+                                            vAddM.getAdmin(),vAddM.getElaboracion(),vAddM.getVencimiento(),vAddM.getLlegada(),
+                                            vAddM.getComposicion());
+                   //limpiar texto
+                   vAddM.limpiar();
+                   
+               }catch(NumberFormatException ex){
+                   JOptionPane.showMessageDialog(null, "Error al ingresar el medicamento");
+               }
+            }
+    }
+  
 }

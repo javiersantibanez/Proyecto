@@ -24,7 +24,7 @@ public class Modelo_Paciente {
    
     
     public  Connection con ;
-    public  ResultSet resultado,res,res2;
+    public  ResultSet res,res2;
     
 
     public Modelo_Paciente(){ 
