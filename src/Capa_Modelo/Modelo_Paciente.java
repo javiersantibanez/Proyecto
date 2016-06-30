@@ -175,6 +175,7 @@ public class Modelo_Paciente {
         elim = con.createStatement();
         elim.execute("DELETE FROM Paciente WHERE Rut_Paciente = '"+rut+"'");
         
+        JOptionPane.showMessageDialog(null,"El paciente fue eliminado correctamente");
         con.close();
         }
         catch(SQLException e){

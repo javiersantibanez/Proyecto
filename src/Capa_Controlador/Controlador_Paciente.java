@@ -42,6 +42,7 @@ public class Controlador_Paciente {
         this.vAddPac.botonAceptar(new Aceptar());
         this.vEditPac.botonConsultar(new Consulta());
         this.vEditPac.botonActualizar(new Actualizar());
+        this.vDelPac.botonEliminar(new Eliminar());
     }
     
 
@@ -144,4 +145,21 @@ public class Controlador_Paciente {
         }
     }
     
+    class Eliminar implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+ 
+        
+        public void actionPerformed(ActionEvent a) {
+            
+            try{
+               mPac.EliminarPaciente(vDelPac.getRut());
+            }
+            catch(NumberFormatException ex){
+               JOptionPane.showMessageDialog(vPrin, "Error al eliminar el paciente");
+            }
+        }
+    }
 }
