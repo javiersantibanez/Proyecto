@@ -83,7 +83,7 @@ public class Controlador_Paciente {
                    vAddPac.getCiudad(),vAddPac.getRegion(),vAddPac.getRut(),vAddPac.getPrimerNombre(),vAddPac.getSegundoNombre(),vAddPac.getApellidoPaterno(),
                    vAddPac.getApellidoMaterno(),vAddPac.getFNacimiento(),vAddPac.getTelefono(),vAddPac.getCorreoElectronico(),vAddPac.getDiagnostico());
                    //limpiar texto
-                   vEditPac.limpiarTextField();
+                   vAddPac.limpiarTextField();
                    
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
@@ -106,6 +106,8 @@ public class Controlador_Paciente {
                    vEditPac.getApellidoMaterno(),vEditPac.getFNacimiento(),vEditPac.getTelefono(),vEditPac.getCorreoElectronico(),vEditPac.getDiagnostico());
                    //limpiar texto
                    vEditPac.limpiarTextField();
+                   
+                   
                    
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(vPrin, "Error al actualizar los datos del paciente");
@@ -156,6 +158,7 @@ public class Controlador_Paciente {
             
             try{
                mPac.EliminarPaciente(vDelPac.getRut());
+               vDelPac.limpiar();
             }
             catch(NumberFormatException ex){
                JOptionPane.showMessageDialog(vPrin, "Error al eliminar el paciente");

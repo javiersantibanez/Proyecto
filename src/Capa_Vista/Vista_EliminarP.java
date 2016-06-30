@@ -19,8 +19,11 @@ public class Vista_EliminarP extends javax.swing.JFrame {
     public Vista_EliminarP() {
         initComponents();
     }
+    public void limpiar(){
+        jTextField1.setText("");
+    }
     
-     public int getRut(){
+    public int getRut(){
         return Integer.parseInt(jTextField1.getText());
     }
     public void botonAtras(ActionListener escuchar){         
