@@ -22,6 +22,52 @@ public class Vista_EditarDU extends javax.swing.JFrame {
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
+    public void botonEditarDU (ActionListener escuchar){
+        jButton1.addActionListener(escuchar);
+    }
+    public void botonConsultaDU(ActionListener escuchar){
+        jButton3.addActionListener(escuchar);
+    }
+    public int getIDdosis(){
+        return Integer.parseInt(jTextField5.getText());
+    }
+    public int getRut(){
+        return Integer.parseInt(jTextField1.getText());
+    }
+    public String getElaboracion(){
+        return jTextField2.getText();
+    }
+    public String getVencimiento(){
+        return jTextField3.getText();
+    }
+    public String getEntrega(){
+        return jTextField4.getText();
+    }
+    
+     public void limpiarTextField(){
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText(""); 
+    }
+    
+     public void habilitarContenido(){
+        
+        jTextField2.setEditable(true);
+        jTextField3.setEditable(true);
+        jTextField4.setEditable(true);
+        jTextField5.setEditable(true);     
+    }
+     
+    public void setDatos(String aux,String aux2,String aux3,String aux4){
+        
+        jTextField1.setText(aux);
+        jTextField2.setText(aux2);
+        jTextField3.setText(aux3);
+        jTextField4.setText(aux4);
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
