@@ -28,7 +28,7 @@ public class Modelo_DosisUnitaria {
     }
    
    
-    public void IngresarDosisUnitaria(int id,int rut,String elab, String venc, String entrega){
+    public void IngresarDosisUnitaria(int rut,String elab, String venc, String entrega){
 
         Statement sentencia;
 
@@ -36,8 +36,8 @@ public class Modelo_DosisUnitaria {
 
             con = ConexionDB.GetConnection();
             sentencia =con.createStatement();
-            sentencia.executeUpdate("INSERT INTO Dosis_Unitaria VALUES ("+id+","+""+rut+","+"'"+elab+"',"+
-                                 "'"+venc+"',"+"'"+entrega+"'");
+            sentencia.executeUpdate("INSERT INTO Dosis_Unitaria VALUES ("+rut+","+"'"+elab+"',"+
+                                     "'"+venc+"',"+"'"+entrega+"','Disponible')");
 
 
              JOptionPane.showMessageDialog(null,"La dosis unitaria  ha sido ingresado exitosamente ");                 
@@ -47,24 +47,64 @@ public class Modelo_DosisUnitaria {
         
     }
     
-    public String [] ConsultaDosisUnitaria(int id){
+    public String [] ConsultaDUxRut(int rut){
         Statement sentencia;
         String [] datos = new String[6]; 
         try
             {
                 con=ConexionDB.GetConnection();
                 sentencia=con.createStatement();
-                res=sentencia.executeQuery("SELECT * FROM Dosis_Unitaria WHERE ID_Medicamento = "+id+"");
+                res=sentencia.executeQuery("SELECT * FROM Dosis_Unitaria WHERE Rut_Paciente = "+rut+"");
                 
                 
                 while (res.next()) {
                     
-                    datos[0] = Integer.toString(res.getInt("ID_Medicamento"));
-                    datos[1] = Integer.toString(res.getInt("Rut_Paciente"));
-                    datos[2] = res.getString("FechaElaboracion");
-                    datos[3] = res.getString("FechaVencimiento");
-                    datos[4] = res.getString("FechaEntrega");
-                    datos[5] = res.getString("Disponible");
+                    
+                    
+                    datos[0] = Integer.toString(res.getInt("Rut_Paciente"));
+                    datos[1] = res.getString("FechaElaboracion");
+                    datos[2] = res.getString("FechaVencimiento");
+                    datos[3] = res.getString("FechaEntrega");
+                    datos[4] = res.getString("Disponible");
+                    datos[5] = Integer.toString(res.getInt("ID_Dosis"));
+                    
+                    
+                    
+                    
+                }
+                if(datos[0] ==null ){
+                    JOptionPane.showMessageDialog(null, "No existe dosis para el paciente indicado o el paciente no existe");
+                }
+            
+            }
+               
+                
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null,e);}
+                
+            return datos;
+            }
+    
+    public String [] ConsultaDosisUnitaria(int id){
+        Statement sentencia;
+        String [] datos = new String[5]; 
+        try
+            {
+                con=ConexionDB.GetConnection();
+                sentencia=con.createStatement();
+                res=sentencia.executeQuery("SELECT * FROM Dosis_Unitaria WHERE ID_Dosis = "+id+"");
+                
+                
+                while (res.next()) {
+                    
+                    
+                    
+                    datos[0] = Integer.toString(res.getInt("Rut_Paciente"));
+                    datos[1] = res.getString("FechaElaboracion");
+                    datos[2] = res.getString("FechaVencimiento");
+                    datos[3] = res.getString("FechaEntrega");
+                    datos[4] = res.getString("Disponible");
+                    
                     
                     
                     
@@ -95,9 +135,8 @@ public class Modelo_DosisUnitaria {
             
             act.setInt(1, rut);
             act.setString(2, elab);
-            act.setString(5, elab);
-            act.setString(6, venc);
-            act.setString(7, entrega);
+            act.setString(3, venc);
+            act.setString(4, entrega);
             
             
             act.executeUpdate();

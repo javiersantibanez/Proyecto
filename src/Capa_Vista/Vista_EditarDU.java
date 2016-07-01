@@ -29,19 +29,19 @@ public class Vista_EditarDU extends javax.swing.JFrame {
         jButton3.addActionListener(escuchar);
     }
     public int getIDdosis(){
-        return Integer.parseInt(jTextField1.getText());
+        return Integer.parseInt(jTextField5.getText());
     }
     public int getRut(){
-        return Integer.parseInt(jTextField2.getText());
+        return Integer.parseInt(jTextField1.getText());
     }
     public String getElaboracion(){
-        return jTextField3.getText();
+        return jTextField2.getText();
     }
     public String getVencimiento(){
-        return jTextField4.getText();
+        return jTextField3.getText();
     }
     public String getEntrega(){
-        return jTextField5.getText();
+        return jTextField4.getText();
     }
     
      public void limpiarTextField(){
@@ -62,10 +62,10 @@ public class Vista_EditarDU extends javax.swing.JFrame {
      
     public void setDatos(String aux,String aux2,String aux3,String aux4){
         
-        jTextField2.setText(aux);
-        jTextField3.setText(aux2);
-        jTextField4.setText(aux3);
-        jTextField5.setText(aux4);
+        jTextField1.setText(aux);
+        jTextField2.setText(aux2);
+        jTextField3.setText(aux3);
+        jTextField4.setText(aux4);
     
     }
     /**

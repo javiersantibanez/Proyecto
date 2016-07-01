@@ -23,7 +23,7 @@ public class Vista_BuscarM extends javax.swing.JFrame {
     DefaultTableModel model = new DefaultTableModel();
     
     public void setDatosBuscarM(String aux,String aux2,String aux3,String aux4,
-                         String aux5,String aux6,String aux7,String aux8,String aux9){
+                                String aux5,String aux6,String aux7,String aux8,String aux9){
         
         model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);        

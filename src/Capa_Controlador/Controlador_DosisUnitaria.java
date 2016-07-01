@@ -60,7 +60,8 @@ public class Controlador_DosisUnitaria {
         this.vAddDU.botonAceptar(new AgregarDosisUnitaria());
         this.vEditDU.botonConsultaDU(new ConsultaDosisUnitaria());
         this.vEditDU.botonEditarDU(new ActualizarDosisUnitaria());
-        this.vDelDU.botonEliminarDosisU(new EliminarDosisUnitaria() );        
+        this.vDelDU.botonEliminarDosisU(new EliminarDosisUnitaria() );
+        this.vBusDU.botonBuscarDU(new BuscarDU());
     }
     /**
      * Clase Abstracta que captura el boton Atras de las vistas Vista_AgregarDU, Vista_EditarDU y Vista_EliminarDU
@@ -91,11 +92,18 @@ public class Controlador_DosisUnitaria {
         /**
          * Este método ...
          */
+        
+        public void setDatosDU(String [] aux){
+            
+             vBusDU.setDatosBuscarDU(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5]);
+        }
          @Override
+         
+         
         public void actionPerformed(ActionEvent a) {
               
                try{
-                  
+                  setDatosDU(mDU.ConsultaDUxRut(vBusDU.getRut()));
                    
                }catch(NumberFormatException ex){
                         
@@ -112,7 +120,7 @@ public class Controlador_DosisUnitaria {
               
                try{
                    //enviar a modelo
-                   mDU.IngresarDosisUnitaria(vAddDU.getIDdosis(),vAddDU.getRut(),vAddDU.getElaboracion(),vAddDU.getVencimiento(),
+                   mDU.IngresarDosisUnitaria(vAddDU.getRut(),vAddDU.getElaboracion(),vAddDU.getVencimiento(),
                                            vAddDU.getEntrega());
                    //limpiar texto
                    vAddDU.limpiarTextField();
@@ -142,7 +150,7 @@ public class Controlador_DosisUnitaria {
             String [] datos = new String[9]; 
             try{
                //realiza la consulta a db y set datos en vista
-               setDatosPaciente (mDU.ConsultaDosisUnitaria(vAddDU.getIDdosis()));
+               setDatosPaciente (mDU.ConsultaDosisUnitaria(vEditDU.getIDdosis()));
 
 
 
@@ -198,4 +206,6 @@ public class Controlador_DosisUnitaria {
             }
         }
     }
+   
+   
 }

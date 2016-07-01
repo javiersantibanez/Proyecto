@@ -216,10 +216,10 @@ public class Controlador_Medicamento {
                try{
                    //enviar a modelo y set dato
                    
-                   setDatosMedicamento(mMed.ConsultaMedicamento(vEditM.getNumeroSerie()));
+                   setDatosMedicamento(mMed.ConsultaMedicamento(vBusM.getNumeroSerie()));
                    
                    //limpiar texto
-                   vEditM.habilitarContenido();
+                   
                }catch(NumberFormatException ex){
                         
                }

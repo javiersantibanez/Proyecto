@@ -32,7 +32,7 @@ public class Vista_EliminarDU extends javax.swing.JFrame {
     
     
     public void botonEliminarDosisU(ActionListener escuchar){
-        jButton1.addActionListener(escuchar);
+        jButton2.addActionListener(escuchar);
     }
     /**
      * This method is called from within the constructor to initialize the form.

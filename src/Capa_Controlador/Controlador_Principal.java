@@ -95,7 +95,7 @@ public class Controlador_Principal {
         this.vPrin.botonIngresarMedicamento(new AgregarMed());
         this.vPrin.botonEditarMedicamento(new EditarMed());
         this.vPrin.botonEliminarMedicamento(new EliminarMed());
-        this.vPrin.botonBuscarMedicamento(new BuscarDU());
+        this.vPrin.botonBuscarMedicamento(new BuscarMed());
         //Captura los botones de la vista inventario
         this.vPrin.botonVerInventario(new VerInventario());
     }

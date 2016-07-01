@@ -6,6 +6,7 @@
 package Capa_Vista;
 
 import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +23,28 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
     
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
+    }
+    
+    DefaultTableModel model = new DefaultTableModel();
+    
+    public void setDatosBuscarDU(String aux,String aux2,String aux3,String aux4,
+                                String aux5, String aux6){
+        
+        model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);        
+        model.addRow(new Object[]{aux6,aux,aux2,aux3,aux4,aux5   });        
+    }
+    
+    public int getRut(){
+        return Integer.parseInt(jTextField1.getText());
+    }
+    
+    public void limpiarTextField(){
+        jTextField1.setText("");
+    }
+    
+    public void botonBuscarDU(ActionListener escuchar){         
+        jButton1.addActionListener(escuchar);
     }
 
     /**
@@ -48,11 +71,11 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Numero Serie", "Nombre", "Principio Activo", "Laboratorio", "Via Administracion", "Fecha Elab.", "Fecha Venc.", "Fecha Llegada", "Composicion"
+                "ID Dosis", "Rut Paciente", "Fecha Elab", "Fecha Venc", "Fecha Entrega", "Disponible"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -63,7 +86,7 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
 
         jButton1.setText("Ir");
 
-        jLabel1.setText("Id Dosis Unitaria:");
+        jLabel1.setText("Rut (sin guion ni digito)");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 1, 40)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 0, 0));
@@ -79,7 +102,7 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(335, 335, 335)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -88,11 +111,11 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(32, 32, 32)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(44, 44, 44)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
