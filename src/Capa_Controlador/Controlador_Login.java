@@ -5,6 +5,7 @@
  */
 package Capa_Controlador;
 
+import Capa_Modelo.Modelo_Medicamento;
 import Capa_Modelo.Modelo_Paciente;
 import Capa_Vista.*;
 
@@ -39,12 +40,13 @@ public class Controlador_Login {
          * Objetos de la capa Modelo
          */
             Modelo_Paciente mPac = new Modelo_Paciente();
+            Modelo_Medicamento mMed = new Modelo_Medicamento();
         /**
          * Objetos de la capa Controlador
          */
             Controlador_Paciente cPac = new Controlador_Paciente(addPac, farmAD, mPac, editPac, delPac);
-            Controlador_Principal cPrin = new Controlador_Principal(farmAD, addPac, editPac, delPac, addDU, delDU, editDU, addMed, delMed, editMed, inventario);
-            Controlador_Medicamento cMed = new Controlador_Medicamento(farmAD, addMed, editMed, delMed);
+            Controlador_Principal cPrin = new Controlador_Principal(farmAD, addPac, editPac, delPac, addDU, delDU, editDU, addMed, delMed, editMed, inventario,mMed);
+            Controlador_Medicamento cMed = new Controlador_Medicamento(farmAD, addMed, editMed, delMed,mMed);
             Controlador_DosisUnitaria cDU = new Controlador_DosisUnitaria(farmAD, addDU, editDU, delDU);
         /**
          * Iniciar la vista principal

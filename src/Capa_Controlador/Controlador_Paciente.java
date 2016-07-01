@@ -42,6 +42,7 @@ public class Controlador_Paciente {
         this.vAddPac.botonAceptar(new Aceptar());
         this.vEditPac.botonConsultar(new Consulta());
         this.vEditPac.botonActualizar(new Actualizar());
+        this.vDelPac.botonEliminar(new Eliminar());
     }
     
 
@@ -82,7 +83,7 @@ public class Controlador_Paciente {
                    vAddPac.getCiudad(),vAddPac.getRegion(),vAddPac.getRut(),vAddPac.getPrimerNombre(),vAddPac.getSegundoNombre(),vAddPac.getApellidoPaterno(),
                    vAddPac.getApellidoMaterno(),vAddPac.getFNacimiento(),vAddPac.getTelefono(),vAddPac.getCorreoElectronico(),vAddPac.getDiagnostico());
                    //limpiar texto
-                   vEditPac.limpiarTextField();
+                   vAddPac.limpiarTextField();
                    
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
@@ -105,6 +106,8 @@ public class Controlador_Paciente {
                    vEditPac.getApellidoMaterno(),vEditPac.getFNacimiento(),vEditPac.getTelefono(),vEditPac.getCorreoElectronico(),vEditPac.getDiagnostico());
                    //limpiar texto
                    vEditPac.limpiarTextField();
+                   
+                   
                    
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(vPrin, "Error al actualizar los datos del paciente");
@@ -139,9 +142,27 @@ public class Controlador_Paciente {
                vEditPac.habilitarContenido();
             }
             catch(NumberFormatException ex){
-               JOptionPane.showMessageDialog(vPrin, "Error al realizar la consulta");
+               JOptionPane.showMessageDialog(null, "Error al realizar la consulta");
             }
         }
     }
     
+    class Eliminar implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+ 
+        
+        public void actionPerformed(ActionEvent a) {
+            
+            try{
+               mPac.EliminarPaciente(vDelPac.getRut());
+               vDelPac.limpiar();
+            }
+            catch(NumberFormatException ex){
+               JOptionPane.showMessageDialog(vPrin, "Error al eliminar el paciente");
+            }
+        }
+    }
 }

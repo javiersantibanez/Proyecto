@@ -7,6 +7,7 @@ package Capa_Vista;
 
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +21,9 @@ public class Vista_Principal extends javax.swing.JFrame {
     public Vista_Principal() {
         initComponents();
     }
+    
+    DefaultTableModel model = new DefaultTableModel();
+    
     public void botonIngresarPaciente(ActionListener escuchar){         
         jButton6.addActionListener(escuchar);
     }
@@ -53,6 +57,29 @@ public class Vista_Principal extends javax.swing.JFrame {
     
     public void botonVerInventario(ActionListener escuchar){         
         jButton9.addActionListener(escuchar);
+    }
+    
+    public void botonBuscarM(ActionListener escuchar){         
+        jButton4.addActionListener(escuchar);
+    }
+    
+    
+    public void setDatosBuscarM(String aux,String aux2,String aux3,String aux4,
+                         String aux5,String aux6,String aux7,String aux8,String aux9){
+        
+        model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        
+        model.addRow(new Object[]{aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9   });
+        
+    }
+    
+    public int getNumeroSerie(){
+        return Integer.parseInt(jTextField1.getText());
+    }
+    
+    public void limpiarTextField(){
+        jTextField1.setText("");
     }
 
     /**
@@ -110,7 +137,7 @@ public class Vista_Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(300, 150));
+        setLocation(new java.awt.Point(320, 150));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Rut del Paciente:");
@@ -165,17 +192,20 @@ public class Vista_Principal extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Numero Serie", "Nombre", "Principio Activo", "Laboratorio", "Via Administracion", "Fecha Elab.", "Fecha Venc.", "Fecha Llegada", "Composicion"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

@@ -24,8 +24,8 @@ public class Modelo_Paciente {
    
     
     public  Connection con ;
-    public  ResultSet resultado,res,res2;
-    
+    public  ResultSet res,res2;
+    public String [] datos = new String[16]; 
 
     public Modelo_Paciente(){ 
  
@@ -43,22 +43,22 @@ public class Modelo_Paciente {
                                 String Diagnostico){
         
         Statement sentencia;
-          int id=2;
+          
           try{
+                
+            con = ConexionDB.GetConnection();
+            sentencia =con.createStatement();
+            sentencia.executeUpdate("INSERT INTO Direccion VALUES ('"+calle+"',"+"'"+numero+"',"+
+                                    "'"+depto+"',"+"'"+torre+"',"+"'"+comuna+"',"+"'"+ciudad+"',"+"'"+region+"')");
 
-          con = ConexionDB.GetConnection();
-          sentencia =con.createStatement();
-          sentencia.executeUpdate("INSERT INTO Direccion VALUES ('"+id+"',"+"'"+calle+"',"+"'"+numero+"',"+
-                                  "'"+depto+"',"+"'"+torre+"',"+"'"+comuna+"',"+"'"+ciudad+"',"+"'"+region+"')");
-          
-          sentencia.executeUpdate("INSERT INTO Paciente VALUES('"+rut+"',"+"'"+Pnombre+"',"+"'"+Snombre+"',"+
-                               "'"+apellidoP+"',"+"'"+apellidoM+"',"+"'"+fechaNacimiento+"',"+
-                               "'"+telefono+"',"+"'"+id+"',"+"'"+correo+"',"+"'"+Diagnostico+"')");
+            sentencia.executeUpdate("INSERT INTO Paciente VALUES('"+rut+"',"+"'"+Pnombre+"',"+"'"+Snombre+"',"+
+                                 "'"+apellidoP+"',"+"'"+apellidoM+"',"+"'"+fechaNacimiento+"',"+
+                                 "'"+telefono+"',"+"'"+correo+"',"+"'"+Diagnostico+"')");
 
-          
 
-           JOptionPane.showMessageDialog(null,"El Paciente  " + Pnombre+ " "+ apellidoP+"   ha sido Ingresado Exitosamente ");                 
-           con.close();
+
+             JOptionPane.showMessageDialog(null,"El Paciente  " + Pnombre+ " "+ apellidoP+"   ha sido Ingresado Exitosamente ");                 
+             con.close();
         }
         catch(SQLException e){JOptionPane.showMessageDialog(null,"Error al ingresar el paciente");}
         
@@ -67,7 +67,7 @@ public class Modelo_Paciente {
     
     public String [] ConsultaPaciente(int rut){
         Statement sentencia2,sentencia3;
-        String [] datos = new String[16]; 
+        
         try
             {
                 con=ConexionDB.GetConnection();
@@ -79,8 +79,8 @@ public class Modelo_Paciente {
                     
                     datos[0] = res.getString("PrimerNombre");
                     datos[1] = res.getString("SegundoNombre");
-                    datos[2] = res.getString("PrimerApellido");
-                    datos[3] = res.getString("SegundoApellido");
+                    datos[2] = res.getString("ApellidoPaterno");
+                    datos[3] = res.getString("ApellidoMaterno");
                     datos[4] = res.getString("FechaNacimiento");
                     datos[5] = Integer.toString(res.getInt("Telefono"));
                     datos[6] = Integer.toString(res.getInt("ID_Direccion"));
@@ -125,7 +125,7 @@ public class Modelo_Paciente {
          try
          {
             act = con.prepareStatement("UPDATE Direccion SET Calle = ?,Numero = ?,Departamento = ?,Torre = ?,Comuna = ?,"
-                                        + " Ciudad = ?,Region = ?");
+                                        + " Ciudad = ?,Region = ? WHERE ID_Direccion = '"+datos[6]+"' ");
             
             
             act.setString(1, calle);
@@ -140,8 +140,8 @@ public class Modelo_Paciente {
             act.close();
             
             
-            act2 = con.prepareStatement("UPDATE Paciente SET PrimerNombre = ?,SegundoNombre = ?,PrimerApellido = ?,SegundoApellido = ?,"
-                                        + "FechaNacimiento = ?, Telefono = ?,Correo_Electronico= ?, Diagnostico = ?");
+            act2 = con.prepareStatement("UPDATE Paciente SET PrimerNombre = ?,SegundoNombre = ?,ApellidoPaterno = ?,ApellidoMaterno= ?,"
+                                        + "FechaNacimiento = ?, Telefono = ?,Correo_Electronico= ?, Diagnostico = ? WHERE Rut_Paciente = '"+rut+"' ");
             
             
             
@@ -156,11 +156,14 @@ public class Modelo_Paciente {
             
             act2.executeUpdate();
             act2.close();
+            
+            
+            JOptionPane.showMessageDialog(null, "El paciente "+ Pnombre+" " +apellidoP+" fue actualizado exitosamente");
             con.close();
          }
          
          catch(SQLException e){
-                JOptionPane.showMessageDialog(null,"Error al actualizar paciente");}
+                JOptionPane.showMessageDialog(null,"Error al actualizar datos del paciente");}
                 
          
             
@@ -172,13 +175,15 @@ public class Modelo_Paciente {
         Statement elim;
         
         try{
-        elim = con.createStatement();
-        elim.execute("DELETE FROM Paciente WHERE Rut_Paciente = '"+rut+"'");
+            con=ConexionDB.GetConnection();
+            elim = con.createStatement();
+            elim.execute("DELETE FROM Paciente WHERE Rut_Paciente = '"+rut+"'");
         
-        con.close();
+            JOptionPane.showMessageDialog(null,"El paciente fue eliminado correctamente");
+            con.close();
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null,e);
+            JOptionPane.showMessageDialog(null,"El paciente no existe en la base de datos");
         }
     }
     

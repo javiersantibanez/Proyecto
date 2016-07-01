@@ -86,22 +86,21 @@
                                           <Group type="102" alignment="1" attributes="0">
                                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                               <Component id="jTextField13" min="-2" pref="173" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jTextField17" min="-2" pref="173" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                       <Component id="jTextField7" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="jTextField6" alignment="0" max="32767" attributes="0"/>
                                                       <Component id="jTextField9" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="jTextField15" alignment="0" min="-2" pref="173" max="-2" attributes="0"/>
+                                                      <Component id="jTextField15" alignment="0" pref="173" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <Component id="jTextField17" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <EmptySpace min="113" pref="113" max="-2" attributes="0"/>
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -338,6 +337,9 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField2FocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel20">
       <Properties>
@@ -348,6 +350,9 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField3FocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField16">
       <Properties>
@@ -359,6 +364,7 @@
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField4FocusGained"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
       </Events>
     </Component>
@@ -371,6 +377,9 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField5FocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField17">
       <Properties>
@@ -381,6 +390,9 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField6FocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField7">
       <Properties>
@@ -391,6 +403,9 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField8FocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField9">
       <Properties>
