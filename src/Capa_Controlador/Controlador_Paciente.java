@@ -7,6 +7,7 @@ package Capa_Controlador;
 
 import Capa_Modelo.Modelo_Paciente;
 import Capa_Vista.Vista_AgregarP;
+import Capa_Vista.Vista_BuscarP;
 import Capa_Vista.Vista_EditarP;
 import Capa_Vista.Vista_EliminarP;
 import Capa_Vista.Vista_Principal;
@@ -23,22 +24,40 @@ import javax.swing.JOptionPane;
 
 public class Controlador_Paciente {
     
+    /**
+     * Objetos de la capa vista
+    */
     private Vista_AgregarP vAddPac;
     private Vista_EditarP vEditPac;
     private Vista_EliminarP vDelPac;
+    private Vista_BuscarP vBusPac;
     private Vista_Principal vPrin;
+    /**
+     *  Objetos de la capa modelo 
+     */
     private Modelo_Paciente mPac;
     
+    /**
+     * Constructor de la clase
+     * @param vAddPac objeto de la vista agregar paciente
+     * @param vPrin objeto de la vista principal
+     * @param mPac objeto del modelo paciente
+     * @param vEditPac objeto de la vista editar paciente
+     * @param vEliPac objeto de la vista eliminar paciente
+     * @param vBusPac objeto de la vista buscar paciente
+     */
     public Controlador_Paciente(Vista_AgregarP vAddPac, Vista_Principal vPrin, Modelo_Paciente mPac,
-                                Vista_EditarP vEditPac, Vista_EliminarP vEliPac){
+                                Vista_EditarP vEditPac, Vista_EliminarP vEliPac, Vista_BuscarP vBusPac){
         this.vAddPac = vAddPac;
         this.vPrin = vPrin;
         this.mPac = mPac;
+        this.vBusPac = vBusPac;
         this.vEditPac = vEditPac;
         this.vDelPac = vEliPac;
         this.vAddPac.botonAtras(new Atras());
         this.vEditPac.botonAtras(new Atras());
         this.vDelPac.botonAtras(new Atras());
+        this.vBusPac.botonAtras(new Atras());
         this.vAddPac.botonAceptar(new Aceptar());
         this.vEditPac.botonConsultar(new Consulta());
         this.vEditPac.botonActualizar(new Actualizar());
@@ -59,6 +78,7 @@ public class Controlador_Paciente {
                    vAddPac.setVisible(false);
                    vEditPac.setVisible(false);
                    vDelPac.setVisible(false);
+                   vBusPac.setVisible(false);
                    vPrin.setVisible(true);
                   
                }catch(NumberFormatException ex){
@@ -147,6 +167,9 @@ public class Controlador_Paciente {
         }
     }
     
+    /**
+     * Clase Abstracta que captura el boton eliminar de la vista Vista_EliminarP
+    */
     class Eliminar implements ActionListener{
         
         /**

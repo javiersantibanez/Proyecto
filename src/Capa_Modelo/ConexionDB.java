@@ -19,7 +19,7 @@ public class ConexionDB {
     
     public static Connection GetConnection(){
         Connection conexion = null;
-        String ruta = "jdbc:sqlserver://DESKTOP-2HVLK3K\\JAVIERPC;databaseName=Proyecto";
+        String ruta = "jdbc:sqlserver://Blazter\\MSSQLSERVER:1433;databaseName=Proyecto";
         
      
         try

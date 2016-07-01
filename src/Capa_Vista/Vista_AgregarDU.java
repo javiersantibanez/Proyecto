@@ -22,6 +22,36 @@ public class Vista_AgregarDU extends javax.swing.JFrame {
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
+    public void botonAceptar(ActionListener escuchar){
+         
+        jButton1.addActionListener(escuchar);
+    }
+    
+    public int getIDdosis(){
+        return Integer.parseInt(jTextField1.getText());
+    }
+    public int getRut(){
+        return Integer.parseInt(jTextField2.getText());
+    }
+    public String getElaboracion(){
+        return jTextField3.getText();
+    }
+    public String getVencimiento(){
+        return jTextField4.getText();
+    }
+    public String getEntrega(){
+        return jTextField5.getText();
+    }
+    
+     public void limpiarTextField(){
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+      
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

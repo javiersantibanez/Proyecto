@@ -10,6 +10,9 @@ import Capa_Modelo.Modelo_Paciente;
 import Capa_Vista.Vista_AgregarDU;
 import Capa_Vista.Vista_AgregarM;
 import Capa_Vista.Vista_AgregarP;
+import Capa_Vista.Vista_BuscarDU;
+import Capa_Vista.Vista_BuscarM;
+import Capa_Vista.Vista_BuscarP;
 import Capa_Vista.Vista_EditarDU;
 import Capa_Vista.Vista_EditarM;
 import Capa_Vista.Vista_EditarP;
@@ -38,54 +41,61 @@ public class Controlador_Principal {
     private Vista_EliminarP vDelPac;
     private Vista_EditarP vEditPac;
     private Vista_AgregarP vAddPac;
+    private Vista_BuscarP vBusPac;
     // vista Dosis Unitaria
     private Vista_AgregarDU vAddDU;
     private Vista_EliminarDU vDelDU;
     private Vista_EditarDU vEditDU;
+    private Vista_BuscarDU vBusDU;
     // vista Medicamento
     private Vista_AgregarM vAddM;
     private Vista_EliminarM vDelM;
     private Vista_EditarM vEditM;
+    private Vista_BuscarM vBusM;
     // vista inventario
     private Vista_Inventario vInv;
-    private Modelo_Medicamento mMed;
     /*
         Contructor de la clase
     */
     public Controlador_Principal(Vista_Principal vPrin, Vista_AgregarP vAddPac, Vista_EditarP vEditPac, Vista_EliminarP vDelPac,
             Vista_AgregarDU vAddDU,Vista_EliminarDU vDelDU,Vista_EditarDU vEditDU,
-            Vista_AgregarM vAddM,Vista_EliminarM vDelM,Vista_EditarM vEditM, Vista_Inventario vInv, Modelo_Medicamento mMed){
+            Vista_AgregarM vAddM,Vista_EliminarM vDelM,Vista_EditarM vEditM, Vista_Inventario vInv,
+            Vista_BuscarP vBusPac, Vista_BuscarDU vBusDU, Vista_BuscarM vBusM){
         //Objetos de la vista Paciente
         this.vAddPac = vAddPac;
         this.vDelPac = vDelPac;
         this.vEditPac = vEditPac;
+        this.vBusPac = vBusPac;
         //Objetos de la vista Dosis Unitaria
         this.vAddDU = vAddDU;
         this.vDelDU = vDelDU;
         this.vEditDU = vEditDU;
+        this.vBusDU = vBusDU;
         //Objetos de la vista Medicamento
         this.vAddM = vAddM;
         this.vDelM = vDelM;
         this.vEditM = vEditM;
+        this.vBusM = vBusM;
         //Objetos de la vista Inventario
         this.vInv = vInv;
         //Objetos de la principal
         this.vPrin = vPrin;
         //Modelo
-        this.mMed = mMed;
         //Captura los botones de las vistas Paciente
         this.vPrin.botonIngresarPaciente(new AgregarPac());
         this.vPrin.botonEliminarPaciente(new EliminarPac());
         this.vPrin.botonEditarPaciente(new EditarPac());
+        this.vPrin.botonBuscarPaciente(new BuscarPac());
         //Captura los botones de las vistas Dosis Unitaria
         this.vPrin.botonIngresarDU(new AgregarDU());
         this.vPrin.botonEliminarDU(new EliminarDU());
         this.vPrin.botonEditarDU(new EditarDU());
+        this.vPrin.botonBuscarDU(new BuscarDU());
         //Captura los botones de las vistas Medicamento
         this.vPrin.botonIngresarMedicamento(new AgregarMed());
         this.vPrin.botonEditarMedicamento(new EditarMed());
         this.vPrin.botonEliminarMedicamento(new EliminarMed());
-        this.vPrin.botonBuscarM(new BuscarMedicamento());
+        this.vPrin.botonBuscarMedicamento(new BuscarDU());
         //Captura los botones de la vista inventario
         this.vPrin.botonVerInventario(new VerInventario());
     }
@@ -135,6 +145,24 @@ public class Controlador_Principal {
         public void actionPerformed(ActionEvent a) {             
                try{
                    vDelPac.setVisible(true);
+                  
+               }catch(NumberFormatException ex){
+                  // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
+               }
+            }
+    }
+    
+    /**
+     * Clase Abstracta que captura el boton Buscar Paciente de la clase Vista_Principal
+    */
+    class BuscarPac implements ActionListener{
+        @Override
+        /**
+         * Este método vuelve visible la vista eliminar paciente
+         */
+        public void actionPerformed(ActionEvent a) {             
+               try{
+                   vBusPac.setVisible(true);
                   
                }catch(NumberFormatException ex){
                   // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
@@ -195,6 +223,24 @@ public class Controlador_Principal {
     }
     
     /**
+     * Clase Abstracta que captura el boton buscar Dosis Unitaria de la clase Vista_Principal
+    */
+    class BuscarDU implements ActionListener{
+        @Override
+        /**
+         * Este método vuelve visible la vista eliminar paciente
+         */
+        public void actionPerformed(ActionEvent a) {             
+               try{
+                   vBusDU.setVisible(true);
+                  
+               }catch(NumberFormatException ex){
+                  // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
+               }
+            }
+    }
+    
+    /**
      * Clase Abstracta que captura el boton agregar Medicamento de la clase Vista_Principal
     */
     
@@ -212,39 +258,6 @@ public class Controlador_Principal {
             }
     }
     
-    /**
-     * Clase Abtracta que solicita datos a la DB
-     */
-    class BuscarMedicamento implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
-        
-         public void setDatosMedicamento(String [] aux){
-            
-             vPrin.setDatosBuscarM(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5], aux[6], aux[7],aux[8]);
-             
-        }
-         @Override
-        public void actionPerformed(ActionEvent a) {
-              
-               try{
-                   //enviar a modelo y set dato
-                   
-                   setDatosMedicamento(mMed.ConsultaMedicamento(vPrin.getNumeroSerie()));
-                   
-                   //limpiar texto
-                   vPrin.limpiarTextField();
-                   
-                   
-                   
-                   
-               }catch(NumberFormatException ex){
-                        
-               }
-            }
-    }
     /**
      * Clase Abstracta que captura el boton editar Medicamento de la clase Vista_Principal
     */
@@ -273,6 +286,24 @@ public class Controlador_Principal {
         public void actionPerformed(ActionEvent a) {             
                try{
                    vDelM.setVisible(true);
+                  
+               }catch(NumberFormatException ex){
+                  // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
+               }
+            }
+    }
+    
+    /**
+     * Clase Abstracta que captura el boton buscar Medicamento de la clase Vista_Principal
+    */
+    class BuscarMed implements ActionListener{
+        @Override
+        /**
+         * Este método vuelve visible la vista eliminar paciente
+         */
+        public void actionPerformed(ActionEvent a) {             
+               try{
+                   vBusM.setVisible(true);
                   
                }catch(NumberFormatException ex){
                   // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
