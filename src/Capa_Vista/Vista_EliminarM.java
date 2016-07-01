@@ -22,6 +22,19 @@ public class Vista_EliminarM extends javax.swing.JFrame {
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
+   
+    public void limpiar(){
+        jTextField1.setText("");
+    }
+    
+    public int getNserie(){
+        return Integer.parseInt(jTextField1.getText());
+    }
+    
+    
+    public void botonEliminarM(ActionListener escuchar){
+        jButton1.addActionListener(escuchar);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

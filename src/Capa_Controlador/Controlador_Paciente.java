@@ -142,7 +142,7 @@ public class Controlador_Paciente {
                vEditPac.habilitarContenido();
             }
             catch(NumberFormatException ex){
-               JOptionPane.showMessageDialog(vPrin, "Error al realizar la consulta");
+               JOptionPane.showMessageDialog(null, "Error al realizar la consulta");
             }
         }
     }

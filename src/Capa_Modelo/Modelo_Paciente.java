@@ -25,7 +25,7 @@ public class Modelo_Paciente {
     
     public  Connection con ;
     public  ResultSet res,res2;
-    
+    public String [] datos = new String[16]; 
 
     public Modelo_Paciente(){ 
  
@@ -67,7 +67,7 @@ public class Modelo_Paciente {
     
     public String [] ConsultaPaciente(int rut){
         Statement sentencia2,sentencia3;
-        String [] datos = new String[16]; 
+        
         try
             {
                 con=ConexionDB.GetConnection();
@@ -125,7 +125,7 @@ public class Modelo_Paciente {
          try
          {
             act = con.prepareStatement("UPDATE Direccion SET Calle = ?,Numero = ?,Departamento = ?,Torre = ?,Comuna = ?,"
-                                        + " Ciudad = ?,Region = ?");
+                                        + " Ciudad = ?,Region = ? WHERE ID_Direccion = '"+datos[6]+"' ");
             
             
             act.setString(1, calle);
@@ -141,7 +141,7 @@ public class Modelo_Paciente {
             
             
             act2 = con.prepareStatement("UPDATE Paciente SET PrimerNombre = ?,SegundoNombre = ?,ApellidoPaterno = ?,ApellidoMaterno= ?,"
-                                        + "FechaNacimiento = ?, Telefono = ?,Correo_Electronico= ?, Diagnostico = ?");
+                                        + "FechaNacimiento = ?, Telefono = ?,Correo_Electronico= ?, Diagnostico = ? WHERE Rut_Paciente = '"+rut+"' ");
             
             
             
@@ -175,11 +175,12 @@ public class Modelo_Paciente {
         Statement elim;
         
         try{
-        elim = con.createStatement();
-        elim.execute("DELETE FROM Paciente WHERE Rut_Paciente = '"+rut+"'");
+            con=ConexionDB.GetConnection();
+            elim = con.createStatement();
+            elim.execute("DELETE FROM Paciente WHERE Rut_Paciente = '"+rut+"'");
         
-        JOptionPane.showMessageDialog(null,"El paciente fue eliminado correctamente");
-        con.close();
+            JOptionPane.showMessageDialog(null,"El paciente fue eliminado correctamente");
+            con.close();
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null,"El paciente no existe en la base de datos");

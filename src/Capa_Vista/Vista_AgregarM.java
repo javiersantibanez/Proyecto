@@ -27,8 +27,8 @@ public class Vista_AgregarM extends javax.swing.JFrame {
         jButton1.addActionListener(escuchar);
     }
     
-    public String getNumeroSerie(){
-        return jTextField1.getText();
+    public int getNumeroSerie(){
+        return Integer.parseInt(jTextField1.getText());
     }
     public String getNombre(){
         return jTextField2.getText();
@@ -61,6 +61,12 @@ public class Vista_AgregarM extends javax.swing.JFrame {
         jTextField2.setText("");
         jTextField3.setText("");
         jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+        jTextField8.setText("");
+        jTextField9.setText("");
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.

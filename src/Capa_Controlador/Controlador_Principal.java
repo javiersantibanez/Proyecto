@@ -5,6 +5,7 @@
  */
 package Capa_Controlador;
 
+import Capa_Modelo.Modelo_Medicamento;
 import Capa_Modelo.Modelo_Paciente;
 import Capa_Vista.Vista_AgregarDU;
 import Capa_Vista.Vista_AgregarM;
@@ -47,13 +48,13 @@ public class Controlador_Principal {
     private Vista_EditarM vEditM;
     // vista inventario
     private Vista_Inventario vInv;
+    private Modelo_Medicamento mMed;
     /*
         Contructor de la clase
     */
     public Controlador_Principal(Vista_Principal vPrin, Vista_AgregarP vAddPac, Vista_EditarP vEditPac, Vista_EliminarP vDelPac,
             Vista_AgregarDU vAddDU,Vista_EliminarDU vDelDU,Vista_EditarDU vEditDU,
-            Vista_AgregarM vAddM,Vista_EliminarM vDelM,Vista_EditarM vEditM, Vista_Inventario vInv
-    ){
+            Vista_AgregarM vAddM,Vista_EliminarM vDelM,Vista_EditarM vEditM, Vista_Inventario vInv, Modelo_Medicamento mMed){
         //Objetos de la vista Paciente
         this.vAddPac = vAddPac;
         this.vDelPac = vDelPac;
@@ -70,6 +71,8 @@ public class Controlador_Principal {
         this.vInv = vInv;
         //Objetos de la principal
         this.vPrin = vPrin;
+        //Modelo
+        this.mMed = mMed;
         //Captura los botones de las vistas Paciente
         this.vPrin.botonIngresarPaciente(new AgregarPac());
         this.vPrin.botonEliminarPaciente(new EliminarPac());
@@ -82,6 +85,7 @@ public class Controlador_Principal {
         this.vPrin.botonIngresarMedicamento(new AgregarMed());
         this.vPrin.botonEditarMedicamento(new EditarMed());
         this.vPrin.botonEliminarMedicamento(new EliminarMed());
+        this.vPrin.botonBuscarM(new BuscarMedicamento());
         //Captura los botones de la vista inventario
         this.vPrin.botonVerInventario(new VerInventario());
     }
@@ -193,6 +197,7 @@ public class Controlador_Principal {
     /**
      * Clase Abstracta que captura el boton agregar Medicamento de la clase Vista_Principal
     */
+    
     class AgregarMed implements ActionListener{
         @Override
         /**
@@ -207,6 +212,39 @@ public class Controlador_Principal {
             }
     }
     
+    /**
+     * Clase Abtracta que solicita datos a la DB
+     */
+    class BuscarMedicamento implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         public void setDatosMedicamento(String [] aux){
+            
+             vPrin.setDatosBuscarM(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5], aux[6], aux[7],aux[8]);
+             
+        }
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   
+                   setDatosMedicamento(mMed.ConsultaMedicamento(vPrin.getNumeroSerie()));
+                   
+                   //limpiar texto
+                   vPrin.limpiarTextField();
+                   
+                   
+                   
+                   
+               }catch(NumberFormatException ex){
+                        
+               }
+            }
+    }
     /**
      * Clase Abstracta que captura el boton editar Medicamento de la clase Vista_Principal
     */
