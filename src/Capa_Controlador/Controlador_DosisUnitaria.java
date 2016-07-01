@@ -140,8 +140,15 @@ public class Controlador_DosisUnitaria {
          * Este método ...
          */
         public void setDatosPaciente (String [] aux){
+            int index;            
+            if(aux[4].equalsIgnoreCase("Disponible")){
+                index =1;
+            }else{
+                index=2;
+            }
+            System.out.println("mandando index "+index+" que es"+aux[4]);
             
-            vEditDU.setDatos(aux[0],aux[1],aux[2],aux[3]);
+            vEditDU.setDatos(aux[0],aux[1],aux[2],aux[3],index);
             
             
         }
@@ -173,19 +180,24 @@ public class Controlador_DosisUnitaria {
        
         public void actionPerformed(ActionEvent a) {
               
-               try{
-                   //enviar a modelo
-                   mDU.ActualizarDosisUnitaria(vEditDU.getIDdosis(), vEditDU.getRut(),vEditDU.getElaboracion(),vEditDU.getVencimiento(),vEditDU.getEntrega());
-                   //limpiar texto
-                   vEditDU.limpiarTextField();
-                   
-                   
-                   vEditDU.setVisible(false);
-                   
-               }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(null, "Error al actualizar los datos de la dosis unitaria");
-               }
+           if (vEditDU.getStock().equalsIgnoreCase("Selecciona estado")==true) {
+               JOptionPane.showMessageDialog(null, "Selecciona un estado del stock");
             }
+            else{
+                try{
+                 mDU.ActualizarDosisUnitaria(vEditDU.getIDdosis(), vEditDU.getRut(),vEditDU.getElaboracion(),vEditDU.getVencimiento(),vEditDU.getEntrega(), vEditDU.getStock());
+                 //limpiar texto
+
+                 vEditDU.limpiarTextField();
+
+
+                 vEditDU.setVisible(false);
+
+                 }catch(NumberFormatException ex){
+                     JOptionPane.showMessageDialog(null, "Error al actualizar los datos de la dosis unitaria");
+                 }                           
+            }
+        }
     }
    
     class EliminarDosisUnitaria implements ActionListener{

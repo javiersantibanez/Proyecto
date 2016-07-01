@@ -112,21 +112,23 @@ public class Modelo_DosisUnitaria {
             return datos;
             }
     
-    public void ActualizarDosisUnitaria(int id,int rut,String elab, String venc, String entrega){
+    public void ActualizarDosisUnitaria(int id,int rut,String elab, String venc, String entrega, String stock){
          
         
          PreparedStatement act;
          try
          {
-            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Rut_Paciente= ?,FechaElaboracion= ?, FechaVencimiento= ?,FechaEntrega= ? "
+    
+            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Rut_Paciente= ?,FechaElaboracion= ?, FechaVencimiento= ?,FechaEntrega= ?, Disponible = ? "
                                         + "WHERE ID_Dosis = "+id+"");
             
             
-            
+       
             act.setInt(1, rut);
             act.setString(2, elab);
             act.setString(3, venc);
             act.setString(4, entrega);
+            act.setString(5, stock);
             
             
             act.executeUpdate();
@@ -162,6 +164,8 @@ public class Modelo_DosisUnitaria {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    
     
     
 }

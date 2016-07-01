@@ -39,11 +39,11 @@ public class Vista_BuscarP extends javax.swing.JFrame {
         
         model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);        
-        model.addRow(new Object[]{aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9});
+        model.addRow(new Object[]{aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8});
 
         model2 = (DefaultTableModel)  jTable2.getModel();
         model2.setRowCount(0);
-        model2.addRow(new Object []{aux10,aux11,aux12,aux13,aux14,aux15 });
+        model2.addRow(new Object []{aux9,aux10,aux11,aux12,aux13,aux14,aux15});
     }
     
     public int getRut(){
