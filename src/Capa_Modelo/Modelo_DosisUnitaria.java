@@ -75,6 +75,31 @@ public class Modelo_DosisUnitaria {
         }
     }
     
+    public void EntregarDosisUnitaria(int rut, int idDosis){
+        PreparedStatement act;
+         try
+         {
+            con = ConexionDB.GetConnection();
+            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Disponible = ? "
+                                        + "WHERE ID_Dosis = "+idDosis+" and Rut_Paciente = " +rut+"");
+            
+            
+       
+            act.setString(1, "No Disponible");
+           
+            
+            
+            act.executeUpdate();
+            act.close();
+            JOptionPane.showMessageDialog(null, "La dosis unitaria fue entregada exitosamente");
+            con.close();
+          
+         }
+         
+         catch(SQLException e){
+                JOptionPane.showMessageDialog(null,"Error al entregar la dosis");}
+    }
+    
     public String [] ConsultaDosisUnitaria(int id){
         Statement sentencia;
         String [] datos = new String[5]; 

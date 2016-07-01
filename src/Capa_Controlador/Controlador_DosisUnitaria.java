@@ -65,6 +65,7 @@ public class Controlador_DosisUnitaria {
         this.vEditDU.botonEditarDU(new ActualizarDosisUnitaria());
         this.vDelDU.botonEliminarDosisU(new EliminarDosisUnitaria() );
         this.vBusDU.botonBuscarDU(new BuscarDU());
+        this.vPrin.botonEntregarDosis(new EntregarDosisUnitaria());
     }
     /**
      * Clase Abstracta que captura el boton Atras de las vistas Vista_AgregarDU, Vista_EditarDU y Vista_EliminarDU
@@ -129,7 +130,7 @@ public class Controlador_DosisUnitaria {
                    vAddDU.setVisible(false);
                    
                }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(null, "Error al ingresar el medicamento");
+                   JOptionPane.showMessageDialog(null, ex);
                }
             }
     }
@@ -146,7 +147,7 @@ public class Controlador_DosisUnitaria {
             }else{
                 index=2;
             }
-            System.out.println("mandando index "+index+" que es"+aux[4]);
+
             
             vEditDU.setDatos(aux[0],aux[1],aux[2],aux[3],index);
             
@@ -200,6 +201,30 @@ public class Controlador_DosisUnitaria {
         }
     }
    
+    class EntregarDosisUnitaria implements ActionListener{
+        @Override
+        /**
+         * Este método ...
+         */
+        
+       
+        public void actionPerformed(ActionEvent a) {
+              
+           
+           
+                try{
+                 mDU.EntregarDosisUnitaria(vPrin.getRut(), vPrin.getIdDosis());
+                 //limpiar texto
+                 
+                 vPrin.limpiar();
+                 
+
+
+                 }catch(NumberFormatException ex){
+                     JOptionPane.showMessageDialog(null, "Error al entregar la dosis unitaria");
+                 }                           
+            }
+        }
     class EliminarDosisUnitaria implements ActionListener{
         
         /**

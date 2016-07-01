@@ -21,6 +21,7 @@ public class Modelo_Medicamento {
     
     public Connection con;
     public ResultSet res, res2;
+    java.util.Date fecha = new Date();
     
     public Modelo_Medicamento(){
     
@@ -49,6 +50,27 @@ public class Modelo_Medicamento {
         catch(SQLException e){JOptionPane.showMessageDialog(null,"Error al ingresar el medicamento");}
         
   }
+    
+    public void EntregarMedicamento(int rutPaciente, int nSerie){
+        
+        Statement sentencia;
+        try {
+            con = ConexionDB.GetConnection();
+            sentencia =con.createStatement();
+            fecha.getDay();
+            fecha.getMonth();
+            fecha.getYear();
+            System.out.println("Ejecutando consulta");
+            sentencia.executeQuery("INSERT INTO MedicinaPaciente (Rut_Paciente, ID_Medicamento, Cantidad, FechaEntrega) "
+                    + "VALUES ("+rutPaciente+","+nSerie+", 1"+","+fecha.getDay()+fecha.getMonth()+(fecha.getYear()-100)+")");
+            System.out.println("Consulta ejecutada");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error al entregar el medicamento");
+        }
+        
+        
+    }
 
     
     public String [] ConsultaMedicamento(int nSerie){

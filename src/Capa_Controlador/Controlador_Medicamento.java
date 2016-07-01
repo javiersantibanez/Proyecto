@@ -60,6 +60,7 @@ public class Controlador_Medicamento {
         this.vEditM.botonEditarM(new ActualizarMedicamento());
         this.vDelM.botonEliminarM(new EliminarMedicamento());
         this.vBusM.botonBuscarMedicamento(new BuscarMedicamento());
+        this.vPrin.botonEntregarMedicamento(new EntregarMedicamento());
     }
     
     /**
@@ -192,6 +193,21 @@ public class Controlador_Medicamento {
             }
             catch(NumberFormatException ex){
                JOptionPane.showMessageDialog(vPrin, "Error al eliminar el medicamento");
+            }
+        }
+    }
+    
+    class EntregarMedicamento implements ActionListener{
+        
+        
+        public void actionPerformed(ActionEvent a){
+            try{
+                System.out.println("Mandando a modelo");
+                mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(), vPrin.getIdDosis());
+                System.out.println("Regresando de modelo");
+                
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(vPrin, "Error al entregar el medicamento");
             }
         }
     }
