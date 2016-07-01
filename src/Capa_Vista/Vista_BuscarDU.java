@@ -6,6 +6,7 @@
 package Capa_Vista;
 
 import java.awt.event.ActionListener;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,14 +28,19 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
     
     DefaultTableModel model = new DefaultTableModel();
     
-    public void setDatosBuscarDU(String aux,String aux2,String aux3,String aux4,
-                                String aux5, String aux6){
+    public void vaciarTabla(){
         
-        model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);        
-        model.addRow(new Object[]{aux6,aux,aux2,aux3,aux4,aux5   });        
+
+       model = (DefaultTableModel) jTable1.getModel();
+            int a =model.getRowCount();
+            for(int i=0; i<a; i++)
+                model.removeRow(0);         
+   
     }
     
+    public JTable getTable(){
+        return jTable1;
+    }
     public int getRut(){
         return Integer.parseInt(jTextField1.getText());
     }
@@ -63,8 +69,6 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

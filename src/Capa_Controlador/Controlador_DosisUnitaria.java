@@ -16,6 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -73,6 +76,7 @@ public class Controlador_DosisUnitaria {
          */       
         public void actionPerformed(ActionEvent a) {              
                try{
+                   vBusDU.vaciarTabla();
                    vAddDU.setVisible(false);
                    vEditDU.setVisible(false);
                    vDelDU.setVisible(false);
@@ -92,22 +96,18 @@ public class Controlador_DosisUnitaria {
         /**
          * Este método ...
          */
-        
-        public void setDatosDU(String [] aux){
-            
-             vBusDU.setDatosBuscarDU(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5]);
-        }
-         @Override
-         
+
          
         public void actionPerformed(ActionEvent a) {
               
                try{
-                  setDatosDU(mDU.ConsultaDUxRut(vBusDU.getRut()));
+                  mDU.ConsultaDUxRut(vBusDU.getTable(),vBusDU.getRut());
                    
                }catch(NumberFormatException ex){
                         
-               }
+               } catch (Exception ex) {
+                Logger.getLogger(Controlador_DosisUnitaria.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
     }
     
@@ -134,7 +134,7 @@ public class Controlador_DosisUnitaria {
             }
     }
    
-   class ConsultaDosisUnitaria implements ActionListener{
+    class ConsultaDosisUnitaria implements ActionListener{
         
         /**
          * Este método ...
@@ -164,7 +164,7 @@ public class Controlador_DosisUnitaria {
         }
     }
    
-   class ActualizarDosisUnitaria implements ActionListener{
+    class ActualizarDosisUnitaria implements ActionListener{
         @Override
         /**
          * Este método ...
@@ -188,7 +188,7 @@ public class Controlador_DosisUnitaria {
             }
     }
    
-   class EliminarDosisUnitaria implements ActionListener{
+    class EliminarDosisUnitaria implements ActionListener{
         
         /**
          * Este método ...

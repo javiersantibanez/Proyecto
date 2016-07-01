@@ -8,9 +8,13 @@ package Capa_Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,7 +24,10 @@ public class Modelo_DosisUnitaria {
     
     
    public Connection con;
-   public ResultSet res, res2; 
+   public ResultSet res, res2;
+   private PreparedStatement ps;
+   DefaultTableModel dtm;
+   private ResultSetMetaData rsm;
    
    
    public Modelo_DosisUnitaria(){
@@ -47,43 +54,26 @@ public class Modelo_DosisUnitaria {
         
     }
     
-    public String [] ConsultaDUxRut(int rut){
-        Statement sentencia;
-        String [] datos = new String[6]; 
-        try
-            {
-                con=ConexionDB.GetConnection();
-                sentencia=con.createStatement();
-                res=sentencia.executeQuery("SELECT * FROM Dosis_Unitaria WHERE Rut_Paciente = "+rut+"");
+    public void ConsultaDUxRut(JTable tabla, int rut)throws Exception{
+        
+        con=ConexionDB.GetConnection();
+        ps = con.prepareStatement("SELECT * FROM Dosis_Unitaria WHERE Rut_Paciente = "+rut+"");
+        res=ps.executeQuery();
+        rsm=res.getMetaData();
+        ArrayList<Object[]> datos=new ArrayList<>();
+        while (res.next()) {            
+            Object[] filas=new Object[rsm.getColumnCount()];
+            for (int i = 0; i < filas.length; i++) {
+                filas[i]=res.getObject(i+1);
                 
-                
-                while (res.next()) {
-                    
-                    
-                    
-                    datos[0] = Integer.toString(res.getInt("Rut_Paciente"));
-                    datos[1] = res.getString("FechaElaboracion");
-                    datos[2] = res.getString("FechaVencimiento");
-                    datos[3] = res.getString("FechaEntrega");
-                    datos[4] = res.getString("Disponible");
-                    datos[5] = Integer.toString(res.getInt("ID_Dosis"));
-                    
-                    
-                    
-                    
-                }
-                if(datos[0] ==null ){
-                    JOptionPane.showMessageDialog(null, "No existe dosis para el paciente indicado o el paciente no existe");
-                }
-            
             }
-               
-                
-            catch(SQLException e){
-                JOptionPane.showMessageDialog(null,e);}
-                
-            return datos;
-            }
+            datos.add(filas);
+        }
+        dtm=(DefaultTableModel)tabla.getModel();
+        for (int i = 0; i <datos.size(); i++) {
+            dtm.addRow(datos.get(i));
+        }
+    }
     
     public String [] ConsultaDosisUnitaria(int id){
         Statement sentencia;
@@ -172,4 +162,6 @@ public class Modelo_DosisUnitaria {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    
 }

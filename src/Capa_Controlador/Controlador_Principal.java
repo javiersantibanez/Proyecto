@@ -233,6 +233,8 @@ public class Controlador_Principal {
         public void actionPerformed(ActionEvent a) {             
                try{
                    vBusDU.setVisible(true);
+                   vBusDU.limpiarTextField();
+                   vBusDU.vaciarTabla();
                   
                }catch(NumberFormatException ex){
                   // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
