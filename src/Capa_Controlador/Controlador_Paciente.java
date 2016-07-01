@@ -62,6 +62,7 @@ public class Controlador_Paciente {
         this.vEditPac.botonConsultar(new Consulta());
         this.vEditPac.botonActualizar(new Actualizar());
         this.vDelPac.botonEliminar(new Eliminar());
+        this.vBusPac.botonBuscarPaciente(new BuscarPaciente());
     }
     
 
@@ -75,6 +76,9 @@ public class Controlador_Paciente {
          */
         public void actionPerformed(ActionEvent a) {              
                try{
+                   vBusPac.vaciarCampos();
+                   vAddPac.limpiarTextField();
+                   vEditPac.limpiarTextField();
                    vAddPac.setVisible(false);
                    vEditPac.setVisible(false);
                    vDelPac.setVisible(false);
@@ -106,7 +110,7 @@ public class Controlador_Paciente {
                    vAddPac.limpiarTextField();
                    
                }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
+                   JOptionPane.showMessageDialog(vPrin, "Todos los campos deben estar completados");
                }
             }
     }
@@ -127,7 +131,7 @@ public class Controlador_Paciente {
                    //limpiar texto
                    vEditPac.limpiarTextField();
                    
-                   
+                   vEditPac.setVisible(false);
                    
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(vPrin, "Error al actualizar los datos del paciente");
@@ -187,5 +191,33 @@ public class Controlador_Paciente {
                JOptionPane.showMessageDialog(vPrin, "Error al eliminar el paciente");
             }
         }
+    }
+    
+    class BuscarPaciente implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         public void setDatosMedicamento(String [] aux){
+            
+             vBusPac.setDatosBuscarP(aux[0],aux[1],aux[2],aux[3],aux[4],aux[5],aux[7],aux[8],
+                                    aux[9],aux[10],aux[11],aux[12],aux[13],aux[14],aux[15]);
+             
+        }
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   
+                   setDatosMedicamento(mPac.ConsultaPaciente(vBusPac.getRut()));
+                   
+                   //limpiar texto
+                   
+               }catch(NumberFormatException ex){
+                        
+               }
+            }
     }
 }

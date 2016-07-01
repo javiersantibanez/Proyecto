@@ -60,7 +60,9 @@ public class Modelo_Paciente {
              JOptionPane.showMessageDialog(null,"El Paciente  " + Pnombre+ " "+ apellidoP+"   ha sido Ingresado Exitosamente ");                 
              con.close();
         }
-        catch(SQLException e){JOptionPane.showMessageDialog(null,"Error al ingresar el paciente");}
+        catch(SQLException e){JOptionPane.showMessageDialog(null,"Errores posibles: \n\n"
+                                                                 + "-Erro al ingresar el paciente\n"
+                                                                 + "-El paciente ya existe en la base de datos\n");}
         
   }
 
