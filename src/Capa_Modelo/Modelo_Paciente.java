@@ -39,7 +39,7 @@ public class Modelo_Paciente {
                                 int torre, String comuna, String ciudad, 
                                 String region, int rut, String Pnombre, 
                                 String Snombre, String apellidoP, String apellidoM, 
-                                String fechaNacimiento, int telefono, String correo, 
+                                Date fechaNacimiento, int telefono, String correo, 
                                 String Diagnostico){
         
         Statement sentencia;
@@ -60,7 +60,9 @@ public class Modelo_Paciente {
              JOptionPane.showMessageDialog(null,"El Paciente  " + Pnombre+ " "+ apellidoP+"   ha sido Ingresado Exitosamente ");                 
              con.close();
         }
-        catch(SQLException e){JOptionPane.showMessageDialog(null,"Error al ingresar el paciente");}
+        catch(SQLException e){JOptionPane.showMessageDialog(null,"Errores posibles: \n\n"
+                                                                 + "-Erro al ingresar el paciente\n"
+                                                                 + "-El paciente ya existe en la base de datos\n");}
         
   }
 
@@ -117,7 +119,7 @@ public class Modelo_Paciente {
                                     int torre, String comuna, String ciudad, 
                                     String region, int rut, String Pnombre, 
                                     String Snombre, String apellidoP, String apellidoM, 
-                                    String fechaNacimiento, int telefono, String correo, 
+                                    Date fechaNacimiento, int telefono, String correo, 
                                     String Diagnostico){
          
         
@@ -149,7 +151,7 @@ public class Modelo_Paciente {
             act2.setString(2, Snombre);
             act2.setString(3, apellidoP);
             act2.setString(4, apellidoM);
-            act2.setString(5, fechaNacimiento);
+            act2.setDate(5, fechaNacimiento);
             act2.setInt(6, telefono);
             act2.setString(7, correo);
             act2.setString(8, Diagnostico);

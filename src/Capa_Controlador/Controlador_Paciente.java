@@ -13,6 +13,11 @@ import Capa_Vista.Vista_EliminarP;
 import Capa_Vista.Vista_Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -62,6 +67,7 @@ public class Controlador_Paciente {
         this.vEditPac.botonConsultar(new Consulta());
         this.vEditPac.botonActualizar(new Actualizar());
         this.vDelPac.botonEliminar(new Eliminar());
+        this.vBusPac.botonBuscarPaciente(new BuscarPaciente());
     }
     
 
@@ -75,6 +81,9 @@ public class Controlador_Paciente {
          */
         public void actionPerformed(ActionEvent a) {              
                try{
+                   vBusPac.vaciarCampos();
+                   vAddPac.limpiarTextField();
+                   vEditPac.limpiarTextField();
                    vAddPac.setVisible(false);
                    vEditPac.setVisible(false);
                    vDelPac.setVisible(false);
@@ -98,6 +107,8 @@ public class Controlador_Paciente {
         public void actionPerformed(ActionEvent a) {
               
                try{
+                   
+                   System.out.println(vAddPac.getFNacimiento());
                    //enviar a modelo
                    mPac.Ingresarpaciente(vAddPac.getCalle(),vAddPac.getNumero(),vAddPac.getDepto(),vAddPac.getTorre(),vAddPac.getComuna(),
                    vAddPac.getCiudad(),vAddPac.getRegion(),vAddPac.getRut(),vAddPac.getPrimerNombre(),vAddPac.getSegundoNombre(),vAddPac.getApellidoPaterno(),
@@ -106,7 +117,7 @@ public class Controlador_Paciente {
                    vAddPac.limpiarTextField();
                    
                }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
+                   JOptionPane.showMessageDialog(vPrin, "Todos los campos deben estar completados");
                }
             }
     }
@@ -127,7 +138,7 @@ public class Controlador_Paciente {
                    //limpiar texto
                    vEditPac.limpiarTextField();
                    
-                   
+                   vEditPac.setVisible(false);
                    
                }catch(NumberFormatException ex){
                    JOptionPane.showMessageDialog(vPrin, "Error al actualizar los datos del paciente");
@@ -141,14 +152,20 @@ public class Controlador_Paciente {
         /**
          * Este método ...
          */
-        public void setDatosPaciente (String [] aux){
+        public void setDatosPaciente (String [] aux) throws ParseException{
+           
+            SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha_aux;
+            fecha_aux= fecha.parse(aux[4]);
             
-            vEditPac.setDatos(aux[0],aux[1],aux[2],aux[3],aux[4],aux[5],aux[7],aux[8],
+            
+            vEditPac.setDatos(aux[0],aux[1],aux[2],aux[3],fecha_aux,aux[5],aux[7],aux[8],
                               aux[9],aux[10],aux[11],aux[12],aux[13],aux[14],aux[15]);
             
             
         }
         
+        @Override
         public void actionPerformed(ActionEvent a) {
             String [] datos = new String[9]; 
             try{
@@ -163,6 +180,8 @@ public class Controlador_Paciente {
             }
             catch(NumberFormatException ex){
                JOptionPane.showMessageDialog(null, "Error al realizar la consulta");
+            } catch (ParseException ex) {
+                Logger.getLogger(Controlador_Paciente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -187,5 +206,35 @@ public class Controlador_Paciente {
                JOptionPane.showMessageDialog(vPrin, "Error al eliminar el paciente");
             }
         }
+    }
+    
+    class BuscarPaciente implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         public void setDatosMedicamento(String [] aux){
+            
+             vBusPac.setDatosBuscarP(aux[0],aux[1],aux[2],aux[3],aux[4],aux[5],aux[7],aux[8],
+                                    aux[9],aux[10],aux[11],aux[12],aux[13],aux[14],aux[15]);
+             
+             System.out.println(aux[9] +aux[10]+aux[11]+aux[12]+aux[13]);
+             
+        }
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   
+                   setDatosMedicamento(mPac.ConsultaPaciente(vBusPac.getRut()));
+                   
+                   //limpiar texto
+                   
+               }catch(NumberFormatException ex){
+                        
+               }
+            }
     }
 }

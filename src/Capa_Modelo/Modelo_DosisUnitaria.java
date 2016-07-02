@@ -6,6 +6,7 @@
 package Capa_Modelo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -35,7 +36,7 @@ public class Modelo_DosisUnitaria {
     }
    
    
-    public void IngresarDosisUnitaria(int rut,String elab, String venc, String entrega){
+    public void IngresarDosisUnitaria(int rut,Date elab, Date venc, Date entrega){
 
         Statement sentencia;
 
@@ -112,21 +113,23 @@ public class Modelo_DosisUnitaria {
             return datos;
             }
     
-    public void ActualizarDosisUnitaria(int id,int rut,String elab, String venc, String entrega){
+    public void ActualizarDosisUnitaria(int id,int rut,Date elab, Date venc, Date entrega, String stock){
          
         
          PreparedStatement act;
          try
          {
-            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Rut_Paciente= ?,FechaElaboracion= ?, FechaVencimiento= ?,FechaEntrega= ? "
+    
+            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Rut_Paciente= ?,FechaElaboracion= ?, FechaVencimiento= ?,FechaEntrega= ?, Disponible = ? "
                                         + "WHERE ID_Dosis = "+id+"");
             
             
-            
+       
             act.setInt(1, rut);
-            act.setString(2, elab);
-            act.setString(3, venc);
-            act.setString(4, entrega);
+            act.setDate(2, elab);
+            act.setDate(3, venc);
+            act.setDate(4, entrega);
+            act.setString(5, stock);
             
             
             act.executeUpdate();
@@ -145,7 +148,7 @@ public class Modelo_DosisUnitaria {
          
             
     }
-    
+
     public void EliminarDosisUnitaria(int id) {
         
         Statement elim;
@@ -163,5 +166,30 @@ public class Modelo_DosisUnitaria {
         }
     }
     
+    
+    public void EntregarDosisUnitaria(int rut, int idDosis){
+        PreparedStatement act;
+         try
+         {
+            con = ConexionDB.GetConnection();
+            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Disponible = ? "
+                                        + "WHERE ID_Dosis = "+idDosis+" and Rut_Paciente = " +rut+"");
+            
+            
+       
+            act.setString(1, "No Disponible");
+           
+            
+            
+            act.executeUpdate();
+            act.close();
+            JOptionPane.showMessageDialog(null, "La dosis unitaria fue entregada exitosamente");
+            con.close();
+          
+         }
+         
+         catch(SQLException e){
+                JOptionPane.showMessageDialog(null,"Error al entregar la dosis");}
+    }
     
 }

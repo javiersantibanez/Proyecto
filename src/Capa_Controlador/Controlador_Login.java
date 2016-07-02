@@ -50,7 +50,7 @@ public class Controlador_Login {
          * Objetos de la capa Controlador
          */
             Controlador_Paciente cPac = new Controlador_Paciente(addPac, farmAD, mPac, editPac, delPac, busPac);
-            Controlador_Principal cPrin = new Controlador_Principal(farmAD, addPac, editPac, delPac, addDU, delDU, editDU, addMed, delMed, editMed, inventario, busPac,busDU,busMed);
+            Controlador_Principal cPrin = new Controlador_Principal(farmAD, addPac, editPac, delPac, addDU, delDU, editDU, addMed, delMed, editMed, inventario, busPac,busDU,busMed,mMed);
             Controlador_Medicamento cMed = new Controlador_Medicamento(farmAD, addMed, editMed, delMed,mMed, busMed);
             Controlador_DosisUnitaria cDU = new Controlador_DosisUnitaria(farmAD, addDU, editDU, delDU, busDU,mDU);
         /**

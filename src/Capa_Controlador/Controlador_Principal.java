@@ -23,6 +23,8 @@ import Capa_Vista.Vista_Inventario;
 import Capa_Vista.Vista_Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -54,13 +56,15 @@ public class Controlador_Principal {
     private Vista_BuscarM vBusM;
     // vista inventario
     private Vista_Inventario vInv;
+    
+    private Modelo_Medicamento mMed;
     /*
         Contructor de la clase
     */
     public Controlador_Principal(Vista_Principal vPrin, Vista_AgregarP vAddPac, Vista_EditarP vEditPac, Vista_EliminarP vDelPac,
             Vista_AgregarDU vAddDU,Vista_EliminarDU vDelDU,Vista_EditarDU vEditDU,
             Vista_AgregarM vAddM,Vista_EliminarM vDelM,Vista_EditarM vEditM, Vista_Inventario vInv,
-            Vista_BuscarP vBusPac, Vista_BuscarDU vBusDU, Vista_BuscarM vBusM){
+            Vista_BuscarP vBusPac, Vista_BuscarDU vBusDU, Vista_BuscarM vBusM,Modelo_Medicamento mMed){
         //Objetos de la vista Paciente
         this.vAddPac = vAddPac;
         this.vDelPac = vDelPac;
@@ -81,6 +85,7 @@ public class Controlador_Principal {
         //Objetos de la principal
         this.vPrin = vPrin;
         //Modelo
+        this.mMed = mMed;
         //Captura los botones de las vistas Paciente
         this.vPrin.botonIngresarPaciente(new AgregarPac());
         this.vPrin.botonEliminarPaciente(new EliminarPac());
@@ -96,10 +101,29 @@ public class Controlador_Principal {
         this.vPrin.botonEditarMedicamento(new EditarMed());
         this.vPrin.botonEliminarMedicamento(new EliminarMed());
         this.vPrin.botonBuscarMedicamento(new BuscarMed());
+        this.vInv.botonAtras(new Atras());
         //Captura los botones de la vista inventario
         this.vPrin.botonVerInventario(new VerInventario());
+        
     }
-   
+    
+    class Atras implements ActionListener{
+        @Override
+        /**
+         * Este método vuelve hacia la vista principal del programa
+         */       
+        public void actionPerformed(ActionEvent a) {              
+               try{
+                   vInv.vaciarTabla();
+                   vInv.setVisible(false);
+                   vPrin.setVisible(true);
+                  
+               }catch(NumberFormatException ex){
+                   JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
+               }
+            }
+    }
+    
     /**
      * Clase Abstracta que captura el boton agregar Paciente de la clase Vista_Principal
     */
@@ -323,11 +347,20 @@ public class Controlador_Principal {
          */
         public void actionPerformed(ActionEvent a) {              
                try{
-                   vInv.setVisible(true);                  
+                   vInv.setVisible(true); 
+                   
+                   mMed.ConsultaInv(vInv.getTable());
+                   
+                   
+                   
                }catch(NumberFormatException ex){
                   // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
-               }
+               }catch (Exception ex) {
+                Logger.getLogger(Controlador_Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
     }
+    
+    
     
 }
