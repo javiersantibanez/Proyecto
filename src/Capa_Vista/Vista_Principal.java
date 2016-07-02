@@ -90,6 +90,25 @@ public class Vista_Principal extends javax.swing.JFrame {
         jButton9.addActionListener(escuchar);
     }
     
+    public void botonGenerar(ActionListener escuchar){         
+        jButton13.addActionListener(escuchar);
+    }
+    
+    public boolean seleccionInventario(){
+        return jCheckBox1.isSelected();
+    }
+    public boolean seleccionMermas(){
+        return jCheckBox2.isSelected();
+    }
+    public boolean seleccionESMedicamentos(){
+        return jCheckBox5.isSelected();
+    }
+    public boolean seleccionVencimiento(){
+        return jCheckBox3.isSelected();
+    }
+    public boolean seleccionConsumoMedicamentos(){
+        return jCheckBox4.isSelected();
+    }
     
     
     
