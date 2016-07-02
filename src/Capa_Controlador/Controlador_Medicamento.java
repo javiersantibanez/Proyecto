@@ -14,6 +14,7 @@ import Capa_Vista.Vista_Inventario;
 import Capa_Vista.Vista_Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,9 +68,12 @@ public class Controlador_Medicamento {
         this.vEditM.botonEditarM(new ActualizarMedicamento());
         this.vDelM.botonEliminarM(new EliminarMedicamento());
         this.vBusM.botonBuscarMedicamento(new BuscarMedicamento());
-        //this.vPrin.botonEntregarMedicamento(new EntregarMedicamento());
+        this.vPrin.escucharCombo(new buscarComp());
+        this.vPrin.botonEntregarMedicamento(new EntregaMedicamento());
         this.mMed.consultarMed( vPrin.getStock());
-        this.mMed.consultaMesDosis(vPrin.getCombo2());
+        this.vPrin.escucharCombo3(new buscarCantidad());
+        
+       
         
     }
     
@@ -248,7 +252,78 @@ public class Controlador_Medicamento {
             }
     }
   
+    class EntregaMedicamento implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   
+                   mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()),(vPrin.cantidadMED()));
+                   
+                   //limpiar texto
+                   
+               }catch(NumberFormatException ex){
+                        
+               } catch (SQLException ex) {
+                 Logger.getLogger(Controlador_Medicamento.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            }
+    }
     
     
+    class buscarComp implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   vPrin.getCombo2().setSelectedIndex(0);
+                   mMed.vaciarComboBox(vPrin.getCombo2());
+                   mMed.consultaMesDosis(vPrin.getCombo2(),vPrin.selectMedicamento());
+                   
+                   //limpiar texto
+                   
+               }catch(NumberFormatException ex){
+                        
+               }
+            }
+    }
+    
+    
+    class buscarCantidad implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   vPrin.getCombo3().setSelectedIndex(0);
+                   mMed.vaciarComboBox(vPrin.getCombo3());
+                   mMed.cantidadMedicamento(vPrin.getCombo3(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()));
+                   
+                   //limpiar texto
+                   
+               }catch(NumberFormatException ex){
+                        
+               } catch (SQLException ex) {
+                 Logger.getLogger(Controlador_Medicamento.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            }
+    }
     
 }

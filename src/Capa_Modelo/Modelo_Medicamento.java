@@ -167,7 +167,7 @@ public class Modelo_Medicamento {
         }
     }
     
-    public void EntregarMedicamento(int rutPaciente, int nSerie){
+    public void EntregarMedicamento(int rutPaciente, int id,String cantidad){
         
         PreparedStatement act;
         Statement sentencia;
@@ -180,9 +180,9 @@ public class Modelo_Medicamento {
             java.sql.Date fecha = new java.sql.Date(d);
             
           
-            
+            int cant = Integer.valueOf(cantidad);
             sentencia = con.createStatement();
-            sentencia.executeUpdate("INSERT INTO MedicinaPaciente VALUES ("+rutPaciente+","+""+nSerie+","+""+1+","+
+            sentencia.executeUpdate("INSERT INTO MedicinaPaciente VALUES ("+rutPaciente+","+""+id+","+"'"+cant+"',"+
                                     "'"+fecha+"')");
             
             JOptionPane.showMessageDialog(null, "Entrega registrada con exito");
@@ -249,14 +249,14 @@ public class Modelo_Medicamento {
          }     
     }
     
-    public void consultaMesDosis(JComboBox combox){
+    public void consultaMesDosis(JComboBox combox,String nombre){
         
         Statement sentencia;
             try {
              
              con =ConexionDB.GetConnection();
              sentencia = con.createStatement();
-             res = sentencia.executeQuery ("SELECT Composicion FROM Medicamento");
+             res = sentencia.executeQuery ("SELECT Composicion FROM Medicamento WHERE Nombre ='"+nombre+"'");
 
             while(res.next()){
                String aux = res.getString("Composicion");
@@ -268,7 +268,63 @@ public class Modelo_Medicamento {
              
          }     
     }
+     
+    public void vaciarComboBox(JComboBox combox){
+        int itemCount = combox.getItemCount();
+
+        for(int i=1;i<itemCount;i++){
+            combox.removeItemAt(1);
+         }
+    }
+    
+    public int obtenerID( String nombre, String dosis) throws SQLException{
         
+            Statement sentencia,sentencia2,sentencia3;
+            String aux="",aux2="",aux3="";
+            
+            con =ConexionDB.GetConnection();
+            sentencia = con.createStatement();
+            sentencia2 = con.createStatement();
+            sentencia3 = con.createStatement();
+            
+            res = sentencia2.executeQuery ("SELECT Nombre,Composicion FROM Medicamento WHERE Nombre = '"+nombre+"' and Composicion = '"+dosis+"'");
+            
+            while(res.next()){
+                aux = res.getString("Nombre");
+                aux2 = res.getString("Composicion");
+            }
+
+            
+            res2 =  sentencia3.executeQuery("SELECT ID_Medicamento FROM Medicamento WHERE Nombre='"+aux+"' and Composicion= '"+aux2+"'" );
+            
+            while(res2.next()){
+                 aux3 = res2.getString("ID_Medicamento");
+            }
+     return Integer.parseInt(aux3);       
+    }
+    
+    public void cantidadMedicamento(JComboBox combox, int id){
+         Statement sentencia;
+            try {
+             
+             con =ConexionDB.GetConnection();
+             sentencia = con.createStatement();
+             res = sentencia.executeQuery ("SELECT Cantidad FROM Inventario WHERE ID_Medicamento = "+id+"");
+
+            while(res.next()){
+               String aux = res.getString("Cantidad");
+               for(int i=1;i <= Integer.parseInt(aux);i++){
+                   combox.addItem(i);
+               }
+            }
+            con.close();
+            } catch (Exception e) {
+             System.out.println("ERROR: failed to load HSQLDB JDBC driver.");
+             
+         }     
+        
+    }
+    
 }
 
 
