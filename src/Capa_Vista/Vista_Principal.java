@@ -24,6 +24,8 @@ public class Vista_Principal extends javax.swing.JFrame {
     public void limpiar(){
         jTextField4.setText("");
         jTextField5.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
     }
 
     public int getRut(){
@@ -33,8 +35,8 @@ public class Vista_Principal extends javax.swing.JFrame {
         return Integer.parseInt(jTextField2.getText());
     }
     
-    public int getIdDosis(){
-        return Integer.parseInt(jTextField4.getText());
+    public int getIDMedicamento(){
+        return Integer.parseInt(jTextField3.getText());
     }
     
     
@@ -88,6 +90,25 @@ public class Vista_Principal extends javax.swing.JFrame {
         jButton9.addActionListener(escuchar);
     }
     
+    public void botonGenerar(ActionListener escuchar){         
+        jButton13.addActionListener(escuchar);
+    }
+    
+    public boolean seleccionInventario(){
+        return jCheckBox1.isSelected();
+    }
+    public boolean seleccionMermas(){
+        return jCheckBox2.isSelected();
+    }
+    public boolean seleccionESMedicamentos(){
+        return jCheckBox5.isSelected();
+    }
+    public boolean seleccionVencimiento(){
+        return jCheckBox3.isSelected();
+    }
+    public boolean seleccionConsumoMedicamentos(){
+        return jCheckBox4.isSelected();
+    }
     
     
     

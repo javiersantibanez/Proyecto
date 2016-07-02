@@ -249,14 +249,15 @@ public class Controlador_Medicamento {
     class EntregarMedicamento implements ActionListener{
         
         
+        @Override
         public void actionPerformed(ActionEvent a){
             try{
-                System.out.println("Mandando a modelo");
-                mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(), vPrin.getIdDosis());
-                System.out.println("Regresando de modelo");
                 
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(vPrin, "Error al entregar el medicamento");
+                mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(), vPrin.getIDMedicamento());
+                vPrin.limpiar();
+                
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }
