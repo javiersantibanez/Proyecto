@@ -10,6 +10,7 @@ import Capa_Vista.Vista_AgregarM;
 import Capa_Vista.Vista_BuscarM;
 import Capa_Vista.Vista_EditarM;
 import Capa_Vista.Vista_EliminarM;
+import Capa_Vista.Vista_Inventario;
 import Capa_Vista.Vista_Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ public class Controlador_Medicamento {
     private Vista_EliminarM vDelM;
     private Vista_BuscarM vBusM;    
     private Vista_Principal vPrin;
+    
     /**
      * objeto de la capa modelo
      */
@@ -48,7 +50,7 @@ public class Controlador_Medicamento {
      * @param mMed objeto del modelo medicamento
      * @param vBusM  objeto de la vista buscar medicamento
      */
-    public Controlador_Medicamento(Vista_Principal vPrin, Vista_AgregarM vAddM, Vista_EditarM vEditM, Vista_EliminarM vDelM,Modelo_Medicamento mMed, Vista_BuscarM vBusM ){
+    public Controlador_Medicamento(Vista_Principal vPrin, Vista_AgregarM vAddM, Vista_EditarM vEditM, Vista_EliminarM vDelM,Modelo_Medicamento mMed, Vista_BuscarM vBusM){
         this.vPrin = vPrin;
         this.vAddM = vAddM;
         this.vEditM = vEditM;
@@ -66,6 +68,7 @@ public class Controlador_Medicamento {
         this.vDelM.botonEliminarM(new EliminarMedicamento());
         this.vBusM.botonBuscarMedicamento(new BuscarMedicamento());
         this.vPrin.botonEntregarMedicamento(new EntregarMedicamento());
+        
     }
     
     /**

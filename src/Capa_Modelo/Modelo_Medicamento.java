@@ -11,9 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
+import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -185,7 +189,31 @@ public class Modelo_Medicamento {
         
     }
 
-    
+    public void ConsultaInv(JTable tabla)throws Exception{
+        
+        PreparedStatement ps;
+        ResultSetMetaData rsm;
+        DefaultTableModel dtm;
+        
+        con=ConexionDB.GetConnection();
+        ps = con.prepareStatement("SELECT * FROM Medicamento");
+        res=ps.executeQuery();
+        rsm=res.getMetaData();
+        ArrayList<Object[]> datos=new ArrayList<>();
+        while (res.next()) {            
+            Object[] filas=new Object[rsm.getColumnCount()];
+            for (int i = 0; i < filas.length; i++) {
+                filas[i]=res.getObject(i+1);
+                
+            }
+            datos.add(filas);
+        }
+        dtm=(DefaultTableModel)tabla.getModel();
+        for (int i = 0; i <datos.size(); i++) {
+            dtm.addRow(datos.get(i));
+        }
+    }
+        
 }
 
 
