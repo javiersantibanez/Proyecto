@@ -88,8 +88,25 @@ public class Vista_Principal extends javax.swing.JFrame {
         jButton9.addActionListener(escuchar);
     }
     
+    public void botonGenerar(ActionListener escuchar){         
+        jButton13.addActionListener(escuchar);
+    }
     
-    
+    public boolean seleccionInventario(){
+        return jCheckBox1.isSelected();
+    }
+    public boolean seleccionMermas(){
+        return jCheckBox2.isSelected();
+    }
+    public boolean seleccionESMedicamentos(){
+        return jCheckBox5.isSelected();
+    }
+    public boolean seleccionVencimiento(){
+        return jCheckBox3.isSelected();
+    }
+    public boolean seleccionConsumoMedicamentos(){
+        return jCheckBox4.isSelected();
+    }
     
 
     /**
@@ -141,7 +158,6 @@ public class Vista_Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(320, 150));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Rut del Paciente:");
@@ -396,7 +412,7 @@ public class Vista_Principal extends javax.swing.JFrame {
         });
 
         jButton13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton13.setText("Aceptar");
+        jButton13.setText("Generar");
 
         jCheckBox4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jCheckBox4.setText("Consumo de Medicamentos");
