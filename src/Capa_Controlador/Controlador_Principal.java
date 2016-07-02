@@ -98,6 +98,7 @@ public class Controlador_Principal {
         this.vPrin.botonBuscarMedicamento(new BuscarMed());
         //Captura los botones de la vista inventario
         this.vPrin.botonVerInventario(new VerInventario());
+        
     }
    
     /**
@@ -329,5 +330,7 @@ public class Controlador_Principal {
                }
             }
     }
+    
+    
     
 }

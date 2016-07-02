@@ -13,6 +13,11 @@ import Capa_Vista.Vista_EliminarM;
 import Capa_Vista.Vista_Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,6 +65,7 @@ public class Controlador_Medicamento {
         this.vEditM.botonEditarM(new ActualizarMedicamento());
         this.vDelM.botonEliminarM(new EliminarMedicamento());
         this.vBusM.botonBuscarMedicamento(new BuscarMedicamento());
+        this.vPrin.botonEntregarMedicamento(new EntregarMedicamento());
     }
     
     /**
@@ -106,7 +112,7 @@ public class Controlador_Medicamento {
                    vAddM.setVisible(false);
                    
                }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(null, "Error al ingresar el medicamento");
+                   JOptionPane.showMessageDialog(null, ex);
                }
             }
     }
@@ -120,9 +126,18 @@ public class Controlador_Medicamento {
          * Este método ...
          */
         
-         public void setDatosMedicamento(String [] aux){
+         public void setDatosMedicamento(String [] aux) throws ParseException{
             
-             vEditM.setDatos(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5], aux[6], aux[7]);
+             SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha_aux;
+            Date fecha_aux2;
+            Date fecha_aux3;
+            fecha_aux= fecha.parse(aux[4]);
+            fecha_aux2= fecha.parse(aux[5]);
+            fecha_aux3= fecha.parse(aux[6]);
+            
+             
+             vEditM.setDatos(aux[0], aux[1], aux[2], aux[3], fecha_aux, fecha_aux2, fecha_aux3, aux[7]);
              
         }
          @Override
@@ -141,7 +156,9 @@ public class Controlador_Medicamento {
                    
                }catch(NumberFormatException ex){
                         
-               }
+               } catch (ParseException ex) {
+                 Logger.getLogger(Controlador_Medicamento.class.getName()).log(Level.SEVERE, null, ex);
+             }
             }
     }
      
@@ -226,4 +243,18 @@ public class Controlador_Medicamento {
             }
     }
   
+    class EntregarMedicamento implements ActionListener{
+        
+        
+        public void actionPerformed(ActionEvent a){
+            try{
+                System.out.println("Mandando a modelo");
+                mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(), vPrin.getIdDosis());
+                System.out.println("Regresando de modelo");
+                
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(vPrin, "Error al entregar el medicamento");
+            }
+        }
+    }
 }

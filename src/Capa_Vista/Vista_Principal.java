@@ -21,8 +21,29 @@ public class Vista_Principal extends javax.swing.JFrame {
     public Vista_Principal() {
         initComponents();
     }
+    public void limpiar(){
+        jTextField4.setText("");
+        jTextField5.setText("");
+    }
+
+    public int getRut(){
+        return Integer.parseInt(jTextField5.getText());
+    }
+    public int getRutEntregarMedicamento(){
+        return Integer.parseInt(jTextField2.getText());
+    }
+    
+    public int getIdDosis(){
+        return Integer.parseInt(jTextField4.getText());
+    }
     
     
+    public void botonEntregarDosis(ActionListener escuchar){         
+        jButton12.addActionListener(escuchar);
+    }
+    public void botonEntregarMedicamento(ActionListener escuchar){
+        jButton8.addActionListener(escuchar);
+    }
     
     public void botonIngresarPaciente(ActionListener escuchar){         
         jButton6.addActionListener(escuchar);

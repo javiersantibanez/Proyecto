@@ -16,6 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,6 +68,7 @@ public class Controlador_DosisUnitaria {
         this.vEditDU.botonEditarDU(new ActualizarDosisUnitaria());
         this.vDelDU.botonEliminarDosisU(new EliminarDosisUnitaria() );
         this.vBusDU.botonBuscarDU(new BuscarDU());
+        this.vPrin.botonEntregarDosis(new EntregarDosisUnitaria());
     }
     /**
      * Clase Abstracta que captura el boton Atras de las vistas Vista_AgregarDU, Vista_EditarDU y Vista_EliminarDU
@@ -139,9 +143,23 @@ public class Controlador_DosisUnitaria {
         /**
          * Este método ...
          */
-        public void setDatosPaciente (String [] aux){
+        public void setDatosDU (String [] aux) throws ParseException{
+            int index; 
+            SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha_aux;
+            Date fecha_aux2;
+            Date fecha_aux3;
+            fecha_aux= fecha.parse(aux[1]);
+            fecha_aux2= fecha.parse(aux[2]);
+            fecha_aux3= fecha.parse(aux[3]);
+                       
+            if(aux[4].equalsIgnoreCase("Disponible")){
+                index =1;
+            }else{
+                index=2;
+            }
             
-            vEditDU.setDatos(aux[0],aux[1],aux[2],aux[3]);
+            vEditDU.setDatos(aux[0],fecha_aux,fecha_aux2,fecha_aux3,index);
             
             
         }
@@ -150,7 +168,7 @@ public class Controlador_DosisUnitaria {
             String [] datos = new String[9]; 
             try{
                //realiza la consulta a db y set datos en vista
-               setDatosPaciente (mDU.ConsultaDosisUnitaria(vEditDU.getIDdosis()));
+               setDatosDU (mDU.ConsultaDosisUnitaria(vEditDU.getIDdosis()));
 
 
 
@@ -160,6 +178,8 @@ public class Controlador_DosisUnitaria {
             }
             catch(NumberFormatException ex){
                JOptionPane.showMessageDialog(null, "Error al realizar la consulta");
+            } catch (ParseException ex) {
+                Logger.getLogger(Controlador_DosisUnitaria.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -173,19 +193,24 @@ public class Controlador_DosisUnitaria {
        
         public void actionPerformed(ActionEvent a) {
               
-               try{
-                   //enviar a modelo
-                   mDU.ActualizarDosisUnitaria(vEditDU.getIDdosis(), vEditDU.getRut(),vEditDU.getElaboracion(),vEditDU.getVencimiento(),vEditDU.getEntrega());
-                   //limpiar texto
-                   vEditDU.limpiarTextField();
-                   
-                   
-                   vEditDU.setVisible(false);
-                   
-               }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(null, "Error al actualizar los datos de la dosis unitaria");
-               }
+           if (vEditDU.getStock().equalsIgnoreCase("Selecciona estado")==true) {
+               JOptionPane.showMessageDialog(null, "Selecciona un estado del stock");
             }
+            else{
+                try{
+                 mDU.ActualizarDosisUnitaria(vEditDU.getIDdosis(), vEditDU.getRut(),vEditDU.getElaboracion(),vEditDU.getVencimiento(),vEditDU.getLlegada(), vEditDU.getStock());
+                 //limpiar texto
+
+                 vEditDU.limpiarTextField();
+
+                 
+                 vEditDU.setVisible(false);
+
+                 }catch(NumberFormatException ex){
+                     JOptionPane.showMessageDialog(null, "Error al actualizar los datos de la dosis unitaria");
+                 }                           
+            }
+        }
     }
    
     class EliminarDosisUnitaria implements ActionListener{
@@ -207,5 +232,28 @@ public class Controlador_DosisUnitaria {
         }
     }
    
-   
+    class EntregarDosisUnitaria implements ActionListener{
+        @Override
+        /**
+         * Este método ...
+         */
+        
+       
+        public void actionPerformed(ActionEvent a) {
+              
+           
+           
+                try{
+                 mDU.EntregarDosisUnitaria(vPrin.getRut(), vPrin.getIdDosis());
+                 //limpiar texto
+                 
+                 vPrin.limpiar();
+                 
+
+
+                 }catch(NumberFormatException ex){
+                     JOptionPane.showMessageDialog(null, "Error al entregar la dosis unitaria");
+                 }                           
+            }
+        }
 }
