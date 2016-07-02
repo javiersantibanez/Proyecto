@@ -12,12 +12,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 import java.sql.ResultSetMetaData;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -160,30 +160,25 @@ public class Modelo_Medicamento {
     public void EntregarMedicamento(int rutPaciente, int nSerie){
         
         PreparedStatement act;
+        Statement sentencia;
         
         try {
             con = ConexionDB.GetConnection();
             
-            Calendar fecha = new GregorianCalendar();
-            int año = fecha.get(Calendar.YEAR);
-            int mes = fecha.get(Calendar.MONTH);
-            int dia = fecha.get(Calendar.DAY_OF_MONTH);
-            String fechaEntrega = (año+"-"+mes+"-"+dia);
+            java.util.Date a = new java.util.Date();            
+            long d = a.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
             
-            System.out.println("Ejecutando consulta");
-            act = con.prepareStatement("INSERT INTO MedicinaPaciente (Rut_Paciente, ID_Medicamento, Cantidad, FechaEntrega) "
-                                     + "VALUES (?,?,?,?)");
+          
             
-            act.setInt(1, rutPaciente);
-            act.setInt(2,nSerie);
-            act.setInt(3, 1);
-            act.setString(3,fechaEntrega);
+            sentencia = con.createStatement();
+            sentencia.executeUpdate("INSERT INTO MedicinaPaciente VALUES ("+rutPaciente+","+""+nSerie+","+""+1+","+
+                                    "'"+fecha+"')");
             
-            act.close();
-            System.out.println("Consulta ejecutada");
+            JOptionPane.showMessageDialog(null, "Entrega registrada con exito");
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error al entregar el medicamento");
+            JOptionPane.showMessageDialog(null,e);
         }
         
         
@@ -191,23 +186,33 @@ public class Modelo_Medicamento {
 
     public void ConsultaInv(JTable tabla)throws Exception{
         
-        PreparedStatement ps;
-        ResultSetMetaData rsm;
+        PreparedStatement ps,ps2;
+        ResultSetMetaData rsm,rsm2;
         DefaultTableModel dtm;
         
         con=ConexionDB.GetConnection();
-        ps = con.prepareStatement("SELECT * FROM Medicamento");
+        ps = con.prepareStatement("select Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Composicion ,count(Nombre)  AS Total from Medicamento \n" +
+                                  "GROUP BY Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Composicion");
+        
         res=ps.executeQuery();
+        
         rsm=res.getMetaData();
+        
         ArrayList<Object[]> datos=new ArrayList<>();
         while (res.next()) {            
-            Object[] filas=new Object[rsm.getColumnCount()];
-            for (int i = 0; i < filas.length; i++) {
-                filas[i]=res.getObject(i+1);
-                
-            }
+            Object[] filas=new Object[6];
+            filas[0] = res.getObject(1);
+            filas[1] = res.getObject(2);
+            filas[2] = res.getObject(3);
+            filas[3] = res.getObject(4);
+            filas[4] = res.getObject(5);
+            filas[5] = res.getObject(6);
+            
             datos.add(filas);
         }
+        
+       
+        
         dtm=(DefaultTableModel)tabla.getModel();
         for (int i = 0; i <datos.size(); i++) {
             dtm.addRow(datos.get(i));

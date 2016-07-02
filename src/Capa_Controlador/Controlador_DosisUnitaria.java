@@ -244,7 +244,7 @@ public class Controlador_DosisUnitaria {
            
            
                 try{
-                 mDU.EntregarDosisUnitaria(vPrin.getRut(), vPrin.getIdDosis());
+                 mDU.EntregarDosisUnitaria(vPrin.getRut(), vPrin.getIDMedicamento());
                  //limpiar texto
                  
                  vPrin.limpiar();

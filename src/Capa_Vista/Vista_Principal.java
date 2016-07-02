@@ -24,6 +24,8 @@ public class Vista_Principal extends javax.swing.JFrame {
     public void limpiar(){
         jTextField4.setText("");
         jTextField5.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
     }
 
     public int getRut(){
@@ -33,8 +35,8 @@ public class Vista_Principal extends javax.swing.JFrame {
         return Integer.parseInt(jTextField2.getText());
     }
     
-    public int getIdDosis(){
-        return Integer.parseInt(jTextField4.getText());
+    public int getIDMedicamento(){
+        return Integer.parseInt(jTextField3.getText());
     }
     
     
