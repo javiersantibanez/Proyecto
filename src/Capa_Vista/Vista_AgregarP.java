@@ -147,6 +147,8 @@ public class Vista_AgregarP extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jTextField17 = new javax.swing.JTextField();
 
+        setLocation(new java.awt.Point(250, 90));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 1, 40)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setText("FarmAD");
@@ -168,7 +170,6 @@ public class Vista_AgregarP extends javax.swing.JFrame {
 
         jLabel11.setText("Departamento:");
 
-        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField1FocusGained(evt);
