@@ -180,7 +180,7 @@ public class Modelo_Medicamento {
             java.sql.Date fecha = new java.sql.Date(d);
             
           
-            int cant = Integer.valueOf(cantidad);
+            int cant = Integer.parseInt(cantidad);
             sentencia = con.createStatement();
             sentencia.executeUpdate("INSERT INTO MedicinaPaciente VALUES ("+rutPaciente+","+""+id+","+"'"+cant+"',"+
                                     "'"+fecha+"')");

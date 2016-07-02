@@ -35,6 +35,9 @@ public class Vista_Principal extends javax.swing.JFrame {
     public int getRutEntregarMedicamento(){
         return Integer.parseInt(jTextField2.getText());
     }
+    public int getIdDU(){
+        return Integer.parseInt(jTextField4.getText());
+    }
     
     public JComboBox getStock(){
         return  jComboBox1;
@@ -64,7 +67,7 @@ public class Vista_Principal extends javax.swing.JFrame {
     } 
     
     public String cantidadMED(){
-        return (String) jComboBox3.getSelectedItem();
+        return jComboBox3.getSelectedItem().toString();
     }
     
  
