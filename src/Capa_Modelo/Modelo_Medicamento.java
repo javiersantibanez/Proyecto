@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -34,38 +35,42 @@ public class Modelo_Medicamento {
 
 
     public void IngresarMedicamento(int nSerie,String nombre,String pActivo, String lab, String vAdmin,
-                                    Date elab, Date venc, Date llegada, String comp){
+                                    Date elab, Date venc, Date llegada, String comp, int cantidad){
         
-        Statement sentencia;
+        Statement sentencia,sentencia2;
           
           try{
                 
             con = ConexionDB.GetConnection();
             sentencia =con.createStatement();
+            sentencia2 = con.createStatement();
+            
+            
             sentencia.executeUpdate("INSERT INTO Medicamento VALUES ("+nSerie+","+"'"+nombre+"',"+"'"+pActivo+"',"+
                                  "'"+lab+"',"+"'"+vAdmin+"',"+"'"+elab+"',"+
-                                 "'"+venc+"',"+"'"+llegada+"',"+"'"+comp+"','Disponible')");
+                                 "'"+venc+"',"+"'"+llegada+"',"+"'"+comp+"')");
                                    
+            sentencia2.executeUpdate("INSERT INTO Inventario VALUES("+nSerie+","+""+cantidad+",10,50)");
 
 
-
-             JOptionPane.showMessageDialog(null,"El medicamento  ha sido ingresado exitosamente ");                 
+             JOptionPane.showMessageDialog(null,"El lote de  medicamentos  ha sido ingresado exitosamente ");                 
              con.close();
         }
-        catch(SQLException e){JOptionPane.showMessageDialog(null,"Error al ingresar el medicamento");}
+        catch(SQLException e){JOptionPane.showMessageDialog(null,"Error al ingresar el lote de medicamentos");}
         
   }
 
     
     public String [] ConsultaMedicamento(int nSerie){
-        Statement sentencia;
+        Statement sentencia,sentencia2;
         String [] datos = new String[10]; 
         try
             {
                 con=ConexionDB.GetConnection();
                 sentencia=con.createStatement();
+                sentencia2=con.createStatement();
                 res=sentencia.executeQuery("SELECT * FROM Medicamento WHERE ID_Medicamento = "+nSerie+"");
-                
+                res2=sentencia2.executeQuery("SELECT Cantidad FROM Inventario WHERE ID_Medicamento ="+nSerie+"");
                 
                 while (res.next()) {
                     
@@ -78,15 +83,19 @@ public class Modelo_Medicamento {
                     datos[5] = res.getString("FechaVencimiento");
                     datos[6] = res.getString("FechaLlegada");
                     datos[7] = res.getString("Composicion");
-                    datos[8] = res.getString("Disponible");
-                    datos[9] = Integer.toString(res.getInt("ID_Medicamento"));
+                    datos[8] = Integer.toString(res.getInt("ID_Medicamento"));
+                }
+                
+                while(res2.next()){
                     
+                    datos[9]= Integer.toString(res2.getInt("Cantidad"));
                     
                 }
+                
                 if(datos[0] ==null ){
                     JOptionPane.showMessageDialog(null, "El medicamento no existe en la base de datos");
                 }
-            
+                
             }
                
                 
@@ -99,17 +108,17 @@ public class Modelo_Medicamento {
     
     
     public void ActualizarMedicamento(int nSerie,String nombre,String pActivo, String lab, String vAdmin,
-                                    Date elab, Date venc, Date llegada, String comp){
+                                    Date elab, Date venc, Date llegada, String comp, int cantidad){
          
         
-          PreparedStatement act;
+          PreparedStatement act,act2;
          try
          {
             act = con.prepareStatement("UPDATE Medicamento  SET Nombre = ?,PrincipioActivo = ?,Laboratorio = ?,ViaAdministracion= ?,"
                                         + "FechaElaboracion= ?, FechaVencimiento= ?,FechaLlegada= ? ,Composicion= ? "
                                         + "WHERE ID_Medicamento = "+nSerie+"");
             
-            
+            act2 = con.prepareStatement("UPDATE Inventario SET Cantidad=?");
             
             act.setString(1, nombre);
             act.setString(2, pActivo);
@@ -119,7 +128,8 @@ public class Modelo_Medicamento {
             act.setDate(6, venc);
             act.setDate(7, llegada);
             act.setString(8, comp);
-            
+            act2.setInt(1, cantidad);
+            act2.executeUpdate();
             act.executeUpdate();
             act.close();
             
@@ -217,6 +227,46 @@ public class Modelo_Medicamento {
         for (int i = 0; i <datos.size(); i++) {
             dtm.addRow(datos.get(i));
         }
+    }
+    
+    public void consultarMed(JComboBox combox){
+        
+        Statement sentencia;
+            try {
+             
+             con =ConexionDB.GetConnection();
+             sentencia = con.createStatement();
+             res = sentencia.executeQuery ("SELECT Nombre FROM Medicamento");
+
+            while(res.next()){
+               String aux = res.getString("Nombre");
+               combox.addItem(aux);
+            }
+            con.close();
+            } catch (Exception e) {
+             System.out.println("ERROR: failed to load HSQLDB JDBC driver.");
+             
+         }     
+    }
+    
+    public void consultaMesDosis(JComboBox combox){
+        
+        Statement sentencia;
+            try {
+             
+             con =ConexionDB.GetConnection();
+             sentencia = con.createStatement();
+             res = sentencia.executeQuery ("SELECT Composicion FROM Medicamento");
+
+            while(res.next()){
+               String aux = res.getString("Composicion");
+               combox.addItem(aux);
+            }
+            con.close();
+            } catch (Exception e) {
+             System.out.println("ERROR: failed to load HSQLDB JDBC driver.");
+             
+         }     
     }
         
 }
