@@ -265,7 +265,7 @@ public class Controlador_Medicamento {
                    //enviar a modelo y set dato
                    
                    mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()),(vPrin.cantidadMED()));
-                   
+                   mMed.GenerarAlertaMedicamento(10); //HAY QUE HACER QUE RECIBA EL ID 
                    //limpiar texto
                    
                }catch(NumberFormatException ex){
@@ -299,9 +299,7 @@ public class Controlador_Medicamento {
                }
             }
     }
-    
-    
-    class buscarCantidad implements ActionListener{
+        class buscarCantidad implements ActionListener{
         
         /**
          * Este método ...
@@ -325,5 +323,7 @@ public class Controlador_Medicamento {
              }
             }
     }
+    
+
     
 }

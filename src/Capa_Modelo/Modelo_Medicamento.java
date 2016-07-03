@@ -111,7 +111,7 @@ public class Modelo_Medicamento {
                                     Date elab, Date venc, Date llegada, String comp, int cantidad){
          
         
-          PreparedStatement act,act2;
+         PreparedStatement act,act2;
          try
          {
             act = con.prepareStatement("UPDATE Medicamento  SET Nombre = ?,PrincipioActivo = ?,Laboratorio = ?,ViaAdministracion= ?,"
@@ -170,7 +170,7 @@ public class Modelo_Medicamento {
     public void EntregarMedicamento(int rutPaciente, int id,String cantidad){
         
         PreparedStatement act;
-        Statement sentencia;
+        Statement sentencia,s2;
         
         try {
             con = ConexionDB.GetConnection();
@@ -184,6 +184,10 @@ public class Modelo_Medicamento {
             sentencia = con.createStatement();
             sentencia.executeUpdate("INSERT INTO MedicinaPaciente VALUES ("+rutPaciente+","+""+id+","+"'"+cant+"',"+
                                     "'"+fecha+"')");
+            s2 = con.createStatement();
+            //s2.executeUpdate("UPDATE Inventario")
+            
+            //HAY QUE HACER QUE RESTE DE Lo que se ingresa a MedicinaPaciente
             
             JOptionPane.showMessageDialog(null, "Entrega registrada con exito");
             
@@ -191,6 +195,38 @@ public class Modelo_Medicamento {
             JOptionPane.showMessageDialog(null,e);
         }
         
+        
+    }
+    
+    public void GenerarAlertaMedicamento(int id) throws SQLException{
+       Statement sentencia,sentencia2;
+        String cantidad = null;
+        try {
+                con=ConexionDB.GetConnection();
+                sentencia2=con.createStatement();
+                res2=sentencia2.executeQuery("SELECT Cantidad FROM Inventario WHERE ID_Medicamento ="+id);
+                
+               
+                
+                
+                while(res2.next()){
+                    
+                   cantidad= Integer.toString(res2.getInt("Cantidad"));
+                    
+                }
+                if(Integer.parseInt(cantidad)<10){
+                    JOptionPane.showMessageDialog(null, "Stock por quebrar");
+                }
+                
+                if(cantidad ==null ){
+                    JOptionPane.showMessageDialog(null, "El medicamento no existe en la base de datos");
+                }
+                
+            }                             
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null,e);}
+                
+     
         
     }
 
