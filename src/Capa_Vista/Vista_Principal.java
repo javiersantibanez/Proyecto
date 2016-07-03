@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import java.lang.String;
 /**
  *
  * @author Javier Santibañez
@@ -23,7 +23,7 @@ public class Vista_Principal extends javax.swing.JFrame {
         initComponents();
     }
     public void limpiar(){
-        jTextField4.setText("");
+        
         jTextField5.setText("");
         jTextField2.setText("");
         
@@ -48,11 +48,11 @@ public class Vista_Principal extends javax.swing.JFrame {
         jComboBox2.addActionListener(escuchar);
     }
     public String selectMedicamento(){
-        return (String) jComboBox1.getSelectedItem();
+        return  jComboBox1.getSelectedItem().toString();
     }
     
     public String selectDosis(){
-        return (String) jComboBox2.getSelectedItem();
+        return  jComboBox2.getSelectedItem().toString();
     }
      
     public JComboBox getCombo2(){
@@ -64,7 +64,7 @@ public class Vista_Principal extends javax.swing.JFrame {
     } 
     
     public String cantidadMED(){
-        return (String) jComboBox3.getSelectedItem();
+        return  jComboBox3.getSelectedItem().toString();
     }
     
  
@@ -73,6 +73,7 @@ public class Vista_Principal extends javax.swing.JFrame {
         this.jComboBox2 = aux;
         
     }
+
     
     public void botonEntregarDosis(ActionListener escuchar){         
         jButton12.addActionListener(escuchar);
@@ -193,8 +194,6 @@ public class Vista_Principal extends javax.swing.JFrame {
         jCheckBox5 = new javax.swing.JCheckBox();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jButton12 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -542,9 +541,6 @@ public class Vista_Principal extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Rut del Paciente:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Identificador de dosis:");
-
         jButton12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton12.setText("Aceptar");
 
@@ -553,35 +549,23 @@ public class Vista_Principal extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                .addGap(167, 167, 167)
+                .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(jTextField5))
-                .addGap(66, 66, 66)
+                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addGap(65, 65, 65)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(106, 106, 106))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addGap(128, 128, 128)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Entrega Dosis Unitaria", jPanel6);
@@ -732,7 +716,6 @@ public class Vista_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -742,7 +725,6 @@ public class Vista_Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

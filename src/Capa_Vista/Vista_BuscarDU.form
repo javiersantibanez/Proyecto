@@ -90,7 +90,7 @@
                 <Column editable="false" title="Fecha Elab" type="java.lang.Object"/>
                 <Column editable="false" title="Fecha Venc" type="java.lang.Object"/>
                 <Column editable="false" title="Fecha Entrega" type="java.lang.Object"/>
-                <Column editable="true" title="Disponible" type="java.lang.Object"/>
+                <Column editable="true" title="Estado" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

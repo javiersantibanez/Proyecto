@@ -45,7 +45,7 @@ public class Modelo_DosisUnitaria {
             con = ConexionDB.GetConnection();
             sentencia =con.createStatement();
             sentencia.executeUpdate("INSERT INTO Dosis_Unitaria VALUES ("+rut+","+"'"+elab+"',"+
-                                     "'"+venc+"',"+"'"+entrega+"','Disponible')");
+                                     "'"+venc+"',"+"'"+entrega+"','No entregada')");
 
 
              JOptionPane.showMessageDialog(null,"La dosis unitaria  ha sido ingresado exitosamente ");                 
@@ -167,17 +167,24 @@ public class Modelo_DosisUnitaria {
     }
     
     
-    public void EntregarDosisUnitaria(int rut, int idDosis){
+    public void EntregarDosisUnitaria(int rut){
         PreparedStatement act;
+        
+        
+        java.util.Date a = new java.util.Date();            
+        long d = a.getTime();
+        java.sql.Date fecha = new java.sql.Date(d);
+            
          try
-         {
+         { 
+            
             con = ConexionDB.GetConnection();
             act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Disponible = ? "
-                                        + "WHERE ID_Dosis = "+idDosis+" and Rut_Paciente = " +rut+"");
+                                        + "WHERE FechaEntrega = '"+fecha+"' and Rut_Paciente = " +rut+"");
             
             
        
-            act.setString(1, "No Disponible");
+            act.setString(1, "Entregada");
            
             
             

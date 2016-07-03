@@ -382,10 +382,10 @@ public class Controlador_Principal {
                try{
                    
                    if(vPrin.seleccionInventario())mRep.generarReporteInventario();
-                   if(vPrin.seleccionConsumoMedicamentos())System.out.println("consumo");
-                   if(vPrin.seleccionESMedicamentos())System.out.println("e s medicamentos");
+                   if(vPrin.seleccionConsumoMedicamentos())mRep.generarReporteConsumoMedicamentos();
+                   if(vPrin.seleccionESMedicamentos())mRep.generarReporteESMedicamentos();
                    if(vPrin.seleccionMermas())System.out.println("mermas");
-                   if(vPrin.seleccionVencimiento())System.out.println("vencimiento");
+                   if(vPrin.seleccionVencimiento())mRep.generarReporteVencimiento();
                    System.out.println("");
                    
                    

@@ -267,7 +267,10 @@ public class Controlador_Medicamento {
                    mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()),(vPrin.cantidadMED()));
                    
                    //limpiar texto
-                   
+                   vPrin.getStock().setSelectedIndex(0);
+                   vPrin.getCombo2().setSelectedIndex(0);
+                   vPrin.getCombo3().setSelectedIndex(0);
+                   vPrin.limpiar();
                }catch(NumberFormatException ex){
                         
                } catch (SQLException ex) {

@@ -169,8 +169,8 @@ public class Modelo_Medicamento {
     
     public void EntregarMedicamento(int rutPaciente, int id,String cantidad){
         
-        PreparedStatement act;
-        Statement sentencia;
+        
+        Statement sentencia,sentencia2;
         
         try {
             con = ConexionDB.GetConnection();
@@ -184,6 +184,9 @@ public class Modelo_Medicamento {
             sentencia = con.createStatement();
             sentencia.executeUpdate("INSERT INTO MedicinaPaciente VALUES ("+rutPaciente+","+""+id+","+"'"+cant+"',"+
                                     "'"+fecha+"')");
+            
+            sentencia2 = con.createStatement();
+            sentencia2.executeUpdate("UPDATE Inventario SET Cantidad = Cantidad -"+cant+"WHERE ID_Medicamento ="+id+"");
             
             JOptionPane.showMessageDialog(null, "Entrega registrada con exito");
             
@@ -201,8 +204,8 @@ public class Modelo_Medicamento {
         DefaultTableModel dtm;
         
         con=ConexionDB.GetConnection();
-        ps = con.prepareStatement("select Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Composicion ,count(Nombre)  AS Total from Medicamento \n" +
-                                  "GROUP BY Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Composicion");
+        ps = con.prepareStatement("SELECT Cantidad, Medicamento.Nombre, Medicamento.PrincipioActivo, Medicamento.Laboratorio, Medicamento.ViaAdministracion, Medicamento.Composicion FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento  \n" +
+                                  "GROUP BY  Cantidad,Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Composicion");
         
         res=ps.executeQuery();
         
@@ -211,15 +214,19 @@ public class Modelo_Medicamento {
         ArrayList<Object[]> datos=new ArrayList<>();
         while (res.next()) {            
             Object[] filas=new Object[6];
-            filas[0] = res.getObject(1);
-            filas[1] = res.getObject(2);
-            filas[2] = res.getObject(3);
-            filas[3] = res.getObject(4);
-            filas[4] = res.getObject(5);
-            filas[5] = res.getObject(6);
+            filas[5] = res.getObject(1);
+            filas[0] = res.getObject(2);
+            filas[1] = res.getObject(3);
+            filas[2] = res.getObject(4);
+            filas[3] = res.getObject(5);
+            filas[4] = res.getObject(6);
+            
+           
             
             datos.add(filas);
         }
+        
+        
         
        
         
