@@ -6,6 +6,7 @@
 package Capa_Vista;
 
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Date;
 
 
@@ -26,7 +27,31 @@ public class Vista_AgregarP extends javax.swing.JFrame {
     
 
 
-    public void limpiarTextField(){
+ public void setDatos(String aux,String aux2,String aux3,String aux4,
+                         Date aux5,String aux6,String aux7,String aux8,
+                         String aux9,String aux10,String aux11,String aux12,
+                         String aux13,String aux14,int index) throws ParseException{
+        
+        
+        jTextField2.setText(aux);
+        jTextField3.setText(aux2);
+        jTextField4.setText(aux3);
+        jTextField5.setText(aux4);
+        jDateChooser1.setDate(aux5);
+        jTextField8.setText(aux6);
+        jTextField16.setText(aux7);
+        jTextField17.setText(aux8);
+        jTextField7.setText(aux9);
+        jTextField11.setText(aux10);
+        jTextField9.setText(aux11);
+        jTextField12.setText(aux12);
+        jTextField13.setText(aux13);
+        jTextField14.setText(aux14);
+        jComboBox1.setSelectedIndex(index);
+        
+    }
+
+ public void limpiarTextField(){
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");
@@ -39,11 +64,11 @@ public class Vista_AgregarP extends javax.swing.JFrame {
         jTextField12.setText("");
         jTextField13.setText("");
         jTextField14.setText("");
-        jTextField15.setText("");
+        jComboBox1.setSelectedIndex(0);
         jTextField16.setText("");
         jTextField17.setText("");
-        
-    }
+
+  }
     
     public int getRut(){
         return Integer.parseInt(jTextField1.getText());
@@ -73,7 +98,7 @@ public class Vista_AgregarP extends javax.swing.JFrame {
         return jTextField13.getText();
     }
     public String getRegion(){
-        return jTextField15.getText();
+        return (String) jComboBox1.getSelectedItem();
     }
     public String getDiagnostico(){
         return jTextField17.getText();
@@ -146,12 +171,12 @@ public class Vista_AgregarP extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
         jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jTextField16 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jTextField17 = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setLocation(new java.awt.Point(250, 90));
 
@@ -235,6 +260,8 @@ public class Vista_AgregarP extends javax.swing.JFrame {
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Región", "Tarapacá", "Antofagasta", "Atacama", "Coquimbo", "Valparaíso", "O'Higgins", "Maule", "Biobío", "Araucania", "Los Lagos", "Aysén", "Magallanes", "Metropolitana de Santiago", "Los Ríos", "Arica y Parinacota" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -280,18 +307,22 @@ public class Vista_AgregarP extends javax.swing.JFrame {
                                     .addComponent(jLabel21)
                                     .addComponent(jLabel19)
                                     .addComponent(jLabel17))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextField17)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(12, 12, 12)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                    .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jTextField17)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(12, 12, 12)
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(jTextField13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel8)))
                         .addGap(18, 18, 18)
@@ -361,9 +392,9 @@ public class Vista_AgregarP extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
@@ -443,6 +474,7 @@ public class Vista_AgregarP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -467,7 +499,6 @@ public class Vista_AgregarP extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField2;
