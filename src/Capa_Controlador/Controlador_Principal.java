@@ -7,6 +7,7 @@ package Capa_Controlador;
 
 import Capa_Modelo.Modelo_Medicamento;
 import Capa_Modelo.Modelo_Paciente;
+import Capa_Modelo.Reportes;
 import Capa_Vista.Vista_AgregarDU;
 import Capa_Vista.Vista_AgregarM;
 import Capa_Vista.Vista_AgregarP;
@@ -57,14 +58,19 @@ public class Controlador_Principal {
     // vista inventario
     private Vista_Inventario vInv;
     
+    /**
+     * Objetos de la capa modelo
+     */
     private Modelo_Medicamento mMed;
+    private Reportes mRep;
+    
     /*
         Contructor de la clase
     */
     public Controlador_Principal(Vista_Principal vPrin, Vista_AgregarP vAddPac, Vista_EditarP vEditPac, Vista_EliminarP vDelPac,
             Vista_AgregarDU vAddDU,Vista_EliminarDU vDelDU,Vista_EditarDU vEditDU,
             Vista_AgregarM vAddM,Vista_EliminarM vDelM,Vista_EditarM vEditM, Vista_Inventario vInv,
-            Vista_BuscarP vBusPac, Vista_BuscarDU vBusDU, Vista_BuscarM vBusM,Modelo_Medicamento mMed){
+            Vista_BuscarP vBusPac, Vista_BuscarDU vBusDU, Vista_BuscarM vBusM,Modelo_Medicamento mMed,Reportes mRep){
         //Objetos de la vista Paciente
         this.vAddPac = vAddPac;
         this.vDelPac = vDelPac;
@@ -86,6 +92,7 @@ public class Controlador_Principal {
         this.vPrin = vPrin;
         //Modelo
         this.mMed = mMed;
+        this.mRep = mRep;
         //Captura los botones de las vistas Paciente
         this.vPrin.botonIngresarPaciente(new AgregarPac());
         this.vPrin.botonEliminarPaciente(new EliminarPac());
@@ -104,6 +111,8 @@ public class Controlador_Principal {
         this.vInv.botonAtras(new Atras());
         //Captura los botones de la vista inventario
         this.vPrin.botonVerInventario(new VerInventario());
+        //Captura el boton de la vista reportes
+        this.vPrin.botonGenerar(new GenerarReportes());
         
     }
     
@@ -351,6 +360,33 @@ public class Controlador_Principal {
                    
                    mMed.ConsultaInv(vInv.getTable());
                    
+                   
+                   
+               }catch(NumberFormatException ex){
+                  // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
+               }catch (Exception ex) {
+                Logger.getLogger(Controlador_Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+    }
+    
+    /**
+     * Clase Abstracta que captura el boton generar de la clase Vista_Principal
+    */
+    class GenerarReportes implements ActionListener{
+        @Override
+        /**
+         * Este método vuelve visible la vista ver Inventario
+         */
+        public void actionPerformed(ActionEvent a) {              
+               try{
+                   
+                   if(vPrin.seleccionInventario())mRep.generarReporteInventario();
+                   if(vPrin.seleccionConsumoMedicamentos())mRep.generarReporteConsumoMedicamentos();
+                   if(vPrin.seleccionESMedicamentos())mRep.generarReporteESMedicamentos();
+                   
+                   if(vPrin.seleccionVencimiento())mRep.generarReporteVencimiento();
+                   System.out.println("");
                    
                    
                }catch(NumberFormatException ex){

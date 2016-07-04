@@ -75,7 +75,7 @@ public class Vista_BuscarDU extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Dosis", "Rut Paciente", "Fecha Elab", "Fecha Venc", "Fecha Entrega", "Disponible"
+                "ID Dosis", "Rut Paciente", "Fecha Elab", "Fecha Venc", "Fecha Entrega", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {

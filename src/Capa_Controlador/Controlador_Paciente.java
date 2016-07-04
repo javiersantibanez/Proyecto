@@ -117,7 +117,7 @@ public class Controlador_Paciente {
                    vAddPac.limpiarTextField();
                    
                }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(vPrin, "Todos los campos deben estar completados");
+                   JOptionPane.showMessageDialog(vPrin, "Todos los campos deben estar completados correctamente");
                }
             }
     }
@@ -156,23 +156,73 @@ public class Controlador_Paciente {
            
             SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha_aux;
+            int index=0;
             fecha_aux= fecha.parse(aux[4]);
+            
+            //mPac.Validar(vEditPac.getRutString());
+            
+            if(aux[15].equalsIgnoreCase("Tarapacá")){
+                index =1;
+            }            
+            if(aux[15].equalsIgnoreCase("Antofagasta")){
+                index=2;
+            }
+            if(aux[15].equalsIgnoreCase("Atacama")){
+                index=3;
+            }
+            if(aux[15].equalsIgnoreCase("Coquimbo")){
+                index=4;
+            }
+            if(aux[15].equalsIgnoreCase("Valparaíso")){
+                index=5;
+            }
+            if(aux[15].equalsIgnoreCase("O'Higgins")){
+                index=6;
+            }
+            if(aux[15].equalsIgnoreCase("Maule")){
+                index=7;
+            }
+            if(aux[15].equalsIgnoreCase("Biobío")){
+                index=8;
+            }
+             if(aux[15].equalsIgnoreCase("Araucania")){
+                index=9;
+            }
+            if(aux[15].equalsIgnoreCase("Los Lagos")){
+                index=10;
+            }
+            if(aux[15].equalsIgnoreCase("Aysén")){
+                index=11;
+            }
+            if(aux[15].equalsIgnoreCase("Magallanes")){
+                index=12;
+            }
+            if(aux[15].equalsIgnoreCase("Metropolitana de Santiago")){
+                index=13;
+            }
+            if(aux[15].equalsIgnoreCase("Los Ríos")){
+                index=14;
+            }
+            if(aux[15].equalsIgnoreCase("Arica y Parinacota")){
+                index=15;
+            }        
+            
             
             
             vEditPac.setDatos(aux[0],aux[1],aux[2],aux[3],fecha_aux,aux[5],aux[7],aux[8],
-                              aux[9],aux[10],aux[11],aux[12],aux[13],aux[14],aux[15]);
+                              aux[9],aux[10],aux[11],aux[12],aux[13],aux[14],index);
             
             
         }
         
         @Override
         public void actionPerformed(ActionEvent a) {
-            String [] datos = new String[9]; 
+            
             try{
                //realiza la consulta a db y set datos en vista
                setDatosPaciente (mPac.ConsultaPaciente(vEditPac.getRut()));
 
-
+                
 
 
                //funcion que habilita el contenido a editar:
@@ -237,4 +287,6 @@ public class Controlador_Paciente {
                }
             }
     }
+    
+    
 }

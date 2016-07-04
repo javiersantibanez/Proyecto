@@ -67,11 +67,11 @@ public class Vista_BuscarM extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Numero Serie", "Nombre", "Principio Activo", "Laboratorio", "Via Administracion", "Fecha Elab.", "Fecha Venc.", "Fecha Llegada", "Composicion"
+                "Nombre", "Principio Activo", "Laboratorio", "Via Administracion", "Fecha Elab.", "Fecha Venc.", "Fecha Llegada", "Composicion", "Cantidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

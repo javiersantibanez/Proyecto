@@ -45,7 +45,10 @@ public class Modelo_Paciente {
         Statement sentencia;
           
           try{
-                
+            
+              
+              
+              
             con = ConexionDB.GetConnection();
             sentencia =con.createStatement();
             sentencia.executeUpdate("INSERT INTO Direccion VALUES ('"+calle+"',"+"'"+numero+"',"+
@@ -60,9 +63,7 @@ public class Modelo_Paciente {
              JOptionPane.showMessageDialog(null,"El Paciente  " + Pnombre+ " "+ apellidoP+"   ha sido Ingresado Exitosamente ");                 
              con.close();
         }
-        catch(SQLException e){JOptionPane.showMessageDialog(null,"Errores posibles: \n\n"
-                                                                 + "-Erro al ingresar el paciente\n"
-                                                                 + "-El paciente ya existe en la base de datos\n");}
+        catch(SQLException e){JOptionPane.showMessageDialog(null,"El paciente ya existe en la base de datos\n");}
         
   }
 
@@ -189,7 +190,10 @@ public class Modelo_Paciente {
         }
     }
     
+   
     
+
+
 }
 
 

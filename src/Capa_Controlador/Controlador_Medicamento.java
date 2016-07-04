@@ -14,6 +14,7 @@ import Capa_Vista.Vista_Inventario;
 import Capa_Vista.Vista_Principal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,7 +68,12 @@ public class Controlador_Medicamento {
         this.vEditM.botonEditarM(new ActualizarMedicamento());
         this.vDelM.botonEliminarM(new EliminarMedicamento());
         this.vBusM.botonBuscarMedicamento(new BuscarMedicamento());
-        this.vPrin.botonEntregarMedicamento(new EntregarMedicamento());
+        this.vPrin.escucharCombo(new buscarComp());
+        this.vPrin.botonEntregarMedicamento(new EntregaMedicamento());
+        this.mMed.consultarMed( vPrin.getStock());
+        this.vPrin.escucharCombo3(new buscarCantidad());
+        
+       
         
     }
     
@@ -107,7 +113,7 @@ public class Controlador_Medicamento {
                    //enviar a modelo
                    mMed.IngresarMedicamento(vAddM.getNumeroSerie(),vAddM.getNombre(),vAddM.getActivo(),vAddM.getLab(),
                                             vAddM.getAdmin(),vAddM.getElaboracion(),vAddM.getVencimiento(),vAddM.getLlegada(),
-                                            vAddM.getComposicion());
+                                            vAddM.getComposicion(),vAddM.getCantidad());
                    //limpiar texto
                    vAddM.limpiar();
                    
@@ -140,7 +146,7 @@ public class Controlador_Medicamento {
             fecha_aux3= fecha.parse(aux[6]);
             
              
-             vEditM.setDatos(aux[0], aux[1], aux[2], aux[3], fecha_aux, fecha_aux2, fecha_aux3, aux[7]);
+            vEditM.setDatos(aux[0], aux[1], aux[2], aux[3], fecha_aux, fecha_aux2, fecha_aux3, aux[7],aux[9]);
              
         }
          @Override
@@ -180,7 +186,7 @@ public class Controlador_Medicamento {
                try{
                    //enviar a modelo
                    mMed.ActualizarMedicamento(vEditM.getNumeroSerie(),vEditM.getNombre(),vEditM.getActivo(), vEditM.getLab(),vEditM.getAdmin(),
-                                              vEditM.getElaboracion(),vEditM.getVencimiento(),vEditM.getLlegada(),vEditM.getComposicion());
+                                              vEditM.getElaboracion(),vEditM.getVencimiento(),vEditM.getLlegada(),vEditM.getComposicion(),vEditM.getCantidad());
                    //limpiar texto
                    vEditM.limpiarTextField();
                    
@@ -227,7 +233,7 @@ public class Controlador_Medicamento {
         
          public void setDatosMedicamento(String [] aux){
             
-             vBusM.setDatosBuscarM(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5], aux[6], aux[7],aux[8]);
+             vBusM.setDatosBuscarM(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5], aux[6], aux[7],aux[9]);
              
         }
          @Override
@@ -246,19 +252,81 @@ public class Controlador_Medicamento {
             }
     }
   
-    class EntregarMedicamento implements ActionListener{
+    class EntregaMedicamento implements ActionListener{
         
+        /**
+         * Este método ...
+         */
         
-        @Override
-        public void actionPerformed(ActionEvent a){
-            try{
-                
-                mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(), vPrin.getIDMedicamento());
-                vPrin.limpiar();
-                
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, e);
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   
+                   mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()),(vPrin.cantidadMED()));
+                   
+                   //limpiar texto
+                   vPrin.getStock().setSelectedIndex(0);
+                   vPrin.getCombo2().setSelectedIndex(0);
+                   vPrin.getCombo3().setSelectedIndex(0);
+                   vPrin.limpiar();
+               }catch(NumberFormatException ex){
+                        
+               } catch (SQLException ex) {
+                 Logger.getLogger(Controlador_Medicamento.class.getName()).log(Level.SEVERE, null, ex);
+             }
             }
-        }
     }
+    
+    
+    class buscarComp implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   vPrin.getCombo2().setSelectedIndex(0);
+                   mMed.vaciarComboBox(vPrin.getCombo2());
+                   mMed.consultaMesDosis(vPrin.getCombo2(),vPrin.selectMedicamento());
+                   
+                   //limpiar texto
+                   
+               }catch(NumberFormatException ex){
+                        
+               }
+            }
+    }
+    
+    
+    class buscarCantidad implements ActionListener{
+        
+        /**
+         * Este método ...
+         */
+        
+         @Override
+        public void actionPerformed(ActionEvent a) {
+              
+               try{
+                   //enviar a modelo y set dato
+                   vPrin.getCombo3().setSelectedIndex(0);
+                   mMed.vaciarComboBox(vPrin.getCombo3());
+                   mMed.cantidadMedicamento(vPrin.getCombo3(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()));
+                   
+                   //limpiar texto
+                   
+               }catch(NumberFormatException ex){
+                        
+               } catch (SQLException ex) {
+                 Logger.getLogger(Controlador_Medicamento.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            }
+    }
+    
 }
