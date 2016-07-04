@@ -384,7 +384,7 @@ public class Controlador_Principal {
                    if(vPrin.seleccionInventario())mRep.generarReporteInventario();
                    if(vPrin.seleccionConsumoMedicamentos())mRep.generarReporteConsumoMedicamentos();
                    if(vPrin.seleccionESMedicamentos())mRep.generarReporteESMedicamentos();
-                   if(vPrin.seleccionMermas())System.out.println("mermas");
+                   
                    if(vPrin.seleccionVencimiento())mRep.generarReporteVencimiento();
                    System.out.println("");
                    

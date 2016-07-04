@@ -132,9 +132,7 @@ public class Vista_Principal extends javax.swing.JFrame {
     public boolean seleccionInventario(){
         return jCheckBox1.isSelected();
     }
-    public boolean seleccionMermas(){
-        return jCheckBox2.isSelected();
-    }
+  
     public boolean seleccionESMedicamentos(){
         return jCheckBox5.isSelected();
     }
@@ -187,7 +185,6 @@ public class Vista_Principal extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jButton13 = new javax.swing.JButton();
         jCheckBox4 = new javax.swing.JCheckBox();
@@ -474,9 +471,6 @@ public class Vista_Principal extends javax.swing.JFrame {
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jCheckBox1.setText("Inventario");
 
-        jCheckBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jCheckBox2.setText("Mermas");
-
         jCheckBox3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jCheckBox3.setText("Vencimientos");
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
@@ -503,7 +497,6 @@ public class Vista_Principal extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(203, 203, 203)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox2)
                             .addComponent(jCheckBox1)
                             .addComponent(jCheckBox3)
                             .addComponent(jCheckBox4)
@@ -521,11 +514,9 @@ public class Vista_Principal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(51, 51, 51)
                 .addComponent(jCheckBox1)
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox2)
-                .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox5)
                     .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -703,7 +694,6 @@ public class Vista_Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
