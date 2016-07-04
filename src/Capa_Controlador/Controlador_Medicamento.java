@@ -72,19 +72,13 @@ public class Controlador_Medicamento {
         this.vPrin.botonEntregarMedicamento(new EntregaMedicamento());
         this.mMed.consultarMed( vPrin.getStock());
         this.vPrin.escucharCombo3(new buscarCantidad());
-        
-       
-        
     }
     
     /**
      * Clase Abstracta que captura el boton Atras de las vistas Vista_AgregarM, Vista_EditarM y Vista_EliminarM
     */
     class Atras implements ActionListener{
-        @Override
-        /**
-         * Este método vuelve hacia la vista principal del programa
-         */       
+        @Override   
         public void actionPerformed(ActionEvent a) {              
                try{
                    vAddM.setVisible(false);
@@ -104,14 +98,11 @@ public class Controlador_Medicamento {
     */
     class AgregarMedicamento implements ActionListener{
         @Override
-        /**
-         * Este método ...
-         */
         public void actionPerformed(ActionEvent a) {
               
                try{
                    //enviar a modelo
-                   mMed.IngresarMedicamento(vAddM.getNumeroSerie(),vAddM.getNombre(),vAddM.getActivo(),vAddM.getLab(),
+                   mMed.setMedicamento(vAddM.getNumeroSerie(),vAddM.getNombre(),vAddM.getActivo(),vAddM.getLab(),
                                             vAddM.getAdmin(),vAddM.getElaboracion(),vAddM.getVencimiento(),vAddM.getLlegada(),
                                             vAddM.getComposicion(),vAddM.getCantidad());
                    //limpiar texto
@@ -130,11 +121,6 @@ public class Controlador_Medicamento {
      * Clase Abstracta que captura el boton consultar medicamento
     */
     class ConsultaMedicamento implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
-        
          public void setDatosMedicamento(String [] aux) throws ParseException{
             
              SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -155,7 +141,7 @@ public class Controlador_Medicamento {
                try{
                    //enviar a modelo y set dato
                    
-                   setDatosMedicamento(mMed.ConsultaMedicamento(vEditM.getNumeroSerie()));
+                   setDatosMedicamento(mMed.getMedicamento(vEditM.getNumeroSerie()));
                    
                    //limpiar texto
                    vEditM.habilitarContenido();
@@ -176,16 +162,11 @@ public class Controlador_Medicamento {
     */
     class ActualizarMedicamento implements ActionListener{
         @Override
-        /**
-         * Este método ...
-         */
-        
-       
         public void actionPerformed(ActionEvent a) {
               
                try{
                    //enviar a modelo
-                   mMed.ActualizarMedicamento(vEditM.getNumeroSerie(),vEditM.getNombre(),vEditM.getActivo(), vEditM.getLab(),vEditM.getAdmin(),
+                   mMed.actualizarMedicamento(vEditM.getNumeroSerie(),vEditM.getNombre(),vEditM.getActivo(), vEditM.getLab(),vEditM.getAdmin(),
                                               vEditM.getElaboracion(),vEditM.getVencimiento(),vEditM.getLlegada(),vEditM.getComposicion(),vEditM.getCantidad());
                    //limpiar texto
                    vEditM.limpiarTextField();
@@ -203,16 +184,10 @@ public class Controlador_Medicamento {
      * Clase Abstracta que captura el boton eliminar medicamento
     */
     class EliminarMedicamento implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
- 
-        
         public void actionPerformed(ActionEvent a) {
             
             try{
-               mMed.EliminarMedicamento(vDelM.getNserie());
+               mMed.eliminarMedicamento(vDelM.getNserie());
                vDelM.limpiar();
                vDelM.setVisible(false);
             }
@@ -226,11 +201,6 @@ public class Controlador_Medicamento {
      * Clase Abtracta que solicita datos a la DB
      */
     class BuscarMedicamento implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
-        
          public void setDatosMedicamento(String [] aux){
             
              vBusM.setDatosBuscarM(aux[0], aux[1], aux[2], aux[3], aux[4], aux[5], aux[6], aux[7],aux[9]);
@@ -242,7 +212,7 @@ public class Controlador_Medicamento {
                try{
                    //enviar a modelo y set dato
                    
-                   setDatosMedicamento(mMed.ConsultaMedicamento(vBusM.getNumeroSerie()));
+                   setDatosMedicamento(mMed.getMedicamento(vBusM.getNumeroSerie()));
                    
                    //limpiar texto
                    
@@ -251,20 +221,19 @@ public class Controlador_Medicamento {
                }
             }
     }
-  
+    
+   /**
+     * Clase abstracta que captura el boton entregar medicamento de la vista principal
+     */
     class EntregaMedicamento implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
-        
+
          @Override
         public void actionPerformed(ActionEvent a) {
               
                try{
                    //enviar a modelo y set dato
                    
-                   mMed.EntregarMedicamento(vPrin.getRutEntregarMedicamento(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()),(vPrin.cantidadMED()));
+                   mMed.entregarMedicamento(vPrin.getRutEntregarMedicamento(),mMed.obtenerID(vPrin.selectMedicamento(),vPrin.selectDosis()),(vPrin.cantidadMED()));
                    
                    //limpiar texto
                    vPrin.getStock().setSelectedIndex(0);
@@ -279,12 +248,10 @@ public class Controlador_Medicamento {
             }
     }
     
-    
-    class buscarComp implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
+    /**
+     * Clase abstracta que busca la dosis del medicamento del modelo y lo envia al combobox
+     */
+    class buscarComp implements ActionListener{      
         
          @Override
         public void actionPerformed(ActionEvent a) {
@@ -303,13 +270,11 @@ public class Controlador_Medicamento {
             }
     }
     
-    
+    /**
+     * Clase abstracta busca la cantidad de medicamentos del modelo y lo envia al combobox
+     */
     class buscarCantidad implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
-        
+
          @Override
         public void actionPerformed(ActionEvent a) {
               

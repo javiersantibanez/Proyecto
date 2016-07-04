@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Franco
+ * Esta es la clase que contiene la vista buscar dosis unitaria
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_BuscarM extends javax.swing.JFrame {
 
@@ -22,24 +24,44 @@ public class Vista_BuscarM extends javax.swing.JFrame {
     }
     DefaultTableModel model = new DefaultTableModel();
     
+    /**
+     * Este metodo envia los datos a la tabla
+     */
     public void setDatosBuscarM(String aux,String aux2,String aux3,String aux4,
                                 String aux5,String aux6,String aux7,String aux8,String aux9){
         
         model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);        
-        model.addRow(new Object[]{aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9   });        
+        model.addRow(new Object[]{aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9});        
     }
     
+    /**
+     * Este metodo obtiene el numero de serie
+     * @return numero de serie
+     */
     public int getNumeroSerie(){
         return Integer.parseInt(jTextField1.getText());
     }
     
+    /**
+     * Este metodo limpia los campos de texto
+     */
     public void limpiarTextField(){
         jTextField1.setText("");
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo captura el evento del boton ir
+     * @param escuchar evento
+     */
     public void botonBuscarMedicamento(ActionListener escuchar){         
         jButton1.addActionListener(escuchar);
     }

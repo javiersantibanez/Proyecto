@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Franco
+ * Esta es la clase que contiene la vista buscar Paciente
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_BuscarP extends javax.swing.JFrame {
 
@@ -23,15 +25,26 @@ public class Vista_BuscarP extends javax.swing.JFrame {
     
     DefaultTableModel model = new DefaultTableModel();
     DefaultTableModel model2 = new DefaultTableModel();
-
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
     
+    /**
+     * Este metodo captura el evento del boton ir
+     * @param escuchar ir
+     */
     public void botonBuscarPaciente(ActionListener escuchar){         
         jButton1.addActionListener(escuchar);
     }
     
+    /**
+     * Este metodo ingresa los datos a la tabla
+     */
     public void setDatosBuscarP (String aux,String aux2,String aux3,String aux4,
                                 String aux5,String aux6,String aux7,String aux8,
                                 String aux9,String aux10,String aux11,String aux12,
@@ -46,13 +59,18 @@ public class Vista_BuscarP extends javax.swing.JFrame {
         model2.addRow(new Object []{aux9,aux10,aux11,aux12,aux13,aux14,aux15 });
     }
     
+    /**
+     * Este metodo obtiene el rut del paciente
+     * @return rut del paciente
+     */
     public int getRut(){
         return Integer.parseInt(jTextField1.getText());
     }
     
+    /**
+     * Este metodo vacia los campos de la tabla
+     */
     public void vaciarCampos(){
-        
-
         model = (DefaultTableModel) jTable1.getModel();
         
         int a =model.getRowCount();

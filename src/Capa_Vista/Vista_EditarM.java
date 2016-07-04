@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 /**
- *
- * @author Javier Santibañez
+ * Esta es la clase que contiene la vista editar medicamento
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_EditarM extends javax.swing.JFrame {
 
@@ -20,33 +22,83 @@ public class Vista_EditarM extends javax.swing.JFrame {
     public Vista_EditarM() {
         initComponents();
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo captura el evento del boton aceptar
+     * @param escuchar evento
+     */
      public void botonEditarM(ActionListener escuchar){
         jButton1.addActionListener(escuchar);
     }
+     
+     /**
+     * Este metodo captura el evento del boton consulta
+     * @param escuchar evento
+     */
       public void botonConsultaM(ActionListener escuchar){
         jButton3.addActionListener(escuchar);
     }
+      
+    /**
+     * Este metodo obtiene el numero de serie del medicamento del campo de texto
+     * @return numero de serie del medicamento
+     */
     public int getNumeroSerie(){
         return Integer.parseInt(jTextField1.getText());
     }
+    
+    /**
+     * Este metodo obtiene el nombre del medicamento del campo de texto
+     * @return nombre del medicamento
+     */
     public String getNombre(){
         return jTextField2.getText();
     }
+    
+    /**
+     * Este metodo obtiene el principio activo del medicamento del campo de texto
+     * @return principio activo del medicamento
+     */
     public String getActivo(){
         return jTextField5.getText();
     }
+    
+    /**
+     * Este metodo obtiene el laboratorio del medicamento del campo de texto
+     * @return laboratorio del medicamento
+     */
      public String getLab(){
         return jTextField6.getText();
     }
+     
+     /**
+     * Este metodo obtiene la via de administracion del medicamento del campo de texto
+     * @return via de administracion del medicamento
+     */
     public String getAdmin(){
         return jTextField7.getText();
     } 
+    
+    /**
+     * Este metodo obtiene el numero de serie del medicamento del campo de texto
+     * @return numero de serie del medicamento
+     */
      public int getCantidad(){
         return Integer.parseInt(jTextField3.getText());
     }
+     
+    /**
+     * Este metodo obtiene la fecha de elaboracion
+     * @return fecha de elaboracion
+     */
     public java.sql.Date getElaboracion(){
        
         Date date = jDateChooser1.getDate();
@@ -57,6 +109,11 @@ public class Vista_EditarM extends javax.swing.JFrame {
 
     }
     
+    
+    /**
+     * Este metodo obtiene la fecha de llegada
+     * @return fecha de llegada
+     */
     public java.sql.Date getLlegada(){
        
         Date date = jDateChooser3.getDate();
@@ -66,6 +123,10 @@ public class Vista_EditarM extends javax.swing.JFrame {
         return fecha;
     }
    
+    /**
+     * Este metodo obtiene la fecha de vencimiento
+     * @return fecha de vencimiento
+     */
     public java.sql.Date getVencimiento(){
        
         Date date = jDateChooser2.getDate();
@@ -75,9 +136,17 @@ public class Vista_EditarM extends javax.swing.JFrame {
         return fecha;
     }
      
+    /**
+     * Este metodo obtiene la dosis del medicamento del campo de texto
+     * @return la dosis del medicamento
+     */
       public String getComposicion(){
         return jTextField9.getText();
     }
+      
+    /**
+     * Este metodo habilita el contenido de la vista
+     */
     public void habilitarContenido(){
         
         jTextField2.setEditable(true);
@@ -92,6 +161,9 @@ public class Vista_EditarM extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Este metodo envia datos
+     */
     public void setDatos(String aux,String aux2,String aux3,String aux4,
                          Date aux5,Date aux6,Date aux7,String aux8 ,String aux9){
         jTextField2.setText(aux);
@@ -107,17 +179,16 @@ public class Vista_EditarM extends javax.swing.JFrame {
         
     }
     
-        public void limpiarTextField(){
+    /**
+     * Este metodo limpia los campos de texto 
+     */
+    public void limpiarTextField(){
         jTextField1.setText("");
         jTextField2.setText("");
-        
         jTextField5.setText("");
         jTextField6.setText("");
         jTextField7.setText("");
-        
-        jTextField9.setText("");
-    
-        
+        jTextField9.setText("");            
     }
     /**
      * This method is called from within the constructor to initialize the form.

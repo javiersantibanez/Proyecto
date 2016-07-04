@@ -8,8 +8,10 @@ package Capa_Vista;
 import java.awt.event.ActionListener;
 
 /**
- *
- * @author Javier Santibañez
+ * Esta es la clase que contiene la vista eliminar medicamento
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_EliminarM extends javax.swing.JFrame {
 
@@ -19,19 +21,34 @@ public class Vista_EliminarM extends javax.swing.JFrame {
     public Vista_EliminarM() {
         initComponents();
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
    
+    /**
+     * Este metodo limpia el campo de texto
+     */
     public void limpiar(){
         jTextField1.setText("");
     }
     
+    /**
+     * Este metodo obtiene el numero de serie del medicamento
+     * @return numero de serie del medicamento
+     */
     public int getNserie(){
         return Integer.parseInt(jTextField1.getText());
     }
     
-    
+    /**
+     * Este metodo captura el evento del boton eliminar
+     * @param escuchar evento
+     */
     public void botonEliminarM(ActionListener escuchar){
         jButton1.addActionListener(escuchar);
     }

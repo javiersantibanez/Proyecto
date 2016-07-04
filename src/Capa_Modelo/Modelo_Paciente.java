@@ -7,16 +7,17 @@ package Capa_Modelo;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Javier Santibañez
+ /**
+ * Esta clase se comunica con la base de datos y accede a los datos de los pacientes 
+ * Esta clase es parte de la capa modelo
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Modelo_Paciente {
 
@@ -26,15 +27,33 @@ public class Modelo_Paciente {
     public  Connection con ;
     public  ResultSet res,res2;
     public String [] datos = new String[16]; 
-
+    
+    /**
+     * Constructor de la clase
+     */
     public Modelo_Paciente(){ 
  
-}
-
-      
-
-
+    }
     
+    /**
+     * Este metodo agrega un nuevo paciente a la base de datos
+     * @param calle calle del paciente
+     * @param numero numero del paciente
+     * @param depto departamento del paciente
+     * @param torre torre del paciente
+     * @param comuna comuna del paciente
+     * @param ciudad ciudad del paciente
+     * @param region region del paciente
+     * @param rut rut del paciente
+     * @param Pnombre primer nombre del paciente
+     * @param Snombre segundo nombre del paciente
+     * @param apellidoP apellido paterno del paciente
+     * @param apellidoM apellido materno del paciente
+     * @param fechaNacimiento fecha de nacimiento del paciente
+     * @param telefono telefono del paciente
+     * @param correo correo electronico del paciente
+     * @param Diagnostico diagnostico del paciente
+     */
     public void Ingresarpaciente(String calle, int numero, int depto, 
                                 int torre, String comuna, String ciudad, 
                                 String region, int rut, String Pnombre, 
@@ -45,11 +64,7 @@ public class Modelo_Paciente {
         Statement sentencia;
           
           try{
-            
-              
-              
-              
-            con = ConexionDB.GetConnection();
+            con = ConexionDB.getConnection();
             sentencia =con.createStatement();
             sentencia.executeUpdate("INSERT INTO Direccion VALUES ('"+calle+"',"+"'"+numero+"',"+
                                     "'"+depto+"',"+"'"+torre+"',"+"'"+comuna+"',"+"'"+ciudad+"',"+"'"+region+"')");
@@ -67,13 +82,17 @@ public class Modelo_Paciente {
         
   }
 
-    
+    /**
+     * Este metodo obtiene los datos un paciente en la base de dato segun su rut
+     * @param rut rut del paciente
+     * @return los datos del paciente
+     */
     public String [] ConsultaPaciente(int rut){
         Statement sentencia2,sentencia3;
         
         try
             {
-                con=ConexionDB.GetConnection();
+                con=ConexionDB.getConnection();
                 sentencia2=con.createStatement();
                 res=sentencia2.executeQuery("SELECT * FROM Paciente WHERE Rut_Paciente = '"+rut+"'");
                 
@@ -115,7 +134,25 @@ public class Modelo_Paciente {
             }
  
     
-    
+    /**
+     * Este metodo actualiza los datos del paciente
+     * @param calle calle del paciente
+     * @param numero numero del paciente
+     * @param depto departamento del paciente
+     * @param torre torre del paciente
+     * @param comuna comuna del paciente
+     * @param ciudad ciudad del paciente
+     * @param region region del paciente
+     * @param rut rut del paciente
+     * @param Pnombre primer nombre del paciente
+     * @param Snombre segundo nombre del paciente
+     * @param apellidoP apellido paterno del paciente
+     * @param apellidoM apellido materno del paciente
+     * @param fechaNacimiento fecha de nacimiento del paciente
+     * @param telefono telefono del paciente
+     * @param correo correo electronico del paciente
+     * @param Diagnostico diagnostico del paciente
+     */
     public void ActualizarPaciente( String calle, int numero, int depto, 
                                     int torre, String comuna, String ciudad, 
                                     String region, int rut, String Pnombre, 
@@ -172,13 +209,16 @@ public class Modelo_Paciente {
             
     }
 
-    
-    public void EliminarPaciente(int rut) {
+    /**
+     * Este metodo elimina un paciente de la base de datos 
+     * @param rut rut del paciente
+     */
+    public void eliminarPaciente(int rut) {
         
         Statement elim;
         
         try{
-            con=ConexionDB.GetConnection();
+            con=ConexionDB.getConnection();
             elim = con.createStatement();
             elim.execute("DELETE FROM Paciente WHERE Rut_Paciente = '"+rut+"'");
         

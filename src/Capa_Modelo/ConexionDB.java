@@ -11,15 +11,27 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Javier Santibañez
+ * Esta clase crea la conexion con la base de datos
+ * Esta clase es parte de la capa modelo
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class ConexionDB {
+
+    /**
+     * Contructor de la clase
+     */
+
+    public ConexionDB() {
+    }
     
-    
-    public static Connection GetConnection(){
+    /**
+     * Este metodo crea la conexion con la base de datos
+     * @return la conexion
+     */
+    public static Connection getConnection(){
         Connection conexion = null;
-        String ruta = "jdbc:sqlserver://DESKTOP-2HVLK3K\\JAVIERPC;databaseName=Proyecto";
+        String ruta = "jdbc:sqlserver://Blazter\\MSSQLERVER:1433;databaseName=Proyecto";
         
      
         try

@@ -101,9 +101,6 @@ public class Controlador_Paciente {
     */
     class Aceptar implements ActionListener{
         @Override
-        /**
-         * Este método ...
-         */
         public void actionPerformed(ActionEvent a) {
               
                try{
@@ -122,12 +119,11 @@ public class Controlador_Paciente {
             }
     }
     
-    //boton actualizar para editar
+    /**
+     * Clase abstracta que captura el boton actualizar de la vista editar paciente
+     */
     class Actualizar implements ActionListener{
         @Override
-        /**
-         * Este método ...
-         */
         public void actionPerformed(ActionEvent a) {
               
                try{
@@ -146,12 +142,11 @@ public class Controlador_Paciente {
             }
     }
     
-    //Boton consulta para editar
+    /**
+     * Clase abstracta que captura el boton consultar de la vista editar paciente
+     */
     class Consulta implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
+
         public void setDatosPaciente (String [] aux) throws ParseException{
            
             SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -241,15 +236,10 @@ public class Controlador_Paciente {
     */
     class Eliminar implements ActionListener{
         
-        /**
-         * Este método ...
-         */
- 
-        
         public void actionPerformed(ActionEvent a) {
             
             try{
-               mPac.EliminarPaciente(vDelPac.getRut());
+               mPac.eliminarPaciente(vDelPac.getRut());
                vDelPac.limpiar();
             }
             catch(NumberFormatException ex){
@@ -258,11 +248,10 @@ public class Controlador_Paciente {
         }
     }
     
-    class BuscarPaciente implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
+    /**
+     * Clase abstracta que captura el boton buscar paciente de la vista pricipal
+     */
+    class BuscarPaciente implements ActionListener{ 
         
          public void setDatosMedicamento(String [] aux){
             

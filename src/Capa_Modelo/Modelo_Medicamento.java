@@ -21,27 +21,44 @@ import javax.swing.table.DefaultTableModel;
 
 
 /**
- *
- * @author Javier Santibañez
+ * Esta clase se comunica con la base de datos y accede a los datos del medicamento 
+ * Esta clase es parte de la capa modelo
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Modelo_Medicamento {
     
     public Connection con;
     public ResultSet res, res2;
     
+    /**
+     * Contructor de la clase
+     */
     public Modelo_Medicamento(){
     
     }   
 
-
-    public void IngresarMedicamento(int nSerie,String nombre,String pActivo, String lab, String vAdmin,
+    /**
+     * Esta clase ingresa un nuevo medicamento a la base de datos
+     * @param nSerie codigo del medicamento
+     * @param nombre nombre del medicamento
+     * @param pActivo principio activo del medicamento
+     * @param lab laboratorio del medicamento
+     * @param vAdmin via de administracion del medicamento
+     * @param elab fecha de elaboracion del medicamento
+     * @param venc fecha de vencimiento del medicamento
+     * @param llegada fecha de llegada del medicamento
+     * @param comp dosis del medicamento
+     * @param cantidad cantidad del medicamento
+     */
+    public void setMedicamento(int nSerie,String nombre,String pActivo, String lab, String vAdmin,
                                     Date elab, Date venc, Date llegada, String comp, int cantidad){
         
         Statement sentencia,sentencia2;
           
           try{
                 
-            con = ConexionDB.GetConnection();
+            con = ConexionDB.getConnection();
             sentencia =con.createStatement();
             sentencia2 = con.createStatement();
             
@@ -60,13 +77,17 @@ public class Modelo_Medicamento {
         
   }
 
-    
-    public String [] ConsultaMedicamento(int nSerie){
+    /**
+     * Este metodo obtiene los datos del medicamento de la base de datos
+     * @param nSerie codigo del medicamento
+     * @return los datos del medicamento
+     */
+    public String [] getMedicamento(int nSerie){
         Statement sentencia,sentencia2;
         String [] datos = new String[10]; 
         try
             {
-                con=ConexionDB.GetConnection();
+                con=ConexionDB.getConnection();
                 sentencia=con.createStatement();
                 sentencia2=con.createStatement();
                 res=sentencia.executeQuery("SELECT * FROM Medicamento WHERE ID_Medicamento = "+nSerie+"");
@@ -106,8 +127,20 @@ public class Modelo_Medicamento {
             }
  
     
-    
-    public void ActualizarMedicamento(int nSerie,String nombre,String pActivo, String lab, String vAdmin,
+     /**
+     * Este metodo actualiza los datos del medicamento
+     * @param nSerie codigo del medicamento
+     * @param nombre nombre del medicamento
+     * @param pActivo principio activo del medicamento
+     * @param lab laboratorio del medicamento
+     * @param vAdmin via de administracion del medicamento
+     * @param elab fecha de elaboracion del medicamento
+     * @param venc fecha de vencimiento del medicamento
+     * @param llegada fecha de llegada del medicamento
+     * @param comp dosis del medicamento 
+     * @param cantidad cantidad del medicamento
+     */
+    public void actualizarMedicamento(int nSerie,String nombre,String pActivo, String lab, String vAdmin,
                                     Date elab, Date venc, Date llegada, String comp, int cantidad){
          
         
@@ -148,14 +181,16 @@ public class Modelo_Medicamento {
     }
 
 
-
-
-    public void EliminarMedicamento(int nSerie) {
+     /**
+     * Este metodo elimina un medicamento de la base de datos
+     * @param nSerie codigo del medicamento
+     */
+    public void eliminarMedicamento(int nSerie) {
         
         Statement elim;
         
         try{
-            con=ConexionDB.GetConnection();
+            con=ConexionDB.getConnection();
             elim = con.createStatement();
             elim.execute("DELETE FROM Medicamento WHERE ID_Medicamento = '"+nSerie+"'");
         
@@ -167,13 +202,19 @@ public class Modelo_Medicamento {
         }
     }
     
-    public void EntregarMedicamento(int rutPaciente, int id,String cantidad){
+    /**
+     * Este metodo ingresa un medicamento como entregado a la base de datos
+     * @param rutPaciente rut del paciente
+     * @param id codigo del medicamento
+     * @param cantidad cantidad de medicamentos
+     */
+    public void entregarMedicamento(int rutPaciente, int id,String cantidad){
         
         
         Statement sentencia,sentencia2;
         
         try {
-            con = ConexionDB.GetConnection();
+            con = ConexionDB.getConnection();
             
             java.util.Date a = new java.util.Date();            
             long d = a.getTime();
@@ -196,14 +237,19 @@ public class Modelo_Medicamento {
         
         
     }
-
-    public void ConsultaInv(JTable tabla)throws Exception{
+    
+    /**
+     * Este metodo obtiene los datos del inventario de la base de datos
+     * @param tabla tabla
+     * @throws Exception SQL exception
+     */
+    public void consultaInv(JTable tabla)throws Exception{
         
         PreparedStatement ps,ps2;
         ResultSetMetaData rsm,rsm2;
         DefaultTableModel dtm;
         
-        con=ConexionDB.GetConnection();
+        con=ConexionDB.getConnection();
         ps = con.prepareStatement("SELECT Cantidad, Medicamento.Nombre, Medicamento.PrincipioActivo, Medicamento.Laboratorio, Medicamento.ViaAdministracion, Medicamento.Composicion FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento  \n" +
                                   "GROUP BY  Cantidad,Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Composicion");
         
@@ -225,23 +271,22 @@ public class Modelo_Medicamento {
             
             datos.add(filas);
         }
-        
-        
-        
-       
-        
         dtm=(DefaultTableModel)tabla.getModel();
         for (int i = 0; i <datos.size(); i++) {
             dtm.addRow(datos.get(i));
         }
     }
     
+    /**
+     * Este metodo obtiene el nombre de los medicamentos en la base de datos y los envia a un combobox
+     * @param combox combobox
+     */
     public void consultarMed(JComboBox combox){
         
         Statement sentencia;
             try {
              
-             con =ConexionDB.GetConnection();
+             con =ConexionDB.getConnection();
              sentencia = con.createStatement();
              res = sentencia.executeQuery ("SELECT Nombre FROM Medicamento");
 
@@ -256,12 +301,17 @@ public class Modelo_Medicamento {
          }     
     }
     
+    /**
+     * Este metodo obtiene la dosis de los medicamentos en la base de datos y los envia a un combobox
+     * @param combox combobox
+     * @param nombre nombre del medicamento
+     */
     public void consultaMesDosis(JComboBox combox,String nombre){
         
         Statement sentencia;
             try {
              
-             con =ConexionDB.GetConnection();
+             con =ConexionDB.getConnection();
              sentencia = con.createStatement();
              res = sentencia.executeQuery ("SELECT Composicion FROM Medicamento WHERE Nombre ='"+nombre+"'");
 
@@ -275,7 +325,11 @@ public class Modelo_Medicamento {
              
          }     
     }
-     
+    
+    /**
+     * Este metodo vacia los datos del combobox
+     * @param combox  combobox
+     */
     public void vaciarComboBox(JComboBox combox){
         int itemCount = combox.getItemCount();
 
@@ -284,12 +338,19 @@ public class Modelo_Medicamento {
          }
     }
     
+    /**
+     * Este metodo obtiene el id ingresado de un medicamento de la base de datos
+     * @param nombre nombre del medicamento
+     * @param dosis dosis del medicamento
+     * @return id del medicamento
+     * @throws SQLException 
+     */
     public int obtenerID( String nombre, String dosis) throws SQLException{
         
             Statement sentencia,sentencia2,sentencia3;
             String aux="",aux2="",aux3="";
             
-            con =ConexionDB.GetConnection();
+            con =ConexionDB.getConnection();
             sentencia = con.createStatement();
             sentencia2 = con.createStatement();
             sentencia3 = con.createStatement();
@@ -300,8 +361,6 @@ public class Modelo_Medicamento {
                 aux = res.getString("Nombre");
                 aux2 = res.getString("Composicion");
             }
-
-            
             res2 =  sentencia3.executeQuery("SELECT ID_Medicamento FROM Medicamento WHERE Nombre='"+aux+"' and Composicion= '"+aux2+"'" );
             
             while(res2.next()){
@@ -310,11 +369,16 @@ public class Modelo_Medicamento {
      return Integer.parseInt(aux3);       
     }
     
+    /**
+     * Este metodo obtiene la cantidad de medicamento del inventario de la base de datos y lo agrega a un combobox
+     * @param combox combobox
+     * @param id codigo del medicamento
+     */
     public void cantidadMedicamento(JComboBox combox, int id){
          Statement sentencia;
             try {
              
-             con =ConexionDB.GetConnection();
+             con =ConexionDB.getConnection();
              sentencia = con.createStatement();
              res = sentencia.executeQuery ("SELECT Cantidad FROM Inventario WHERE ID_Medicamento = "+id+"");
 

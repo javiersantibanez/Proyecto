@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 /**
- *
- * @author Karla Muñoz
+ * Esta es la clase que contiene la vista agregar paciente
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_AgregarDU extends javax.swing.JFrame {
 
@@ -20,18 +22,36 @@ public class Vista_AgregarDU extends javax.swing.JFrame {
     public Vista_AgregarDU() {
         initComponents();
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo captura el evento del boton aceptar
+     * @param escuchar evento
+     */
     public void botonAceptar(ActionListener escuchar){
          
         jButton1.addActionListener(escuchar);
     }
     
-    
+    /**
+     * Este metodo captura el campo rut
+     * @return rut
+     */
     public int getRut(){
         return Integer.parseInt(jTextField1.getText());
     }
+    
+    /**
+     * Este metodo obtiene la fecha de elaboracion
+     * @return fecha de elaboracion
+     */
     public java.sql.Date getElaboracion(){      
         Date date = jDateChooser1.getDate();
         long d = date.getTime();
@@ -40,6 +60,10 @@ public class Vista_AgregarDU extends javax.swing.JFrame {
         return fecha;
     }
     
+    /**
+     * Este metodo obtiene la fecha de entrega
+     * @return fecha de entrega
+     */
     public java.sql.Date getEntrega(){       
         Date date = jDateChooser3.getDate();
         long d = date.getTime();
@@ -48,6 +72,10 @@ public class Vista_AgregarDU extends javax.swing.JFrame {
         return fecha;
     }
     
+    /**
+     * Este metodo obtiene la fecha de vencimiento
+     * @return fecha de vencimiento
+     */
     public java.sql.Date getVencimiento(){      
         Date date = jDateChooser2.getDate();
         long d = date.getTime();
@@ -56,11 +84,11 @@ public class Vista_AgregarDU extends javax.swing.JFrame {
         return fecha;
     }
     
+    /**
+     * Este metodo limpia los campos de texto
+     */
      public void limpiarTextField(){
         jTextField1.setText("");
-        
-      
-        
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -92,20 +92,20 @@ public class Controlador_DosisUnitaria {
                }
             }
     }
-     /**
+    /**
      * Clase Abstracta que captura el boton buscar dosis unitaria
     */
     class BuscarDU implements ActionListener{
         
         /**
-         * Este método ...
+         * Este método vuelve visible la buscar agregar dosis unitaria
          */
 
          
         public void actionPerformed(ActionEvent a) {
               
                try{
-                  mDU.ConsultaDUxRut(vBusDU.getTable(),vBusDU.getRut());
+                  mDU.consultaDUxRut(vBusDU.getTable(),vBusDU.getRut());
                    
                }catch(NumberFormatException ex){
                         
@@ -118,13 +118,13 @@ public class Controlador_DosisUnitaria {
     class AgregarDosisUnitaria implements ActionListener{
         @Override
         /**
-         * Este método ...
+         * Este método vuelve visible la vista agregar dosis unitaria
          */
         public void actionPerformed(ActionEvent a) {
               
                try{
                    //enviar a modelo
-                   mDU.IngresarDosisUnitaria(vAddDU.getRut(),vAddDU.getElaboracion(),vAddDU.getVencimiento(),
+                   mDU.setDosisUnitaria(vAddDU.getRut(),vAddDU.getElaboracion(),vAddDU.getVencimiento(),
                                            vAddDU.getEntrega());
                    //limpiar texto
                    vAddDU.limpiarTextField();
@@ -138,11 +138,11 @@ public class Controlador_DosisUnitaria {
             }
     }
    
+    /**
+     * Clase abstracta que envia datos a la vista editar dosis unitaria
+     */
     class ConsultaDosisUnitaria implements ActionListener{
-        
-        /**
-         * Este método ...
-         */
+
         public void setDatosDU (String [] aux) throws ParseException{
             int index; 
             SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -160,19 +160,15 @@ public class Controlador_DosisUnitaria {
             }
             
             vEditDU.setDatos(aux[0],fecha_aux,fecha_aux2,fecha_aux3,index);
-            
-            
+
         }
         
+        @Override
         public void actionPerformed(ActionEvent a) {
             String [] datos = new String[9]; 
             try{
                //realiza la consulta a db y set datos en vista
-               setDatosDU (mDU.ConsultaDosisUnitaria(vEditDU.getIDdosis()));
-
-
-
-
+               setDatosDU (mDU.getDosisUnitaria(vEditDU.getIDdosis()));
                //funcion que habilita el contenido a editar:
                vEditDU.habilitarContenido();
             }
@@ -184,13 +180,11 @@ public class Controlador_DosisUnitaria {
         }
     }
    
+    /**
+     * Clase abstracta que captura el boton actualizar de la vista editar dosis unitaria
+     */
     class ActualizarDosisUnitaria implements ActionListener{
         @Override
-        /**
-         * Este método ...
-         */
-        
-       
         public void actionPerformed(ActionEvent a) {
               
            if (vEditDU.getStock().equalsIgnoreCase("Selecciona estado")==true) {
@@ -198,7 +192,7 @@ public class Controlador_DosisUnitaria {
             }
             else{
                 try{
-                 mDU.ActualizarDosisUnitaria(vEditDU.getIDdosis(), vEditDU.getRut(),vEditDU.getElaboracion(),vEditDU.getVencimiento(),vEditDU.getLlegada(), vEditDU.getStock());
+                 mDU.actualizarDosisUnitaria(vEditDU.getIDdosis(), vEditDU.getRut(),vEditDU.getElaboracion(),vEditDU.getVencimiento(),vEditDU.getLlegada(), vEditDU.getStock());
                  //limpiar texto
 
                  vEditDU.limpiarTextField();
@@ -213,16 +207,15 @@ public class Controlador_DosisUnitaria {
         }
     }
    
-    class EliminarDosisUnitaria implements ActionListener{
-        
-        /**
-         * Este método ...
-         */   
+    /**
+     * Clase abstracta que captura el boton eliminar dosis unitaria de la vista principal
+     */
+    class EliminarDosisUnitaria implements ActionListener{ 
         @Override
         public void actionPerformed(ActionEvent a) {
             
             try{
-               mDU.EliminarDosisUnitaria(vDelDU.getID());
+               mDU.eliminarDosisUnitaria(vDelDU.getID());
                vDelDU.limpiar();
                vDelDU.setVisible(false);
             }
@@ -232,19 +225,17 @@ public class Controlador_DosisUnitaria {
         }
     }
    
+    /**
+     * Clase abstracta que captura el boton entregar dosis unitaria de la vista principal
+     */
     class EntregarDosisUnitaria implements ActionListener{
         @Override
-        /**
-         * Este método ...
-         */
-        
-       
         public void actionPerformed(ActionEvent a) {
               
            
            
                 try{
-                 mDU.EntregarDosisUnitaria(vPrin.getRut());
+                 mDU.entregarDosisUnitaria(vPrin.getRut());
                  //limpiar texto
                  
                  vPrin.limpiar();

@@ -81,7 +81,7 @@ public class Reportes {
         ResultSet res;
         Statement sentencia;
         Document documento = new Document(PageSize.A4);
-        con = ConexionDB.GetConnection();
+        con = ConexionDB.getConnection();
         try {
             sentencia=con.createStatement();
             res=sentencia.executeQuery("SELECT Cantidad, Cantidadmin,  Cantidadmax, Medicamento.Nombre, Medicamento.FechaElaboracion, Medicamento.Composicion, Medicamento.FechaVencimiento, Medicamento.Laboratorio FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento "); 
@@ -140,7 +140,7 @@ public class Reportes {
         ResultSet res;
         Statement sentencia;
         Document documento = new Document(PageSize.A4);
-        con = ConexionDB.GetConnection();       
+        con = ConexionDB.getConnection();       
         try{
             sentencia=con.createStatement();
             res=sentencia.executeQuery("SELECT Cantidad, Cantidadmin, Cantidadmax, Medicamento.Nombre, Medicamento.FechaElaboracion, Medicamento.FechaVencimiento, Medicamento.Laboratorio FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento "); 
@@ -197,7 +197,7 @@ public class Reportes {
         double consumo,cantidad;
         double porcentaje;
         consumo=cantidad=0;
-        con = ConexionDB.GetConnection();
+        con = ConexionDB.getConnection();
         try {
             sentencia=con.createStatement();
             res=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Composicion, Medicamento.Laboratorio, Inventario.Cantidad, SUM(MedicinaPaciente.Cantidad) as Consumo FROM MedicinaPaciente INNER JOIN Medicamento ON MedicinaPaciente.ID_Medicamento = Medicamento.ID_Medicamento INNER JOIN Inventario ON MedicinaPaciente.ID_Medicamento = Inventario.ID_Medicamento  GROUP BY Medicamento.Nombre, Medicamento.Composicion , Medicamento.Laboratorio, Inventario.Cantidad ORDER BY Consumo"); 
@@ -257,7 +257,7 @@ public class Reportes {
         ResultSet res,res2;
         Statement sentencia;
         Document documento = new Document(PageSize.A4);
-        con = ConexionDB.GetConnection();
+        con = ConexionDB.getConnection();
         try {
             sentencia=con.createStatement();
             res=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Composicion, Medicamento.Laboratorio, Medicamento.FechaLlegada, Inventario.Cantidad FROM Medicamento INNER JOIN Inventario ON Medicamento.ID_Medicamento = Inventario.ID_Medicamento ORDER BY Inventario.Cantidad, Medicamento.Nombre desc"); 

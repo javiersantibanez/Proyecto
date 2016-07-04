@@ -18,8 +18,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Javier Santibañez
+ * Esta clase se comunica con la base de datos y accede a los datos de las Dosis Unitarias
+ * Esta clase es parte de la capa modelo
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Modelo_DosisUnitaria {
     
@@ -30,19 +32,27 @@ public class Modelo_DosisUnitaria {
    DefaultTableModel dtm;
    private ResultSetMetaData rsm;
    
-   
+   /**
+    * Constructor de la clase
+    */
    public Modelo_DosisUnitaria(){
     
     }
    
-   
-    public void IngresarDosisUnitaria(int rut,Date elab, Date venc, Date entrega){
+   /**
+    * Este metodo agrega una nueva dosis unitaria a la base de datos
+    * @param rut rut del paciente
+    * @param elab fecha de elaboracion de la dosis unitaria
+    * @param venc fecha de vencimento de la dosis unitaria
+    * @param entrega fecha de entrega de la dosis unitaria
+    */
+    public void setDosisUnitaria(int rut,Date elab, Date venc, Date entrega){
 
         Statement sentencia;
 
           try{
 
-            con = ConexionDB.GetConnection();
+            con = ConexionDB.getConnection();
             sentencia =con.createStatement();
             sentencia.executeUpdate("INSERT INTO Dosis_Unitaria VALUES ("+rut+","+"'"+elab+"',"+
                                      "'"+venc+"',"+"'"+entrega+"','No entregada')");
@@ -55,9 +65,15 @@ public class Modelo_DosisUnitaria {
         
     }
     
-    public void ConsultaDUxRut(JTable tabla, int rut)throws Exception{
+    /**
+     * Este metodo obtiene los datos de una dosis unitaria segun el rut del paciente
+     * @param tabla tabla
+     * @param rut rt del paciente
+     * @throws Exception SQL exception
+     */
+    public void consultaDUxRut(JTable tabla, int rut)throws Exception{
         
-        con=ConexionDB.GetConnection();
+        con=ConexionDB.getConnection();
         ps = con.prepareStatement("SELECT * FROM Dosis_Unitaria WHERE Rut_Paciente = "+rut+"");
         res=ps.executeQuery();
         rsm=res.getMetaData();
@@ -76,12 +92,17 @@ public class Modelo_DosisUnitaria {
         }
     }
     
-    public String [] ConsultaDosisUnitaria(int id){
+    /**
+     * Este metodo obtiene los datos de una dosis unitaria segun su id
+     * @param id id de la dosis unitaria
+     * @return datos de la dosis unitaria
+     */
+    public String [] getDosisUnitaria(int id){
         Statement sentencia;
         String [] datos = new String[5]; 
         try
             {
-                con=ConexionDB.GetConnection();
+                con=ConexionDB.getConnection();
                 sentencia=con.createStatement();
                 res=sentencia.executeQuery("SELECT * FROM Dosis_Unitaria WHERE ID_Dosis = "+id+"");
                 
@@ -111,9 +132,17 @@ public class Modelo_DosisUnitaria {
                 JOptionPane.showMessageDialog(null,e);}
                 
             return datos;
-            }
+    }
     
-    public void ActualizarDosisUnitaria(int id,int rut,Date elab, Date venc, Date entrega, String stock){
+     /**
+     * Este metodo actualiza los datos de una dosis unitaria de la base de datos
+     * @param id codigo de la dosis unitaria
+     * @param rut rut del paciente
+     * @param elab fecha de elaboracion de la dosis unitaria
+     * @param venc fecha de vencimiento de la dosis unitaria
+     * @param entrega  fecha de entrega de la dosis unitaria
+     */
+    public void actualizarDosisUnitaria(int id,int rut,Date elab, Date venc, Date entrega, String stock){
          
         
          PreparedStatement act;
@@ -144,17 +173,19 @@ public class Modelo_DosisUnitaria {
          
          catch(SQLException e){
                 JOptionPane.showMessageDialog(null,"Error al actualizar datos de la dosis");}
-                
-         
-            
+   
     }
 
-    public void EliminarDosisUnitaria(int id) {
+    /**
+     * Este metodo elimina una dosis unitaria de la base de datos
+     * @param id codigo de la dosis unitaria
+     */
+    public void eliminarDosisUnitaria(int id) {
         
         Statement elim;
         
         try{
-            con=ConexionDB.GetConnection();
+            con=ConexionDB.getConnection();
             elim = con.createStatement();
             elim.execute("DELETE FROM Dosis_Unitaria WHERE ID_Dosis = "+id+"");
         
@@ -166,8 +197,11 @@ public class Modelo_DosisUnitaria {
         }
     }
     
-    
-    public void EntregarDosisUnitaria(int rut){
+    /**
+     * Este metodo ingresa una dosis unitaria como entregada a la base de datos
+     * @param rut rut del paciente  de la dosis
+     */
+    public void entregarDosisUnitaria(int rut){
         PreparedStatement act;
         
         
@@ -178,7 +212,7 @@ public class Modelo_DosisUnitaria {
          try
          { 
             
-            con = ConexionDB.GetConnection();
+            con = ConexionDB.getConnection();
             act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Disponible = ? "
                                         + "WHERE FechaEntrega = '"+fecha+"' and Rut_Paciente = " +rut+"");
             

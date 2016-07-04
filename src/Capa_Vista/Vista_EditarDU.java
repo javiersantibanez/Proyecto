@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 /**
- *
- * @author Karla Muñoz
+ * Esta es la clase que contiene la vista editar dosis unitaria
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_EditarDU extends javax.swing.JFrame {
 
@@ -20,21 +22,51 @@ public class Vista_EditarDU extends javax.swing.JFrame {
     public Vista_EditarDU() {
         initComponents();
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo captura el evento del boton actualizar
+     * @param escuchar evento
+     */
     public void botonEditarDU (ActionListener escuchar){
         jButton1.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo captura el evento del boton consultar
+     * @param escuchar evento
+     */
     public void botonConsultaDU(ActionListener escuchar){
         jButton3.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo captura el id dosis
+     * @return id dosis
+     */
     public int getIDdosis(){
         return Integer.parseInt(jTextField5.getText());
     }
+    
+    /**
+     * Este metodo captura el campo rut
+     * @return rut
+     */
     public int getRut(){
         return Integer.parseInt(jTextField1.getText());
     }
+    
+    /**
+     * Este metodo captura la fecha de elaboracion
+     * @return fecha de elaboracion
+     */
     public java.sql.Date getElaboracion(){      
         Date date = jDateChooser1.getDate();
         long d = date.getTime();
@@ -43,6 +75,10 @@ public class Vista_EditarDU extends javax.swing.JFrame {
         return fecha;
     }
     
+    /**
+     * Este metodo captura la fecha de llegada
+     * @return fecha de llegada
+     */
     public java.sql.Date getLlegada(){
        
         Date date = jDateChooser3.getDate();
@@ -52,6 +88,10 @@ public class Vista_EditarDU extends javax.swing.JFrame {
         return fecha;
     }
    
+    /**
+     * Este metodo captura la fecha de vencimiento
+     * @return fecha de vencimiento
+     */
     public java.sql.Date getVencimiento(){
        
         Date date = jDateChooser2.getDate();
@@ -61,6 +101,10 @@ public class Vista_EditarDU extends javax.swing.JFrame {
         return fecha;
     }
     
+    
+    /**
+     * Este metodo limpia los campos de texto
+     */
      public void limpiarTextField(){
         jTextField1.setText("");
         jComboBox1.setSelectedIndex(0);
@@ -70,6 +114,9 @@ public class Vista_EditarDU extends javax.swing.JFrame {
         return (String) jComboBox1.getSelectedItem();
     } 
     
+    /**
+     * Este metodo habilita el contenido de las fechas
+     */
      public void habilitarContenido(){
         
         jDateChooser1.setEnabled(true);
@@ -78,6 +125,9 @@ public class Vista_EditarDU extends javax.swing.JFrame {
         jTextField5.setEditable(true);     
     }
      
+    /**
+     * Este metodo envia los datos
+     */
     public void setDatos(String aux,Date aux2,Date aux3,Date aux4,int aux5){
         
         jTextField1.setText(aux);

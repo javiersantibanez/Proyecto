@@ -6,8 +6,10 @@
 package Capa_Vista;
 
 /**
- *
- * @author Javier Santibañez
+ * Esta es la clase que contiene la vista login
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Principal extends javax.swing.JFrame {
 

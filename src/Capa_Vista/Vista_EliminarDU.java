@@ -8,8 +8,10 @@ package Capa_Vista;
 import java.awt.event.ActionListener;
 
 /**
- *
- * @author Karla Muñoz
+ * Esta es la clase que contiene la vista eliminar dosis unitaria
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_EliminarDU extends javax.swing.JFrame {
 
@@ -19,18 +21,34 @@ public class Vista_EliminarDU extends javax.swing.JFrame {
     public Vista_EliminarDU() {
         initComponents();
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton1.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo limpia el campo de texto
+     */
     public void limpiar(){
         jTextField1.setText("");
     }
     
+    /**
+     * Este metodo obtiene la id de la dosis unitaria
+     * @return id dosis unitaria
+     */
     public int getID(){
         return Integer.parseInt(jTextField1.getText());
     }
     
-    
+    /**
+     * Este metodo captura el evento del boton eliminar
+     * @param escuchar evento
+     */
     public void botonEliminarDosisU(ActionListener escuchar){
         jButton2.addActionListener(escuchar);
     }

@@ -8,8 +8,10 @@ package Capa_Vista;
 import java.awt.event.ActionListener;
 
 /**
- *
- * @author Karla Muñoz
+ * Esta es la clase que contiene la vista eliminar paciente
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_EliminarP extends javax.swing.JFrame {
 
@@ -19,17 +21,36 @@ public class Vista_EliminarP extends javax.swing.JFrame {
     public Vista_EliminarP() {
         initComponents();
     }
+    
+    /**
+     * Este metodo limpia los campos de texto
+     */
     public void limpiar(){
         jTextField1.setText("");
     }
     
+    
+    /**
+     * Este metodo obtiene le rut del paciente
+     * @return rut
+     */
     public int getRut(){
         return Integer.parseInt(jTextField1.getText());
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton2.addActionListener(escuchar);
     }
     
+    
+    /**
+     * Este metodo captura el evento del boton eliminar
+     * @param escuchar evento
+     */
     public void botonEliminar(ActionListener escuchar){
         jButton1.addActionListener(escuchar);
     }

@@ -6,7 +6,6 @@
 package Capa_Controlador;
 
 import Capa_Modelo.Modelo_Medicamento;
-import Capa_Modelo.Modelo_Paciente;
 import Capa_Modelo.Reportes;
 import Capa_Vista.Vista_AgregarDU;
 import Capa_Vista.Vista_AgregarM;
@@ -64,9 +63,25 @@ public class Controlador_Principal {
     private Modelo_Medicamento mMed;
     private Reportes mRep;
     
-    /*
-        Contructor de la clase
-    */
+    /**
+     * Constructor de la clase
+     * @param vPrin objeto de la vista principal
+     * @param vAddPac objeto de la vista agregar paciente
+     * @param vEditPac objeto de la vista editar paciente
+     * @param vDelPac objeto de la vista eliminar paciente
+     * @param vAddDU objeto de la vista agregar dosis unitaria
+     * @param vDelDU objeto de la vista eliminar dosis unitaria
+     * @param vEditDU objeto de la vista editar dosis unitaria
+     * @param vAddM objeto de la vista agregar medicamento
+     * @param vDelM objeto de la vista eliminar medicamento
+     * @param vEditM objeto de la vista editar medicamento
+     * @param vInv objeto de lavista inventario
+     * @param vBusPac objeto de la vista buscar paciente
+     * @param vBusDU objeto de la vista buscar dosis unitaria
+     * @param vBusM objeto de la vista buscar medicamento
+     * @param mMed objeto del modelo medicamento
+     * @param mRep objeto del modelo reporte
+     */
     public Controlador_Principal(Vista_Principal vPrin, Vista_AgregarP vAddPac, Vista_EditarP vEditPac, Vista_EliminarP vDelPac,
             Vista_AgregarDU vAddDU,Vista_EliminarDU vDelDU,Vista_EditarDU vEditDU,
             Vista_AgregarM vAddM,Vista_EliminarM vDelM,Vista_EditarM vEditM, Vista_Inventario vInv,
@@ -116,6 +131,9 @@ public class Controlador_Principal {
         
     }
     
+    /**
+     * Clase abstracta que captura el boton atras de la Vista_Principal
+     */
     class Atras implements ActionListener{
         @Override
         /**
@@ -356,12 +374,8 @@ public class Controlador_Principal {
          */
         public void actionPerformed(ActionEvent a) {              
                try{
-                   vInv.setVisible(true); 
-                   
-                   mMed.ConsultaInv(vInv.getTable());
-                   
-                   
-                   
+                   vInv.setVisible(true);                    
+                   mMed.consultaInv(vInv.getTable());
                }catch(NumberFormatException ex){
                   // JOptionPane.showMessageDialog(vPrin, "Error al volver a la pagina principal");
                }catch (Exception ex) {

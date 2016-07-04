@@ -11,8 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- *
- * @author Karla Muñoz
+ * Esta es la clase que contiene la vista editar paciente
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_EditarP extends javax.swing.JFrame {
 
@@ -25,7 +27,9 @@ public class Vista_EditarP extends javax.swing.JFrame {
     
     
     
-   
+ /**
+  * Este metodo envia datos a los campos de texto
+  */ 
  public void setDatos(String aux,String aux2,String aux3,String aux4,
                          Date aux5,String aux6,String aux7,String aux8,
                          String aux9,String aux10,String aux11,String aux12,
@@ -50,94 +54,193 @@ public class Vista_EditarP extends javax.swing.JFrame {
         
     }
 
- public void limpiarTextField(){
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
-        jTextField5.setText("");
-        jTextField7.setText("");
-        jTextField8.setText("");
-        jTextField9.setText("");
-        jTextField11.setText("");
-        jTextField12.setText("");
-        jTextField13.setText("");
-        jTextField14.setText("");
-        jComboBox1.setSelectedIndex(0);
-        jTextField16.setText("");
-        jTextField17.setText("");
+ 
+     /**
+     * Este metodo limpia los campos de texto 
+     */
+     public void limpiarTextField(){
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+            jTextField7.setText("");
+            jTextField8.setText("");
+            jTextField9.setText("");
+            jTextField11.setText("");
+            jTextField12.setText("");
+            jTextField13.setText("");
+            jTextField14.setText("");
+            jComboBox1.setSelectedIndex(0);
+            jTextField16.setText("");
+            jTextField17.setText("");
 
-  }
+    }
+     
+    /**
+     * Este metodo obtiene el rut del campo de texto
+     * @return rut
+     */
     public int getRut(){
         return Integer.parseInt(jTextField1.getText());
     }
+    
+    /**
+     * Este metodo obtiene el primer nombre del campo de texto
+     * @return primer nombre
+     */
     public String getPrimerNombre(){
         return jTextField2.getText();
     }
+    
+    /**
+     * Este metodo obtiene el apellido paterno del campo de texto
+     * @return apellido paterno
+     */
     public String getApellidoPaterno(){
         return jTextField4.getText();
     }
+    
+    /**
+     * Este metodo obtiene la fecha de nacimiento
+     * @return fecha de nacimiento
+     */
     public java.sql.Date getFNacimiento(){
-       
+
         Date date = jDateChooser1.getDate();
         long d = date.getTime();
         java.sql.Date fecha = new java.sql.Date(d);
-        
+
         return fecha;
     }
+    
+    /**
+     * Este metodo obtiene el cale del campo de texto
+     * @return calle
+     */
     public String getCalle(){
         return jTextField7.getText();
     }
+    
+    /**
+     * Este metodo obtiene el departamento del campo de texto
+     * @return departamento
+     */
     public int getDepto(){
         return Integer.parseInt(jTextField9.getText());
     }
+    
+    /**
+     * Este metodo obtiene la comuna del campo de texto
+     * @return rut
+     */
     public String getComuna(){
         return jTextField13.getText();
     }
+    
+    /**
+     * Este metodo obtiene la region
+     * @return region
+     */
     public String getRegion(){
         return (String) jComboBox1.getSelectedItem();
     }
+    
+    /**
+     * Este metodo obtiene el diagnostico del campo de texto
+     * @return diagnostico
+     */
     public String getDiagnostico(){
         return jTextField17.getText();
     }
+    
+    /**
+     * Este metodo obtiene el segundo nombre del campo de texto
+     * @return segundo nombre
+     */
     public String getSegundoNombre(){
         return jTextField3.getText();
     }
+    
+    /**
+     * Este metodo obtiene el apellido materno del campo de texto
+     * @return apellido materno
+     */
     public String getApellidoMaterno(){
         return jTextField5.getText();
     }
+    
+    /**
+     * Este metodo obtiene el telefono del campo de texto
+     * @return telefono
+     */
     public int getTelefono(){
         return Integer.parseInt(jTextField8.getText());
     }
+    
+    /**
+     * Este metodo obtiene el numero del campo de texto
+     * @return numero
+     */
     public int getNumero(){
         return Integer.parseInt(jTextField11.getText());
     }
+    
+    /**
+     * Este metodo obtiene la torre del campo de texto
+     * @return torre
+     */
     public int getTorre(){
         return Integer.parseInt(jTextField12.getText());
     }
+    
+    /**
+     * Este metodo obtiene la ciudad del campo de texto
+     * @return ciudad
+     */
     public String getCiudad(){
         return jTextField14.getText();
     }
+    
+    /**
+     * Este metodo obtiene el email del campo de texto
+     * @return email
+     */
     public String getCorreoElectronico(){
         return jTextField16.getText();
     }
-    
-    
+
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton3.addActionListener(escuchar);
     }
+    
+    /**
+     * Este metodo captura el evento del boton actualizar
+     * @param escuchar evento
+     */
     public void botonActualizar(ActionListener escuchar){
-         
+
         jButton2.addActionListener(escuchar);
     }
     
+    /**
+     * Este metodo captura el evento del boton consultar
+     * @param escuchar evento
+     */
     public void botonConsultar(ActionListener escuchar){
-        
+
         jButton1.addActionListener(escuchar);
     }
-
+    
+    /**
+     * Este metodo habilita el contenido de los campos de texto de las vistas
+     */
     public void habilitarContenido(){
-        
+
         jTextField2.setEditable(true);
         jTextField3.setEditable(true);
         jTextField4.setEditable(true);
@@ -155,9 +258,12 @@ public class Vista_EditarP extends javax.swing.JFrame {
         jTextField17.setEditable(true);
     }
     
+    /**
+     * Este metodo limpia el campo de rut
+     */
     public void setRut(){
         jTextField1.setText("");
-        
+
     }
     
  

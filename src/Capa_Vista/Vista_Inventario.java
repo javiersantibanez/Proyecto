@@ -10,8 +10,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Karla Muñoz
+ * Esta es la clase que contiene la vista inventario
+ * Esta clase es parte de la capa vista
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Vista_Inventario extends javax.swing.JFrame {
 
@@ -21,6 +23,11 @@ public class Vista_Inventario extends javax.swing.JFrame {
     public Vista_Inventario() {
         initComponents();
     }
+    
+    /**
+     * Este metodo captura el evento del boton atras
+     * @param escuchar evento
+     */
     public void botonAtras(ActionListener escuchar){         
         jButton1.addActionListener(escuchar);
     }
@@ -28,6 +35,9 @@ public class Vista_Inventario extends javax.swing.JFrame {
     
     DefaultTableModel model = new DefaultTableModel();
     
+    /**
+     * Este metodo vacia la tabla
+     */
     public void vaciarTabla(){
         
 
@@ -38,6 +48,10 @@ public class Vista_Inventario extends javax.swing.JFrame {
    
     }
     
+    /**
+     * Este metodo obtiene la tabla
+     * @return tabla
+     */
     public JTable getTable(){
         return jTable2;
     }
