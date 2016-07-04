@@ -67,7 +67,7 @@ public class Modelo_Medicamento {
             
             sentencia.executeUpdate("INSERT INTO Medicamento VALUES ("+nSerie+","+"'"+nombre+"',"+"'"+pActivo+"',"+
                                  "'"+lab+"',"+"'"+vAdmin+"',"+"'"+elab+"',"+
-                                 "'"+venc+"',"+"'"+llegada+"',"+"'"+comp+"')");
+                                 "'"+venc+"',"+"'"+llegada+"',"+"'"+comp+"',"+""+cantidad+")");
                                    
             sentencia2.executeUpdate("INSERT INTO Inventario VALUES("+nSerie+","+""+cantidad+",10,50)");
 
@@ -105,7 +105,7 @@ public class Modelo_Medicamento {
                     datos[4] = res.getString("FechaElaboracion");
                     datos[5] = res.getString("FechaVencimiento");
                     datos[6] = res.getString("FechaLlegada");
-                    datos[7] = res.getString("Composicion");
+                    datos[7] = res.getString("Dosis");
                     datos[8] = Integer.toString(res.getInt("ID_Medicamento"));
                 }
                 
@@ -150,7 +150,7 @@ public class Modelo_Medicamento {
          try
          {
             act = con.prepareStatement("UPDATE Medicamento  SET Nombre = ?,PrincipioActivo = ?,Laboratorio = ?,ViaAdministracion= ?,"
-                                        + "FechaElaboracion= ?, FechaVencimiento= ?,FechaLlegada= ? ,Composicion= ? "
+                                        + "FechaElaboracion= ?, FechaVencimiento= ?,FechaLlegada= ? ,Dosis= ?,CantidadLote=? "
                                         + "WHERE ID_Medicamento = "+nSerie+"");
             
             act2 = con.prepareStatement("UPDATE Inventario SET Cantidad=? WHERE ID_Medicamento="+nSerie+"");
@@ -163,6 +163,7 @@ public class Modelo_Medicamento {
             act.setDate(6, venc);
             act.setDate(7, llegada);
             act.setString(8, comp);
+            act.setInt(9,cantidad);
             act2.setInt(1, cantidad);
             act2.executeUpdate();
             act.executeUpdate();
@@ -253,8 +254,8 @@ public class Modelo_Medicamento {
         DefaultTableModel dtm;
         
         con=ConexionDB.getConnection();
-        ps = con.prepareStatement("SELECT Cantidad, Medicamento.Nombre, Medicamento.PrincipioActivo, Medicamento.Laboratorio, Medicamento.ViaAdministracion, Medicamento.Composicion FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento  \n" +
-                                  "GROUP BY  Cantidad,Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Composicion");
+        ps = con.prepareStatement("SELECT Cantidad, Medicamento.Nombre, Medicamento.PrincipioActivo, Medicamento.Laboratorio, Medicamento.ViaAdministracion, Medicamento.Dosis FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento  \n" +
+                                  "GROUP BY  Cantidad,Nombre,PrincipioActivo,Laboratorio,ViaAdministracion,Dosis");
         
         res=ps.executeQuery();
         
@@ -316,10 +317,10 @@ public class Modelo_Medicamento {
              
              con =ConexionDB.getConnection();
              sentencia = con.createStatement();
-             res = sentencia.executeQuery ("SELECT Composicion FROM Medicamento WHERE Nombre ='"+nombre+"'");
+             res = sentencia.executeQuery ("SELECT Dosis FROM Medicamento WHERE Nombre ='"+nombre+"'");
 
             while(res.next()){
-               String aux = res.getString("Composicion");
+               String aux = res.getString("Dosis");
                combox.addItem(aux);
             }
             con.close();
@@ -358,13 +359,13 @@ public class Modelo_Medicamento {
             sentencia2 = con.createStatement();
             sentencia3 = con.createStatement();
             
-            res = sentencia2.executeQuery ("SELECT Nombre,Composicion FROM Medicamento WHERE Nombre = '"+nombre+"' and Composicion = '"+dosis+"'");
+            res = sentencia2.executeQuery ("SELECT Nombre,Dosis FROM Medicamento WHERE Nombre = '"+nombre+"' and Dosis = '"+dosis+"'");
             
             while(res.next()){
                 aux = res.getString("Nombre");
-                aux2 = res.getString("Composicion");
+                aux2 = res.getString("Dosis");
             }
-            res2 =  sentencia3.executeQuery("SELECT ID_Medicamento FROM Medicamento WHERE Nombre='"+aux+"' and Composicion= '"+aux2+"'" );
+            res2 =  sentencia3.executeQuery("SELECT ID_Medicamento FROM Medicamento WHERE Nombre='"+aux+"' and Dosis= '"+aux2+"'" );
             
             while(res2.next()){
                  aux3 = res2.getString("ID_Medicamento");

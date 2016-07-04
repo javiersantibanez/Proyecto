@@ -84,7 +84,7 @@ public class Reportes {
         con = ConexionDB.getConnection();
         try {
             sentencia=con.createStatement();
-            res=sentencia.executeQuery("SELECT Cantidad, Cantidadmin,  Cantidadmax, Medicamento.Nombre, Medicamento.FechaElaboracion, Medicamento.Composicion, Medicamento.FechaVencimiento, Medicamento.Laboratorio FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento "); 
+            res=sentencia.executeQuery("SELECT Cantidad, Cantidadmin,  Cantidadmax, Medicamento.Nombre, Medicamento.FechaElaboracion, Medicamento.Dosis, Medicamento.FechaVencimiento, Medicamento.Laboratorio FROM Inventario inner join Medicamento on Inventario.ID_Medicamento = Medicamento.ID_Medicamento "); 
             PdfWriter.getInstance(documento, new FileOutputStream("reportes/reporte_de_inventario "+fechaActual()+" "+horaActual()+".pdf"));
             documento.open();
             float[] columnWidths = {2,2,2,2,2,2,2,2};
@@ -101,7 +101,7 @@ public class Reportes {
             table.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
             for (int i = 0; i < 2; i++) {
                 table.addCell("Medicamento");
-                table.addCell("Composicion");
+                table.addCell("Dosis");
                 table.addCell("Laboratorio");
                 table.addCell("Fecha de Elaboracion");
                 table.addCell("Fecha de Vencimiento");
@@ -115,7 +115,7 @@ public class Reportes {
             table.getDefaultCell().setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             while ( res.next() ) {
                     table.addCell(res.getString("Nombre"));
-                    table.addCell(res.getString("Composicion"));
+                    table.addCell(res.getString("Dosis"));
                     table.addCell(res.getString("Laboratorio"));
                     table.addCell(res.getString("FechaElaboracion"));
                     table.addCell(res.getString("FechaVencimiento"));
@@ -177,15 +177,18 @@ public class Reportes {
                     }
             }
             documento.add(table);
+        
             documento.close();        
             JOptionPane.showMessageDialog(null, "Reporte de Vencimiento generado correctamente");
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error en conectar con base de datos");
         } catch (DocumentException ex) {
-            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, "El documento no se pudo generar");
+            JOptionPane.showMessageDialog( null, "El documento no se pudo generar");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, "EL archivo no se abrió");
+          
         }
+        
     }
     
     public void generarReporteConsumoMedicamentos(){
@@ -200,7 +203,7 @@ public class Reportes {
         con = ConexionDB.getConnection();
         try {
             sentencia=con.createStatement();
-            res=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Composicion, Medicamento.Laboratorio, Inventario.Cantidad, SUM(MedicinaPaciente.Cantidad) as Consumo FROM MedicinaPaciente INNER JOIN Medicamento ON MedicinaPaciente.ID_Medicamento = Medicamento.ID_Medicamento INNER JOIN Inventario ON MedicinaPaciente.ID_Medicamento = Inventario.ID_Medicamento  GROUP BY Medicamento.Nombre, Medicamento.Composicion , Medicamento.Laboratorio, Inventario.Cantidad ORDER BY Consumo"); 
+            res=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Dosis, Medicamento.Laboratorio, Medicamento.CantidadLote, SUM(MedicinaPaciente.Cantidad) as Consumo FROM MedicinaPaciente INNER JOIN Medicamento ON MedicinaPaciente.ID_Medicamento = Medicamento.ID_Medicamento INNER JOIN Inventario ON MedicinaPaciente.ID_Medicamento = Inventario.ID_Medicamento  GROUP BY Medicamento.Nombre, Medicamento.Dosis , Medicamento.Laboratorio, Medicamento.CantidadLote ORDER BY Consumo"); 
             PdfWriter.getInstance(documento, new FileOutputStream("reportes/reporte_de_consumo_medicamentos "+fechaActual()+" "+horaActual()+".pdf"));
             documento.open();
             float[] columnWidths = {2,2,2,2,2,2};
@@ -217,7 +220,7 @@ public class Reportes {
             table.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
             for (int i = 0; i < 2; i++) {
                 table.addCell("Medicamento");
-                table.addCell("Composicion");
+                table.addCell("Dosis");
                 table.addCell("Laboratorio");
                 table.addCell("Cantidad");
                 table.addCell("Unidades consumidas");
@@ -229,13 +232,13 @@ public class Reportes {
             table.getDefaultCell().setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             while ( res.next() ) {
                     consumo=res.getInt("Consumo");
-                    cantidad=res.getInt("Cantidad");
+                    cantidad=res.getInt("CantidadLote");
                     porcentaje=consumo/cantidad*100;
                     System.out.println("consumo: "+consumo+" cantidad: "+cantidad+" porcentaje: "+porcentaje);
                     table.addCell(res.getString("Nombre"));
-                    table.addCell(res.getString("Composicion"));
+                    table.addCell(res.getString("Dosis"));
                     table.addCell(res.getString("Laboratorio"));
-                    table.addCell(res.getString("Cantidad"));
+                    table.addCell(res.getString("CantidadLote"));
                     table.addCell(res.getString("Consumo"));
                     table.addCell(((df.format(porcentaje)))+"%");
                     
@@ -260,7 +263,7 @@ public class Reportes {
         con = ConexionDB.getConnection();
         try {
             sentencia=con.createStatement();
-            res=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Composicion, Medicamento.Laboratorio, Medicamento.FechaLlegada, Inventario.Cantidad FROM Medicamento INNER JOIN Inventario ON Medicamento.ID_Medicamento = Inventario.ID_Medicamento ORDER BY Inventario.Cantidad, Medicamento.Nombre desc"); 
+            res=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Dosis, Medicamento.Laboratorio, Medicamento.FechaLlegada, Inventario.Cantidad FROM Medicamento INNER JOIN Inventario ON Medicamento.ID_Medicamento = Inventario.ID_Medicamento ORDER BY Inventario.Cantidad, Medicamento.Nombre desc"); 
             PdfWriter.getInstance(documento, new FileOutputStream("reportes/reporte_de_entrada-salida_medicamentos "+fechaActual()+" "+horaActual()+".pdf"));
             documento.open();
             float[] columnWidths = {2,2,2,2,2};
@@ -277,7 +280,7 @@ public class Reportes {
             table.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
             for (int i = 0; i < 2; i++) {
                 table.addCell("Medicamento");
-                table.addCell("Composicion");
+                table.addCell("Dosis");
                 table.addCell("Laboratorio");
                 table.addCell("Fecha de Entrada");
                 table.addCell("Cantidad");
@@ -288,14 +291,14 @@ public class Reportes {
             table.getDefaultCell().setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             while ( res.next() ) {
                     table.addCell(res.getString("Nombre"));
-                    table.addCell(res.getString("Composicion"));
+                    table.addCell(res.getString("Dosis"));
                     table.addCell(res.getString("Laboratorio"));
                     table.addCell(res.getString("FechaLlegada"));
                     table.addCell(res.getString("Cantidad"));
             }
             documento.add(table);
             documento.newPage();
-            res2=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Composicion, Medicamento.Laboratorio, MedicinaPaciente.FechaEntrega, SUM(MedicinaPaciente.Cantidad) AS Entregados FROM Medicamento INNER JOIN MedicinaPaciente ON Medicamento.ID_Medicamento = MedicinaPaciente.ID_Medicamento  group by Medicamento.Nombre, Medicamento.Composicion, Medicamento.Laboratorio,MedicinaPaciente.FechaEntrega ORDER BY Entregados"); 
+            res2=sentencia.executeQuery("SELECT Medicamento.Nombre, Medicamento.Dosis, Medicamento.Laboratorio, MedicinaPaciente.FechaEntrega, SUM(MedicinaPaciente.Cantidad) AS Entregados FROM Medicamento INNER JOIN MedicinaPaciente ON Medicamento.ID_Medicamento = MedicinaPaciente.ID_Medicamento  group by Medicamento.Nombre, Medicamento.Dosis, Medicamento.Laboratorio,MedicinaPaciente.FechaEntrega ORDER BY Entregados"); 
             float[] columnWidths2 = {2,2,2,2,2};
             PdfPTable table2 = new PdfPTable(columnWidths);            
             table2.setWidthPercentage(100);
@@ -309,7 +312,7 @@ public class Reportes {
             table2.getDefaultCell().setBackgroundColor(new GrayColor(0.75f));
             for (int i = 0; i < 2; i++) {
                 table2.addCell("Medicamento");
-                table2.addCell("Composicion");
+                table2.addCell("Dosis");
                 table2.addCell("Laboratorio");
                 table2.addCell("Fecha de Salida");
                 table2.addCell("Cantidad");
@@ -320,7 +323,7 @@ public class Reportes {
             table2.getDefaultCell().setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             while ( res2.next() ) {
                     table2.addCell(res2.getString("Nombre"));
-                    table2.addCell(res2.getString("Composicion"));
+                    table2.addCell(res2.getString("Dosis"));
                     table2.addCell(res2.getString("Laboratorio"));
                     table2.addCell(res2.getString("FechaEntrega"));
                     table2.addCell(res2.getString("Entregados"));

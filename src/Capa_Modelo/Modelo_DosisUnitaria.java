@@ -115,7 +115,7 @@ public class Modelo_DosisUnitaria {
                     datos[1] = res.getString("FechaElaboracion");
                     datos[2] = res.getString("FechaVencimiento");
                     datos[3] = res.getString("FechaEntrega");
-                    datos[4] = res.getString("Disponible");
+                    datos[4] = res.getString("Estado");
                     
                     
                     
@@ -149,7 +149,7 @@ public class Modelo_DosisUnitaria {
          try
          {
     
-            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Rut_Paciente= ?,FechaElaboracion= ?, FechaVencimiento= ?,FechaEntrega= ?, Disponible = ? "
+            act = con.prepareStatement("UPDATE Dosis_Unitaria  SET Rut_Paciente= ?,FechaElaboracion= ?, FechaVencimiento= ?,FechaEntrega= ?, Estado = ? "
                                         + "WHERE ID_Dosis = "+id+"");
             
             
