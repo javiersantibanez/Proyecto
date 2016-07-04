@@ -31,7 +31,7 @@ public class ConexionDB {
      */
     public static Connection getConnection(){
         Connection conexion = null;
-        String ruta = "jdbc:sqlserver://Blazter\\MSSQLERVER:1433;databaseName=Proyecto";
+        String ruta = "jdbc:sqlserver://DESKTOP-2HVLK3K\\JAVIERPC;databaseName=Proyecto";
         
      
         try

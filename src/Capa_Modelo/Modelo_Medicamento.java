@@ -5,6 +5,7 @@
  */
 package Capa_Modelo;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.sql.Date;
 import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -151,7 +153,7 @@ public class Modelo_Medicamento {
                                         + "FechaElaboracion= ?, FechaVencimiento= ?,FechaLlegada= ? ,Composicion= ? "
                                         + "WHERE ID_Medicamento = "+nSerie+"");
             
-            act2 = con.prepareStatement("UPDATE Inventario SET Cantidad=?");
+            act2 = con.prepareStatement("UPDATE Inventario SET Cantidad=? WHERE ID_Medicamento="+nSerie+"");
             
             act.setString(1, nombre);
             act.setString(2, pActivo);
@@ -229,10 +231,11 @@ public class Modelo_Medicamento {
             sentencia2 = con.createStatement();
             sentencia2.executeUpdate("UPDATE Inventario SET Cantidad = Cantidad -"+cant+"WHERE ID_Medicamento ="+id+"");
             
-            JOptionPane.showMessageDialog(null, "Entrega registrada con exito");
+            
+            JOptionPane.showMessageDialog(null,alertaEscaces(id));
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,e);
+            JOptionPane.showMessageDialog(null,"El paciente no existe en la base de datos");
         }
         
         
@@ -396,6 +399,108 @@ public class Modelo_Medicamento {
         
     }
     
+    
+    
+    public String alertaEscaces(int id){
+        Statement sentencia;
+        int aux=0,aux2=0;
+        String msj="";
+            try {
+             
+             con =ConexionDB.getConnection();
+             sentencia = con.createStatement();
+             res = sentencia.executeQuery ("SELECT CantidadMin,Cantidad FROM Inventario WHERE ID_Medicamento = "+id+"");
+
+            while(res.next()){
+                aux  = res.getInt("CantidadMin");
+                aux2 = res.getInt("Cantidad");                            
+            }
+                
+            if(aux2 <=aux ){
+                
+                 msj = "Existe una escasez del medicamento, reponer de inmediato";
+            }
+            else{
+                msj= "Entrega registrada con exito";
+            }
+            
+            con.close();
+            } catch (Exception e) {
+             System.out.println(e);
+             
+         }  
+            return msj;
+    }
+    
+    
+    
+    public void vencimiento(){
+        
+        Statement sentencia;
+        String  nombre="";
+            try {
+               
+             java.util.Date a = new java.util.Date();   
+             long d = a.getTime();
+             java.sql.Date fecha = null;
+             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+             formato.format(a);
+             
+             
+                
+             con =ConexionDB.getConnection();
+             sentencia = con.createStatement();
+             res = sentencia.executeQuery ("SELECT Nombre,FechaVencimiento FROM Medicamento");
+
+            while(res.next()){
+                nombre = res.getString("Nombre");
+                fecha= res.getDate("FechaVencimiento");
+                
+                
+               
+                
+                System.out.println("comparar"+a);
+                if(a.after(sumarRestarDiasFecha(fecha))){
+                    System.out.println("true");
+                }
+                else{
+                    System.out.println("false");
+                }
+                if(a.after(sumarRestarDiasFecha(fecha))){
+                JOptionPane.showMessageDialog(null,"El medicamento "+nombre+" esta pronto a vencer");
+            }
+               
+            }
+                
+            
+           
+            
+            con.close();
+            } catch (SQLException | HeadlessException e) {
+             System.out.println(e);
+             
+         }     
+        
+    }
+    
+    
+    public java.util.Date sumarRestarDiasFecha(Date fecha){
+	
+        
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
+
+        calendar.add(Calendar.DAY_OF_YEAR, -10);  // numero de días a añadir, o restar en caso de días<0
+
+       
+
+        return  calendar.getTime();
+
+ 
+	
+ }
 }
 
 

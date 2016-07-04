@@ -128,6 +128,8 @@ public class Controlador_Principal {
         this.vPrin.botonVerInventario(new VerInventario());
         //Captura el boton de la vista reportes
         this.vPrin.botonGenerar(new GenerarReportes());
+        //Metodo que consulta el vencimiento de medicamentos
+        this.mMed.vencimiento();
         
     }
     

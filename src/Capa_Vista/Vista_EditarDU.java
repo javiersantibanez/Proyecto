@@ -209,7 +209,7 @@ public class Vista_EditarDU extends javax.swing.JFrame {
 
         jDateChooser3.setDateFormatString("yyyy-MM-dd");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleciona estado", "Disponible", "No Disponible", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleciona estado", "Entregada", "No entregada", " " }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Estado:");

@@ -238,12 +238,15 @@ public class Controlador_Medicamento {
                    //limpiar texto
                    vPrin.getStock().setSelectedIndex(0);
                    vPrin.getCombo2().setSelectedIndex(0);
-                   vPrin.getCombo3().setSelectedIndex(0);
+                   vPrin.getCombo3().setSelectedIndex(0);                   
                    vPrin.limpiar();
+                   
+                   
                }catch(NumberFormatException ex){
-                        
+                        JOptionPane.showMessageDialog(null, "Deben estar completados todos los campos solicitados");
                } catch (SQLException ex) {
                  Logger.getLogger(Controlador_Medicamento.class.getName()).log(Level.SEVERE, null, ex);
+                 
              }
             }
     }
