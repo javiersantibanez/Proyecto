@@ -32,9 +32,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Franco
+ /**
+ * Esta clase se comunica con la base de datos para generar distintos reportes
+ * Esta clase es parte de la capa modelo
+ * @author Javier Santibáñez,Franco Soto and José Valdivia
+ * @version version 1.0
  */
 public class Reportes {  
     /**
@@ -66,6 +68,12 @@ public class Reportes {
         int segundo = fecha.get(Calendar.SECOND);
         return hora+"-"+minuto+"-"+segundo;
     }
+    
+    /**
+     * Este metodo compara un fecha dada con la del sistema e indica si la fecha dada es anterior
+     * @param fecha fecha a verificar
+     * @return true si es anterior, de lo contrario false
+     */
     public boolean vencido(Date fecha){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -76,6 +84,10 @@ public class Reportes {
         }
         return false;
     }
+    
+    /**
+     * Este metodo genera el reporte de inventario
+     */
     public void generarReporteInventario(){
         Connection con ;
         ResultSet res;
@@ -135,6 +147,10 @@ public class Reportes {
         }
         
     }
+    
+    /**
+     * Este metodo genera el reporte de vencimientos
+     */
     public void generarReporteVencimiento(){
         Connection con ;
         ResultSet res;
@@ -191,6 +207,9 @@ public class Reportes {
         
     }
     
+    /**
+     * Este metodo genera el reporte de consumo de medicamentos
+     */
     public void generarReporteConsumoMedicamentos(){
         DecimalFormat df = new DecimalFormat("####0.00");
         Connection con;
@@ -255,6 +274,9 @@ public class Reportes {
         }
     }
     
+    /**
+     * Este metodo genera el reporte de entrada y salida de medicamentos
+     */
     public void generarReporteESMedicamentos(){
         Connection con;
         ResultSet res,res2;
